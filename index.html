@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width,
+initial-scale=1,
+maximum-scale=1,
+minimum-scale=1,
+user-scalable=no">
+
+<title>Dhakad Solar Messaging System</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+background:#eef2f7;
+padding:16px;
+overflow-x:hidden;
+}
+
+header{
+background:linear-gradient(135deg,#16a34a,#15803d);
+padding:35px 20px;
+border-radius:30px;
+color:white;
+text-align:center;
+margin-bottom:20px;
+box-shadow:0 8px 24px rgba(0,0,0,0.15);
+}
+
+header h1{
+font-size:34px;
+font-weight:600;
+margin-bottom:10px;
+}
+
+header p{
+font-size:18px;
+opacity:0.95;
+}
+
+.card{
+background:white;
+padding:24px;
+border-radius:28px;
+margin-bottom:20px;
+box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+
+input{
+width:100%;
+padding:18px;
+border-radius:18px;
+border:1px solid #d1d5db;
+font-size:18px;
+margin-bottom:16px;
+outline:none;
+}
+
+.btn{
+width:100%;
+padding:18px;
+border:none;
+border-radius:20px;
+font-size:20px;
+font-weight:700;
+color:white;
+cursor:pointer;
+margin-top:10px;
+text-decoration:none;
+display:block;
+text-align:center;
+}
+
+.green{
+background:#16a34a;
+}
+
+.blue{
+background:#2563eb;
+}
+
+.orange{
+background:#f59e0b;
+}
+
+.red{
+background:#dc2626;
+}
+
+.black{
+background:#111827;
+}
+
+.stats{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:12px;
+margin-bottom:20px;
+}
+
+.stat-box{
+background:white;
+padding:20px;
+border-radius:24px;
+text-align:center;
+font-weight:700;
+font-size:18px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+.customer{
+background:white;
+padding:24px;
+border-radius:28px;
+margin-bottom:18px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+.customer h3{
+font-size:26px;
+margin-bottom:14px;
+}
+
+.info{
+font-size:18px;
+margin-bottom:10px;
+word-break:break-word;
+}
+
+.buttons{
+display:grid;
+gap:12px;
+margin-top:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>
+☀️ Dhakad Agro Solar
+</h1>
+
+<p>
+Solar Customer Messaging System
+</p>
+
+</header>
+
+<div class="card">
+
+<input
+type="file"
+id="excelFile"
+accept=".xlsx,.xls">
+
+<button
+class="btn green"
+onclick="loadExcel()">
+
+📂 Upload Customer Data
+
+</button>
+
+</div>
+
+<div class="card">
+
+<input
+type="text"
+id="searchBox"
+placeholder="🔍 Search Customer"
+onkeyup="renderCustomers()">
+
+</div>
+
+<div class="stats">
+
+<div
+class="stat-box"
+onclick="changePage('main')">
+
+👥 Main
+
+<br><br>
+
+<span id="mainCount">
+0
+</span>
+
+</div>
+
+<div
+class="stat-box"
+onclick="changePage('sent')">
+
+📩 Sent
+
+<br><br>
+
+<span id="sentCount">
+0
+</span>
+
+</div>
+
+<div
+class="stat-box"
+onclick="changePage('interested')">
+
+✅ Interested
+
+<br><br>
+
+<span id="interestedCount">
+0
+</span>
+
+</div>
+
+</div>
+
+<button
+class="btn orange"
+onclick="downloadData()">
+
+📥 Download Current Data
+
+</button>
+
+<button
+class="btn red"
+onclick="clearMainData()">
+
+🗑 Clear Main Data
+
+</button>
+
+<button
+class="btn red"
+onclick="clearSentData()">
+
+🗑 Clear Sent Data
+
+</button>
+
+<button
+class="btn red"
+onclick="clearInterestedData()">
+
+🗑 Clear Interested Data
+
+</button>
+
+<br><br>
+
+<div id="customerList"></div>
+
+<script>
+
+let customers=[];
+let sentCustomers=[];
+let interestedCustomers=[];
+let currentPage='main';
+
+/* SAVE */
+
+function saveData(){
+
+localStorage.setItem(
+'mainCustomers',
+JSON.stringify(customers)
+);
+
+localStorage.setItem(
+'sentCustomers',
+JSON.stringify(sentCustomers)
+);
+
+localStorage.setItem(
+'interestedCustomers',
+JSON.stringify(interestedCustomers)
+);
+
+}
+
+/* LOAD */
+
+function loadSavedData(){
+
+customers =
+JSON.parse(
+localStorage.getItem(
+'mainCustomers'
+)
+) || [];
+
+sentCustomers =
+JSON.parse(
+localStorage.getItem(
+'sentCustomers'
+)
+) || [];
+
+interestedCustomers =
+JSON.parse(
+localStorage.getItem(
+'interestedCustomers'
+)
+) || [];
+
+renderCustomers();
+
+}
+
+document.addEventListener(
+'DOMContentLoaded',
+function(){
+
+loadSavedData();
+
+}
+);
+
+/* EXCEL */
+
+function loadExcel(){
+
+const file =
+document.getElementById(
+'excelFile'
+).files[0];
+
+if(!file){
+
+alert('Select Excel File');
+
+return;
+
+}
+
+const reader =
+new FileReader();
+
+reader.onload =
+function(e){
+
+const data =
+new Uint8Array(
+e.target.result
+);
+
+const workbook =
+XLSX.read(
+data,
+{type:'array'}
+);
+
+const sheet =
+workbook.Sheets[
+workbook.SheetNames[0]
+];
+
+customers =
+XLSX.utils.sheet_to_json(sheet);
+
+saveData();
+
+renderCustomers();
+
+};
+
+reader.readAsArrayBuffer(file);
+
+}
+
+/* PAGE */
+
+function changePage(page){
+
+currentPage=page;
+
+renderCustomers();
+
+}
+
+/* RENDER */
+
+function renderCustomers(){
+
+if(!document.getElementById('searchBox')){
+return;
+}
+
+const list =
+document.getElementById(
+'customerList'
+);
+
+list.innerHTML='';
+
+const search =
+document.getElementById(
+'searchBox'
+).value.toLowerCase();
+
+let data=[];
+
+if(currentPage==='main'){
+data=customers;
+}
+
+if(currentPage==='sent'){
+data=sentCustomers;
+}
+
+if(currentPage==='interested'){
+data=interestedCustomers;
+}
+
+document.getElementById(
+'mainCount'
+).innerText =
+customers.length;
+
+document.getElementById(
+'sentCount'
+).innerText =
+sentCustomers.length;
+
+document.getElementById(
+'interestedCount'
+).innerText =
+interestedCustomers.length;
+
+const filtered =
+data.filter(customer=>{
+
+const name =
+(
+customer['Consumer Name']
+||
+customer['Consumer Name Hindi']
+||
+''
+).toLowerCase();
+
+const village =
+(
+customer['Village']
+||
+customer['village']
+||
+''
+).toLowerCase();
+
+const mobile =
+String(
+customer['Mobile No']
+||
+customer['Mobile Number']
+||
+''
+);
+
+return(
+
+name.includes(search)
+||
+village.includes(search)
+||
+mobile.includes(search)
+
+);
+
+});
+
+filtered.forEach((customer,index)=>{
+
+const name =
+customer['Consumer Name']
+||
+customer['Consumer Name Hindi']
+||
+'No Name';
+
+const village =
+customer['Village']
+||
+customer['village']
+||
+'';
+
+const mobile =
+customer['Mobile No']
+||
+customer['Mobile Number']
+||
+'';
+
+const consumer =
+customer['Consumer No']
+||
+customer['Consumer Number']
+||
+customer['Service Number']
+||
+customer['Service No']
+||
+'';
+
+let buttons='';
+
+if(currentPage==='main'){
+
+buttons = `
+
+<button
+class="btn green"
+onclick="sendMessage(${index})">
+
+📩 Send Message
+
+</button>
+
+`;
+
+}
+
+if(currentPage==='sent'){
+
+buttons = `
+
+<button
+class="btn blue"
+onclick="moveInterested(${index})">
+
+✅ Move to Interested
+
+</button>
+
+`;
+
+}
+
+if(currentPage==='interested'){
+
+buttons = `
+
+<a
+href="tel:${mobile}"
+class="btn black">
+
+📞 Call Customer
+
+</a>
+
+<button
+class="btn orange"
+onclick="sendDocuments(${index})">
+
+📄 Send Document Details
+
+</button>
+
+`;
+
+}
+
+list.innerHTML += `
+
+<div class="customer">
+
+<h3>
+👤 ${name}
+</h3>
+
+<div class="info">
+🏡 Village: ${village}
+</div>
+
+<div class="info">
+📱 Mobile: ${mobile}
+</div>
+
+<div class="info">
+🔢 Consumer No: ${consumer}
+</div>
+
+<div class="buttons">
+
+${buttons}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* SEND MESSAGE */
+
+function sendMessage(index){
+
+const customer =
+customers[index];
+
+const name =
+customer['Consumer Name']
+||
+customer['Consumer Name Hindi']
+||
+'';
+
+const mobile =
+customer['Mobile No']
+||
+customer['Mobile Number']
+||
+'';
+
+const text =
+`🌞 नमस्कार ${name} जी,
+
+अब अपने घर पर जीरो इन्वेस्टमेंट में सोलर सिस्टम लगवाने का शानदार अवसर।
+
+यदि आपका मासिक बिजली बिल लगभग ₹1500 से ₹2000 तक आता है, तो उसी राशि में आप अपने घर पर सोलर सिस्टम लगवाकर बिजली बिल से छुटकारा पा सकते हैं। ⚡
+
+✅ सरकार द्वारा सब्सिडी सीधे आपके बैंक अकाउंट में
+✅ बिना अतिरिक्त खर्च के सोलर सुविधा
+✅ 25 वर्षों तक बेहतर प्रदर्शन
+✅ सुरक्षित एवं आसान इंस्टॉलेशन
+✅ प्रधानमंत्री पीएम सूर्य घर मुक्त बिजली योजना का लाभ
+
+🏷️ Tata, Adani, Havells एवं Waaree जैसी विश्वसनीय कंपनियों के सोलर सिस्टम उपलब्ध।
+
+Dhakad Agro Solar Solution
+📱 7648814768`;
+
+window.open(
+`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
+sentCustomers.push(customer);
+
+customers.splice(index,1);
+
+saveData();
+
+renderCustomers();
+
+}
+
+/* MOVE INTERESTED */
+
+function moveInterested(index){
+
+const customer =
+sentCustomers[index];
+
+interestedCustomers.push(customer);
+
+sentCustomers.splice(index,1);
+
+saveData();
+
+renderCustomers();
+
+}
+
+/* SEND DOCUMENTS */
+
+function sendDocuments(index){
+
+const customer =
+interestedCustomers[index];
+
+const name =
+customer['Consumer Name']
+||
+customer['Consumer Name Hindi']
+||
+'';
+
+const mobile =
+customer['Mobile No']
+||
+customer['Mobile Number']
+||
+'';
+
+const text =
+`नमस्कार ${name} जी 🙏
+
+Dhakad Agro Solar Solution से जुड़ने के लिए धन्यवाद।
+
+कृपया निम्न दस्तावेज तैयार रखें:
+
+📄 आधार कार्ड
+📄 पैन कार्ड
+📄 बिजली बिल
+📄 बैंक पासबुक
+📄 स्वयं के नाम का SBI बैंक खाता
+
+🏷️ Tata, Adani, Havells एवं Waaree कंपनियों के सोलर सिस्टम उपलब्ध।
+
+⚠️ यदि बिजली कनेक्शन किसी अन्य व्यक्ति के नाम से है तो कृपया संपर्क करें।
+
+Dhakad Agro Solar Solution
+📱 7648814768`;
+
+window.open(
+`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
+}
+
+/* DOWNLOAD */
+
+function downloadData(){
+
+let data=[];
+
+if(currentPage==='main'){
+data=customers;
+}
+
+if(currentPage==='sent'){
+data=sentCustomers;
+}
+
+if(currentPage==='interested'){
+data=interestedCustomers;
+}
+
+if(data.length===0){
+
+alert('No Data');
+
+return;
+
+}
+
+const finalData = [];
+
+data.forEach(customer=>{
+
+finalData.push({
+
+Name:
+customer['Consumer Name']
+||
+customer['Consumer Name Hindi']
+||
+'',
+
+Village:
+customer['Village']
+||
+customer['village']
+||
+'',
+
+Mobile:
+customer['Mobile No']
+||
+customer['Mobile Number']
+||
+'',
+
+ConsumerNo:
+customer['Consumer No']
+||
+customer['Consumer Number']
+||
+customer['Service Number']
+||
+customer['Service No']
+||
+''
+
+});
+
+});
+
+const worksheet =
+XLSX.utils.json_to_sheet(
+finalData
+);
+
+const workbook =
+XLSX.utils.book_new();
+
+XLSX.utils.book_append_sheet(
+workbook,
+worksheet,
+currentPage
+);
+
+XLSX.writeFile(
+workbook,
+`${currentPage}_customers.xlsx`
+);
+
+}
+
+/* DELETE */
+
+function clearMainData(){
+
+if(confirm(
+'Delete Main Data?'
+)){
+
+customers=[];
+
+saveData();
+
+renderCustomers();
+
+}
+
+}
+
+function clearSentData(){
+
+if(confirm(
+'Delete Sent Data?'
+)){
+
+sentCustomers=[];
+
+saveData();
+
+renderCustomers();
+
+}
+
+}
+
+function clearInterestedData(){
+
+if(confirm(
+'Delete Interested Data?'
+)){
+
+interestedCustomers=[];
+
+saveData();
+
+renderCustomers();
+
+}
+
+}
+
+</script>
+
+</body>
+  </html>

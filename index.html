@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="hi">
-
 <head>
 
 <meta charset="UTF-8">
@@ -13,7 +12,7 @@ maximum-scale=1,
 minimum-scale=1,
 user-scalable=no">
 
-<title>Dhakad Solar Messaging System</title>
+<title>Dhakad Solar CRM</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -47,7 +46,7 @@ box-shadow:0 8px 24px rgba(0,0,0,0.15);
 
 header h1{
 font-size:34px;
-font-weight:600;
+font-weight:700;
 margin-bottom:10px;
 }
 
@@ -79,7 +78,7 @@ width:100%;
 padding:18px;
 border:none;
 border-radius:20px;
-font-size:20px;
+font-size:19px;
 font-weight:700;
 color:white;
 cursor:pointer;
@@ -124,6 +123,7 @@ text-align:center;
 font-weight:700;
 font-size:18px;
 box-shadow:0 6px 18px rgba(0,0,0,0.08);
+cursor:pointer;
 }
 
 .customer{
@@ -135,7 +135,7 @@ box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
 
 .customer h3{
-font-size:26px;
+font-size:25px;
 margin-bottom:14px;
 }
 
@@ -164,10 +164,12 @@ margin-top:18px;
 </h1>
 
 <p>
-Solar Customer Messaging System
+Solar Customer CRM System
 </p>
 
 </header>
+
+<!-- FILE -->
 
 <div class="card">
 
@@ -186,6 +188,8 @@ onclick="loadExcel()">
 
 </div>
 
+<!-- SEARCH -->
+
 <div class="card">
 
 <input
@@ -195,6 +199,8 @@ placeholder="🔍 Search Customer"
 onkeyup="renderCustomers()">
 
 </div>
+
+<!-- STATS -->
 
 <div class="stats">
 
@@ -214,13 +220,13 @@ onclick="changePage('main')">
 
 <div
 class="stat-box"
-onclick="changePage('sent')">
+onclick="changePage('called')">
 
-📩 Sent
+📞 Called
 
 <br><br>
 
-<span id="sentCount">
+<span id="calledCount">
 0
 </span>
 
@@ -242,6 +248,8 @@ onclick="changePage('interested')">
 
 </div>
 
+<!-- DOWNLOAD -->
+
 <button
 class="btn orange"
 onclick="downloadData()">
@@ -249,6 +257,8 @@ onclick="downloadData()">
 📥 Download Current Data
 
 </button>
+
+<!-- DELETE -->
 
 <button
 class="btn red"
@@ -260,9 +270,9 @@ onclick="clearMainData()">
 
 <button
 class="btn red"
-onclick="clearSentData()">
+onclick="clearCalledData()">
 
-🗑 Clear Sent Data
+🗑 Clear Called Data
 
 </button>
 
@@ -276,12 +286,14 @@ onclick="clearInterestedData()">
 
 <br><br>
 
+<!-- CUSTOMER LIST -->
+
 <div id="customerList"></div>
 
 <script>
 
 let customers=[];
-let sentCustomers=[];
+let calledCustomers=[];
 let interestedCustomers=[];
 let currentPage='main';
 
@@ -295,8 +307,8 @@ JSON.stringify(customers)
 );
 
 localStorage.setItem(
-'sentCustomers',
-JSON.stringify(sentCustomers)
+'calledCustomers',
+JSON.stringify(calledCustomers)
 );
 
 localStorage.setItem(
@@ -317,10 +329,10 @@ localStorage.getItem(
 )
 ) || [];
 
-sentCustomers =
+calledCustomers =
 JSON.parse(
 localStorage.getItem(
-'sentCustomers'
+'calledCustomers'
 )
 ) || [];
 
@@ -344,7 +356,7 @@ loadSavedData();
 }
 );
 
-/* EXCEL */
+/* LOAD EXCEL */
 
 function loadExcel(){
 
@@ -383,8 +395,10 @@ workbook.Sheets[
 workbook.SheetNames[0]
 ];
 
-customers =
-XLSX.utils.sheet_to_json(sheet);
+customers = [
+...customers,
+...XLSX.utils.sheet_to_json(sheet)
+];
 
 saveData();
 
@@ -410,10 +424,6 @@ renderCustomers();
 
 function renderCustomers(){
 
-if(!document.getElementById('searchBox')){
-return;
-}
-
 const list =
 document.getElementById(
 'customerList'
@@ -432,8 +442,8 @@ if(currentPage==='main'){
 data=customers;
 }
 
-if(currentPage==='sent'){
-data=sentCustomers;
+if(currentPage==='called'){
+data=calledCustomers;
 }
 
 if(currentPage==='interested'){
@@ -446,9 +456,9 @@ document.getElementById(
 customers.length;
 
 document.getElementById(
-'sentCount'
+'calledCount'
 ).innerText =
-sentCustomers.length;
+calledCustomers.length;
 
 document.getElementById(
 'interestedCount'
@@ -537,19 +547,37 @@ if(currentPage==='main'){
 
 buttons = `
 
-<button
+<a
+href="tel:${mobile}"
 class="btn green"
-onclick="sendMessage(${index})">
+onclick="moveCalled(${index})">
 
-📩 Send Message
+📞 Call Now
+
+</a>
+
+<button
+class="btn blue"
+onclick="sendWhatsapp(${index})">
+
+🟢 WhatsApp
 
 </button>
+
+<a
+href="sms:${mobile}"
+class="btn orange"
+onclick="moveCalled(${index})">
+
+✉️ Text SMS
+
+</a>
 
 `;
 
 }
 
-if(currentPage==='sent'){
+if(currentPage==='called'){
 
 buttons = `
 
@@ -623,9 +651,26 @@ ${buttons}
 
 }
 
-/* SEND MESSAGE */
+/* MOVE CALLED */
 
-function sendMessage(index){
+function moveCalled(index){
+
+const customer =
+customers[index];
+
+calledCustomers.push(customer);
+
+customers.splice(index,1);
+
+saveData();
+
+renderCustomers();
+
+}
+
+/* WHATSAPP */
+
+function sendWhatsapp(index){
 
 const customer =
 customers[index];
@@ -653,11 +698,9 @@ const text =
 
 ✅ सरकार द्वारा सब्सिडी सीधे आपके बैंक अकाउंट में
 ✅ बिना अतिरिक्त खर्च के सोलर सुविधा
-✅ 25 वर्षों तक बेहतर प्रदर्शन
-✅ सुरक्षित एवं आसान इंस्टॉलेशन
 ✅ प्रधानमंत्री पीएम सूर्य घर मुक्त बिजली योजना का लाभ
 
-🏷️ Tata, Adani, Havells एवं Waaree जैसी विश्वसनीय कंपनियों के सोलर सिस्टम उपलब्ध।
+🏷️ Tata, Adani, Havells एवं Waaree कंपनियों के सोलर सिस्टम उपलब्ध।
 
 Dhakad Agro Solar Solution
 📱 7648814768`;
@@ -667,26 +710,53 @@ window.open(
 '_blank'
 );
 
-sentCustomers.push(customer);
-
-customers.splice(index,1);
-
-saveData();
-
-renderCustomers();
+moveCalled(index);
 
 }
 
-/* MOVE INTERESTED */
+/* INTERESTED */
 
 function moveInterested(index){
 
 const customer =
-sentCustomers[index];
+calledCustomers[index];
+
+const name =
+customer['Consumer Name']
+||
+customer['Consumer Name Hindi']
+||
+'';
+
+const mobile =
+customer['Mobile No']
+||
+customer['Mobile Number']
+||
+'';
+
+const thankText =
+`नमस्कार ${name} जी 🙏
+
+Dhakad Agro Solar Solution में रुचि दिखाने के लिए आपका धन्यवाद।
+
+हमारी टीम जल्द ही आपसे संपर्क करेगी और सोलर सिस्टम, सब्सिडी एवं इंस्टॉलेशन प्रक्रिया की पूरी जानकारी प्रदान करेगी।
+
+🏷️ Tata, Adani, Havells एवं Waaree कंपनियों के सोलर सिस्टम उपलब्ध।
+
+धन्यवाद 🙏
+
+Dhakad Agro Solar Solution
+📱 7648814768`;
+
+window.open(
+`https://wa.me/91${mobile}?text=${encodeURIComponent(thankText)}`,
+'_blank'
+);
 
 interestedCustomers.push(customer);
 
-sentCustomers.splice(index,1);
+calledCustomers.splice(index,1);
 
 saveData();
 
@@ -694,7 +764,7 @@ renderCustomers();
 
 }
 
-/* SEND DOCUMENTS */
+/* DOCUMENTS */
 
 function sendDocuments(index){
 
@@ -752,8 +822,8 @@ if(currentPage==='main'){
 data=customers;
 }
 
-if(currentPage==='sent'){
-data=sentCustomers;
+if(currentPage==='called'){
+data=calledCustomers;
 }
 
 if(currentPage==='interested'){
@@ -768,7 +838,7 @@ return;
 
 }
 
-const finalData = [];
+const finalData=[];
 
 data.forEach(customer=>{
 
@@ -811,9 +881,7 @@ customer['Service No']
 });
 
 const worksheet =
-XLSX.utils.json_to_sheet(
-finalData
-);
+XLSX.utils.json_to_sheet(finalData);
 
 const workbook =
 XLSX.utils.book_new();
@@ -835,9 +903,7 @@ workbook,
 
 function clearMainData(){
 
-if(confirm(
-'Delete Main Data?'
-)){
+if(confirm('Delete Main Data?')){
 
 customers=[];
 
@@ -849,13 +915,11 @@ renderCustomers();
 
 }
 
-function clearSentData(){
+function clearCalledData(){
 
-if(confirm(
-'Delete Sent Data?'
-)){
+if(confirm('Delete Called Data?')){
 
-sentCustomers=[];
+calledCustomers=[];
 
 saveData();
 
@@ -867,9 +931,7 @@ renderCustomers();
 
 function clearInterestedData(){
 
-if(confirm(
-'Delete Interested Data?'
-)){
+if(confirm('Delete Interested Data?')){
 
 interestedCustomers=[];
 

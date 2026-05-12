@@ -135,8 +135,7 @@ box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
 
 .customer h3{
-font-size:25px;
-margin-bottom:14px;
+font-size:24px;
 }
 
 .info{
@@ -247,46 +246,6 @@ onclick="changePage('interested')">
 </div>
 
 </div>
-
-<!-- DOWNLOAD -->
-
-<button
-class="btn orange"
-onclick="downloadData()">
-
-📥 Download Current Data
-
-</button>
-
-<!-- DELETE -->
-
-<button
-class="btn red"
-onclick="clearMainData()">
-
-🗑 Clear Main Data
-
-</button>
-
-<button
-class="btn red"
-onclick="clearCalledData()">
-
-🗑 Clear Called Data
-
-</button>
-
-<button
-class="btn red"
-onclick="clearInterestedData()">
-
-🗑 Clear Interested Data
-
-</button>
-
-<br><br>
-
-<!-- CUSTOMER LIST -->
 
 <div id="customerList"></div>
 
@@ -429,7 +388,7 @@ document.getElementById(
 'customerList'
 );
 
-list.innerHTML='';
+list.innerHTML='Loading...';
 
 const search =
 document.getElementById(
@@ -524,7 +483,11 @@ consumer.includes(search)
 
 });
 
+let html='';
+
 filtered.forEach((customer,index)=>{
+
+const serial = index + 1;
 
 const name =
 customer['Consumer Name Hindi']
@@ -568,15 +531,29 @@ customer['Purpose']
 const load =
 customer['Sanctioned Load']
 ||
+customer['Load']
+||
+customer['Connected Load']
+||
+customer['Sanction Load']
+||
 '';
 
 const units =
 customer['Total Unit']
 ||
+customer['Units']
+||
+customer['Total Units']
+||
 '';
 
 const bill =
 customer['Net Bill']
+||
+customer['Bill']
+||
+customer['Net Amount']
 ||
 '';
 
@@ -602,15 +579,6 @@ onclick="sendWhatsapp(${index})">
 🟢 WhatsApp
 
 </button>
-
-<a
-href="sms:${mobile}"
-class="btn orange"
-onclick="moveCalled(${index})">
-
-✉️ Text SMS
-
-</a>
 
 `;
 
@@ -644,25 +612,39 @@ class="btn black">
 
 </a>
 
-<button
-class="btn orange"
-onclick="sendDocuments(${index})">
-
-📄 Send Document Details
-
-</button>
-
 `;
 
 }
 
-list.innerHTML += `
+html += `
 
 <div class="customer">
+
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+">
 
 <h3>
 👤 ${name}
 </h3>
+
+<div style="
+background:#16a34a;
+color:white;
+padding:8px 14px;
+border-radius:14px;
+font-size:15px;
+font-weight:700;
+">
+
+#${serial}
+
+</div>
+
+</div>
 
 <div class="info">
 📱 Mobile: ${mobile}
@@ -681,11 +663,11 @@ list.innerHTML += `
 </div>
 
 <div class="info">
-🔌 Sanctioned Load: ${load}
+🔌 Load: ${load}
 </div>
 
 <div class="info">
-📊 Total Unit: ${units}
+📊 Units: ${units}
 </div>
 
 <div class="info">
@@ -703,6 +685,8 @@ ${buttons}
 `;
 
 });
+
+list.innerHTML = html;
 
 }
 
@@ -747,7 +731,7 @@ customer['Mobile Number']
 const text =
 `🌞 नमस्कार ${name} जी,
 
-अब अपने घर पर जीरो इन्वेस्टमेंट में सोलर सिस्टम लगवाने का शानदार अवसर।`;
+Dhakad Agro Solar Solution की ओर से आपका स्वागत है।`;
 
 window.open(
 `https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
@@ -772,128 +756,6 @@ calledCustomers.splice(index,1);
 saveData();
 
 renderCustomers();
-
-}
-
-/* DOCUMENTS */
-
-function sendDocuments(index){
-
-const customer =
-interestedCustomers[index];
-
-const name =
-customer['Consumer Name']
-||
-customer['Consumer Name Hindi']
-||
-'';
-
-const mobile =
-customer['Mobile No']
-||
-customer['Mobile Number']
-||
-'';
-
-const text =
-`नमस्कार ${name} जी 🙏
-
-कृपया दस्तावेज तैयार रखें।`;
-
-window.open(
-`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
-'_blank'
-);
-
-}
-
-/* DOWNLOAD */
-
-function downloadData(){
-
-let data=[];
-
-if(currentPage==='main'){
-data=customers;
-}
-
-if(currentPage==='called'){
-data=calledCustomers;
-}
-
-if(currentPage==='interested'){
-data=interestedCustomers;
-}
-
-if(data.length===0){
-
-alert('No Data');
-
-return;
-
-}
-
-const worksheet =
-XLSX.utils.json_to_sheet(data);
-
-const workbook =
-XLSX.utils.book_new();
-
-XLSX.utils.book_append_sheet(
-workbook,
-worksheet,
-currentPage
-);
-
-XLSX.writeFile(
-workbook,
-`${currentPage}_customers.xlsx`
-);
-
-}
-
-/* DELETE */
-
-function clearMainData(){
-
-if(confirm('Delete Main Data?')){
-
-customers=[];
-
-saveData();
-
-renderCustomers();
-
-}
-
-}
-
-function clearCalledData(){
-
-if(confirm('Delete Called Data?')){
-
-calledCustomers=[];
-
-saveData();
-
-renderCustomers();
-
-}
-
-}
-
-function clearInterestedData(){
-
-if(confirm('Delete Interested Data?')){
-
-interestedCustomers=[];
-
-saveData();
-
-renderCustomers();
-
-}
 
 }
 

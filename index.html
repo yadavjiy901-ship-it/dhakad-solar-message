@@ -470,38 +470,55 @@ data.filter(customer=>{
 
 const name =
 (
-customer['Consumer Name']
-||
 customer['Consumer Name Hindi']
+||
+customer['Consumer Name']
 ||
 ''
 ).toLowerCase();
 
-const village =
+const address =
 (
-customer['Village']
+customer['Address Hindi']
 ||
-customer['village']
+customer['Address']
 ||
 ''
 ).toLowerCase();
 
 const mobile =
 String(
+customer['Mobile Number']
+||
 customer['Mobile No']
 ||
-customer['Mobile Number']
+customer['Mobile']
 ||
 ''
 );
+
+const consumer =
+String(
+customer['Consumer Number']
+||
+customer['Consumer No']
+||
+customer['Service Number']
+||
+customer['Service No']
+||
+''
+).toLowerCase();
 
 return(
 
 name.includes(search)
 ||
-village.includes(search)
+address.includes(search)
 ||
 mobile.includes(search)
+||
+consumer.includes(search)
 
 );
 
@@ -510,34 +527,56 @@ mobile.includes(search)
 filtered.forEach((customer,index)=>{
 
 const name =
-customer['Consumer Name']
-||
 customer['Consumer Name Hindi']
+||
+customer['Consumer Name']
 ||
 'No Name';
 
-const village =
-customer['Village']
+const address =
+customer['Address Hindi']
 ||
-customer['village']
+customer['Address']
 ||
 '';
 
 const mobile =
+customer['Mobile Number']
+||
 customer['Mobile No']
 ||
-customer['Mobile Number']
+customer['Mobile']
 ||
 '';
 
 const consumer =
-customer['Consumer No']
-||
 customer['Consumer Number']
+||
+customer['Consumer No']
 ||
 customer['Service Number']
 ||
 customer['Service No']
+||
+'';
+
+const purpose =
+customer['Purpose']
+||
+'';
+
+const load =
+customer['Sanctioned Load']
+||
+'';
+
+const units =
+customer['Total Unit']
+||
+'';
+
+const bill =
+customer['Net Bill']
 ||
 '';
 
@@ -626,15 +665,31 @@ list.innerHTML += `
 </h3>
 
 <div class="info">
-🏡 Village: ${village}
-</div>
-
-<div class="info">
 📱 Mobile: ${mobile}
 </div>
 
 <div class="info">
 🔢 Consumer No: ${consumer}
+</div>
+
+<div class="info">
+🏠 Address: ${address}
+</div>
+
+<div class="info">
+⚡ Purpose: ${purpose}
+</div>
+
+<div class="info">
+🔌 Sanctioned Load: ${load}
+</div>
+
+<div class="info">
+📊 Total Unit: ${units}
+</div>
+
+<div class="info">
+💰 Net Bill: ₹${bill}
 </div>
 
 <div class="buttons">
@@ -692,18 +747,7 @@ customer['Mobile Number']
 const text =
 `🌞 नमस्कार ${name} जी,
 
-अब अपने घर पर जीरो इन्वेस्टमेंट में सोलर सिस्टम लगवाने का शानदार अवसर।
-
-यदि आपका मासिक बिजली बिल लगभग ₹1500 से ₹2000 तक आता है, तो उसी राशि में आप अपने घर पर सोलर सिस्टम लगवाकर बिजली बिल से छुटकारा पा सकते हैं। ⚡
-
-✅ सरकार द्वारा सब्सिडी सीधे आपके बैंक अकाउंट में
-✅ बिना अतिरिक्त खर्च के सोलर सुविधा
-✅ प्रधानमंत्री पीएम सूर्य घर मुक्त बिजली योजना का लाभ
-
-🏷️ Tata, Adani, Havells एवं Waaree कंपनियों के सोलर सिस्टम उपलब्ध।
-
-Dhakad Agro Solar Solution
-📱 7648814768`;
+अब अपने घर पर जीरो इन्वेस्टमेंट में सोलर सिस्टम लगवाने का शानदार अवसर।`;
 
 window.open(
 `https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
@@ -720,39 +764,6 @@ function moveInterested(index){
 
 const customer =
 calledCustomers[index];
-
-const name =
-customer['Consumer Name']
-||
-customer['Consumer Name Hindi']
-||
-'';
-
-const mobile =
-customer['Mobile No']
-||
-customer['Mobile Number']
-||
-'';
-
-const thankText =
-`नमस्कार ${name} जी 🙏
-
-Dhakad Agro Solar Solution में रुचि दिखाने के लिए आपका धन्यवाद।
-
-हमारी टीम जल्द ही आपसे संपर्क करेगी और सोलर सिस्टम, सब्सिडी एवं इंस्टॉलेशन प्रक्रिया की पूरी जानकारी प्रदान करेगी।
-
-🏷️ Tata, Adani, Havells एवं Waaree कंपनियों के सोलर सिस्टम उपलब्ध।
-
-धन्यवाद 🙏
-
-Dhakad Agro Solar Solution
-📱 7648814768`;
-
-window.open(
-`https://wa.me/91${mobile}?text=${encodeURIComponent(thankText)}`,
-'_blank'
-);
 
 interestedCustomers.push(customer);
 
@@ -788,22 +799,7 @@ customer['Mobile Number']
 const text =
 `नमस्कार ${name} जी 🙏
 
-Dhakad Agro Solar Solution से जुड़ने के लिए धन्यवाद।
-
-कृपया निम्न दस्तावेज तैयार रखें:
-
-📄 आधार कार्ड
-📄 पैन कार्ड
-📄 बिजली बिल
-📄 बैंक पासबुक
-📄 स्वयं के नाम का SBI बैंक खाता
-
-🏷️ Tata, Adani, Havells एवं Waaree कंपनियों के सोलर सिस्टम उपलब्ध।
-
-⚠️ यदि बिजली कनेक्शन किसी अन्य व्यक्ति के नाम से है तो कृपया संपर्क करें।
-
-Dhakad Agro Solar Solution
-📱 7648814768`;
+कृपया दस्तावेज तैयार रखें।`;
 
 window.open(
 `https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
@@ -838,50 +834,8 @@ return;
 
 }
 
-const finalData=[];
-
-data.forEach(customer=>{
-
-finalData.push({
-
-Name:
-customer['Consumer Name']
-||
-customer['Consumer Name Hindi']
-||
-'',
-
-Village:
-customer['Village']
-||
-customer['village']
-||
-'',
-
-Mobile:
-customer['Mobile No']
-||
-customer['Mobile Number']
-||
-'',
-
-ConsumerNo:
-customer['Consumer No']
-||
-customer['Consumer Number']
-||
-customer['Service Number']
-||
-customer['Service No']
-||
-''
-
-});
-
-});
-
 const worksheet =
-XLSX.utils.json_to_sheet(finalData);
+XLSX.utils.json_to_sheet(data);
 
 const workbook =
 XLSX.utils.book_new();
@@ -946,4 +900,4 @@ renderCustomers();
 </script>
 
 </body>
-  </html>
+</html>

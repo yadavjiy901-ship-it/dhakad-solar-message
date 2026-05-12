@@ -75,10 +75,10 @@ outline:none;
 
 .btn{
 width:100%;
-padding:18px;
+padding:16px;
 border:none;
-border-radius:20px;
-font-size:19px;
+border-radius:18px;
+font-size:18px;
 font-weight:700;
 color:white;
 cursor:pointer;
@@ -117,13 +117,12 @@ margin-bottom:20px;
 
 .stat-box{
 background:white;
-padding:20px;
+padding:18px;
 border-radius:24px;
 text-align:center;
 font-weight:700;
 font-size:18px;
 box-shadow:0 6px 18px rgba(0,0,0,0.08);
-cursor:pointer;
 }
 
 .customer{
@@ -203,9 +202,9 @@ onkeyup="renderCustomers()">
 
 <div class="stats">
 
-<div
-class="stat-box"
-onclick="changePage('main')">
+<div class="stat-box">
+
+<div onclick="changePage('main')">
 
 👥 Main
 
@@ -217,9 +216,19 @@ onclick="changePage('main')">
 
 </div>
 
-<div
-class="stat-box"
-onclick="changePage('called')">
+<button
+class="btn red"
+onclick="clearMainData()">
+
+🗑 Delete
+
+</button>
+
+</div>
+
+<div class="stat-box">
+
+<div onclick="changePage('called')">
 
 📞 Called
 
@@ -231,9 +240,19 @@ onclick="changePage('called')">
 
 </div>
 
-<div
-class="stat-box"
-onclick="changePage('interested')">
+<button
+class="btn red"
+onclick="clearCalledData()">
+
+🗑 Delete
+
+</button>
+
+</div>
+
+<div class="stat-box">
+
+<div onclick="changePage('interested')">
 
 ✅ Interested
 
@@ -245,7 +264,19 @@ onclick="changePage('interested')">
 
 </div>
 
+<button
+class="btn red"
+onclick="clearInterestedData()">
+
+🗑 Delete
+
+</button>
+
 </div>
+
+</div>
+
+<!-- CUSTOMER LIST -->
 
 <div id="customerList"></div>
 
@@ -388,8 +419,6 @@ document.getElementById(
 'customerList'
 );
 
-list.innerHTML='Loading...';
-
 const search =
 document.getElementById(
 'searchBox'
@@ -451,8 +480,6 @@ customer['Mobile Number']
 ||
 customer['Mobile No']
 ||
-customer['Mobile']
-||
 ''
 );
 
@@ -461,10 +488,6 @@ String(
 customer['Consumer Number']
 ||
 customer['Consumer No']
-||
-customer['Service Number']
-||
-customer['Service No']
 ||
 ''
 ).toLowerCase();
@@ -487,7 +510,7 @@ let html='';
 
 filtered.forEach((customer,index)=>{
 
-const serial = index + 1;
+const serial=index+1;
 
 const name =
 customer['Consumer Name Hindi']
@@ -508,18 +531,12 @@ customer['Mobile Number']
 ||
 customer['Mobile No']
 ||
-customer['Mobile']
-||
 '';
 
 const consumer =
 customer['Consumer Number']
 ||
 customer['Consumer No']
-||
-customer['Service Number']
-||
-customer['Service No']
 ||
 '';
 
@@ -533,10 +550,6 @@ customer['Sanctioned Load']
 ||
 customer['Load']
 ||
-customer['Connected Load']
-||
-customer['Sanction Load']
-||
 '';
 
 const units =
@@ -544,16 +557,12 @@ customer['Total Unit']
 ||
 customer['Units']
 ||
-customer['Total Units']
-||
 '';
 
 const bill =
 customer['Net Bill']
 ||
 customer['Bill']
-||
-customer['Net Amount']
 ||
 '';
 
@@ -580,6 +589,14 @@ onclick="sendWhatsapp(${index})">
 
 </button>
 
+<button
+class="btn red"
+onclick="deleteCustomer(${index})">
+
+🗑 Delete Customer
+
+</button>
+
 `;
 
 }
@@ -593,6 +610,14 @@ class="btn blue"
 onclick="moveInterested(${index})">
 
 ✅ Move to Interested
+
+</button>
+
+<button
+class="btn red"
+onclick="deleteCalledCustomer(${index})">
+
+🗑 Delete Customer
 
 </button>
 
@@ -611,6 +636,14 @@ class="btn black">
 📞 Call Customer
 
 </a>
+
+<button
+class="btn red"
+onclick="deleteInterestedCustomer(${index})">
+
+🗑 Delete Customer
+
+</button>
 
 `;
 
@@ -715,16 +748,16 @@ const customer =
 customers[index];
 
 const name =
-customer['Consumer Name']
-||
 customer['Consumer Name Hindi']
+||
+customer['Consumer Name']
 ||
 '';
 
 const mobile =
-customer['Mobile No']
-||
 customer['Mobile Number']
+||
+customer['Mobile No']
 ||
 '';
 
@@ -756,6 +789,94 @@ calledCustomers.splice(index,1);
 saveData();
 
 renderCustomers();
+
+}
+
+/* DELETE SINGLE CUSTOMER */
+
+function deleteCustomer(index){
+
+if(confirm('Delete Customer?')){
+
+customers.splice(index,1);
+
+saveData();
+
+renderCustomers();
+
+}
+
+}
+
+function deleteCalledCustomer(index){
+
+if(confirm('Delete Customer?')){
+
+calledCustomers.splice(index,1);
+
+saveData();
+
+renderCustomers();
+
+}
+
+}
+
+function deleteInterestedCustomer(index){
+
+if(confirm('Delete Customer?')){
+
+interestedCustomers.splice(index,1);
+
+saveData();
+
+renderCustomers();
+
+}
+
+}
+
+/* DELETE ALL */
+
+function clearMainData(){
+
+if(confirm('Delete Main Data?')){
+
+customers=[];
+
+saveData();
+
+renderCustomers();
+
+}
+
+}
+
+function clearCalledData(){
+
+if(confirm('Delete Called Data?')){
+
+calledCustomers=[];
+
+saveData();
+
+renderCustomers();
+
+}
+
+}
+
+function clearInterestedData(){
+
+if(confirm('Delete Interested Data?')){
+
+interestedCustomers=[];
+
+saveData();
+
+renderCustomers();
+
+}
 
 }
 

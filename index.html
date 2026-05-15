@@ -1,199 +1,4 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-
-<meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width,
-initial-scale=1,
-maximum-scale=1,
-minimum-scale=1,
-user-scalable=no">
-
-<title>Dhakad Solar CRM Pro</title>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
--webkit-tap-highlight-color:transparent;
-}
-
-body{
-background:#eef2f7;
-padding:16px;
-overflow-x:hidden;
-}
-
-header{
-background:linear-gradient(135deg,#16a34a,#15803d);
-padding:35px 20px;
-border-radius:30px;
-color:white;
-text-align:center;
-margin-bottom:20px;
-box-shadow:0 8px 24px rgba(0,0,0,0.15);
-}
-
-header h1{
-font-size:34px;
-font-weight:700;
-margin-bottom:10px;
-}
-
-header p{
-font-size:18px;
-opacity:0.95;
-}
-
-.card{
-background:white;
-padding:24px;
-border-radius:28px;
-margin-bottom:20px;
-box-shadow:0 6px 20px rgba(0,0,0,0.08);
-}
-
-input{
-width:100%;
-padding:18px;
-border-radius:18px;
-border:1px solid #d1d5db;
-font-size:18px;
-margin-bottom:16px;
-outline:none;
-}
-
-.btn{
-width:100%;
-padding:16px;
-border:none;
-border-radius:18px;
-font-size:17px;
-font-weight:700;
-color:white;
-cursor:pointer;
-margin-top:10px;
-text-decoration:none;
-display:block;
-text-align:center;
-transition:0.2s;
-}
-
-.btn:active{
-transform:scale(0.97);
-}
-
-.green{
-background:#16a34a;
-}
-
-.blue{
-background:#2563eb;
-}
-
-.orange{
-background:#f59e0b;
-}
-
-.red{
-background:#dc2626;
-}
-
-.black{
-background:#111827;
-}
-
-.gray{
-background:#6b7280;
-}
-
-.stats{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-bottom:20px;
-}
-
-.stat-box{
-background:white;
-padding:18px;
-border-radius:24px;
-text-align:center;
-font-weight:700;
-font-size:18px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
-cursor:pointer;
-}
-
-.customer{
-background:white;
-padding:24px;
-border-radius:28px;
-margin-bottom:18px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
-animation:fade 0.25s ease;
-}
-
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(10px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-.customer h3{
-font-size:24px;
-margin-bottom:10px;
-}
-
-.info{
-font-size:17px;
-margin-bottom:10px;
-word-break:break-word;
-}
-
-.buttons{
-display:grid;
-gap:12px;
-margin-top:18px;
-}
-
-.priority{
-display:inline-block;
-padding:6px 12px;
-border-radius:14px;
-color:white;
-font-size:14px;
-font-weight:700;
-margin-top:10px;
-}
-
-.hot{
-background:#dc2626;
-}
-
-.medium{
-background:#f59e0b;
-}
-
-.cold{
-background:#2563eb;
+2563eb;
 }
 
 .footer{
@@ -1061,6 +866,1267 @@ interestedCustomers
 );
 
 const workbook =
+XLSX.utils.book_new();
+
+XLSX.utils.book_append_sheet(
+workbook,
+worksheet,
+'Interested Customers'
+);
+
+XLSX.writeFile(
+workbook,
+'Interested_Customers.xlsx'
+);
+
+}
+
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width,
+initial-scale=1,
+maximum-scale=1,
+minimum-scale=1,
+user-scalable=no">
+
+<title>Dhakad Solar CRM Pro</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+background:#eef2f7;
+padding:16px;
+overflow-x:hidden;
+}
+
+header{
+background:linear-gradient(135deg,#16a34a,#15803d);
+padding:35px 20px;
+border-radius:30px;
+color:white;
+text-align:center;
+margin-bottom:20px;
+box-shadow:0 8px 24px rgba(0,0,0,0.15);
+}
+
+header h1{
+font-size:34px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+header p{
+font-size:18px;
+opacity:0.95;
+}
+
+.card{
+background:white;
+padding:24px;
+border-radius:28px;
+margin-bottom:20px;
+box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+
+input{
+width:100%;
+padding:18px;
+border-radius:18px;
+border:1px solid #d1d5db;
+font-size:18px;
+margin-bottom:16px;
+outline:none;
+}
+
+.btn{
+width:100%;
+padding:16px;
+border:none;
+border-radius:18px;
+font-size:17px;
+font-weight:700;
+color:white;
+cursor:pointer;
+margin-top:10px;
+text-decoration:none;
+display:block;
+text-align:center;
+transition:0.2s;
+}
+
+.btn:active{
+transform:scale(0.97);
+}
+
+.green{
+background:#16a34a;
+}
+
+.blue{
+background:#2563eb;
+}
+
+.orange{
+background:#f59e0b;
+}
+
+.red{
+background:#dc2626;
+}
+
+.black{
+background:#111827;
+}
+
+.gray{
+background:#6b7280;
+}
+
+.stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:20px;
+}
+
+.stat-box{
+background:white;
+padding:18px;
+border-radius:24px;
+text-align:center;
+font-weight:700;
+font-size:18px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+cursor:pointer;
+}
+
+.customer{
+background:white;
+padding:24px;
+border-radius:28px;
+margin-bottom:18px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+animation:fade 0.25s ease;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.customer h3{
+font-size:24px;
+margin-bottom:10px;
+}
+
+.info{
+font-size:17px;
+margin-bottom:10px;
+word-break:break-word;
+}
+
+.buttons{
+display:grid;
+gap:12px;
+margin-top:18px;
+}
+
+.priority{
+display:inline-block;
+padding:6px 12px;
+border-radius:14px;
+color:white;
+font-size:14px;
+font-weight:700;
+margin-top:10px;
+}
+
+.hot{
+background:#dc2626;
+}
+
+.medium{
+background:#f59e0b;
+}
+
+.cold{
+background:#2563eb;
+}
+
+.footer{
+text-align:center;
+padding:20px;
+font-size:15px;
+color:#6b7280;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>
+☀️ Dhakad Agro Solar
+</h1>
+
+<p>
+Professional Solar CRM Pro
+</p>
+
+</header>
+
+<!-- FILE -->
+
+<div class="card">
+
+<input
+type="file"
+id="excelFile"
+accept=".xlsx,.xls">
+
+<button
+class="btn green"
+onclick="loadExcel()">
+
+📂 Upload Customer Data
+
+</button>
+
+<button
+class="btn blue"
+onclick="exportInterested()">
+
+📤 Export Interested Data
+
+</button>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="card">
+
+<input
+type="text"
+id="searchBox"
+placeholder="🔍 Search Customer"
+onkeyup="renderCustomers()">
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div
+class="stat-box"
+onclick="changePage('main')">
+
+👥 Main
+
+<br><br>
+
+<span id="mainCount">
+0
+</span>
+
+</div>
+
+<div
+class="stat-box"
+onclick="changePage('called')">
+
+📞 Called
+
+<br><br>
+
+<span id="calledCount">
+0
+</span>
+
+</div>
+
+<div
+class="stat-box"
+onclick="changePage('interested')">
+
+✅ Interested
+
+<br><br>
+
+<span id="interestedCount">
+0
+</span>
+
+</div>
+
+<div
+class="stat-box"
+onclick="changePage('notInterested')">
+
+❌ Not Interested
+
+<br><br>
+
+<span id="notInterestedCount">
+0
+</span>
+
+</div>
+
+</div>
+
+<!-- CUSTOMER LIST -->
+
+<div id="customerList"></div>
+
+<div class="footer">
+
+Dhakad Agro Solar Solution
+
+<br><br>
+
+📞 9183353063
+
+</div>
+
+<script>
+
+/* =========================
+DATA
+========================= */
+
+let customers=[];
+let calledCustomers=[];
+let interestedCustomers=[];
+let notInterestedCustomers=[];
+
+let currentPage='main';
+
+/* =========================
+SMART COLUMN FINDER
+========================= */
+
+function findColumn(customer,keywords){
+
+const keys=Object.keys(customer);
+
+for(let key of keys){
+
+const lowerKey=key.toLowerCase().trim();
+
+for(let word of keywords){
+
+if(lowerKey.includes(word)){
+
+return customer[key];
+
+}
+
+}
+
+}
+
+return '';
+
+}
+
+/* =========================
+SAVE
+========================= */
+
+function saveData(){
+
+localStorage.setItem(
+'mainCustomers',
+JSON.stringify(customers)
+);
+
+localStorage.setItem(
+'calledCustomers',
+JSON.stringify(calledCustomers)
+);
+
+localStorage.setItem(
+'interestedCustomers',
+JSON.stringify(interestedCustomers)
+);
+
+localStorage.setItem(
+'notInterestedCustomers',
+JSON.stringify(notInterestedCustomers)
+);
+
+}
+
+/* =========================
+LOAD
+========================= */
+
+function loadSavedData(){
+
+customers=
+JSON.parse(
+localStorage.getItem(
+'mainCustomers'
+)
+)||[];
+
+calledCustomers=
+JSON.parse(
+localStorage.getItem(
+'calledCustomers'
+)
+)||[];
+
+interestedCustomers=
+JSON.parse(
+localStorage.getItem(
+'interestedCustomers'
+)
+)||[];
+
+notInterestedCustomers=
+JSON.parse(
+localStorage.getItem(
+'notInterestedCustomers'
+)
+)||[];
+
+renderCustomers();
+
+}
+
+document.addEventListener(
+'DOMContentLoaded',
+function(){
+
+loadSavedData();
+
+}
+);
+
+/* =========================
+LOAD EXCEL
+========================= */
+
+function loadExcel(){
+
+const file=
+document.getElementById(
+'excelFile'
+).files[0];
+
+if(!file){
+
+alert('Select Excel File');
+
+return;
+
+}
+
+const reader=
+new FileReader();
+
+reader.onload=
+function(e){
+
+const data=
+new Uint8Array(
+e.target.result
+);
+
+const workbook=
+XLSX.read(
+data,
+{type:'array'}
+);
+
+const sheet=
+workbook.Sheets[
+workbook.SheetNames[0]
+];
+
+const importedData=
+XLSX.utils.sheet_to_json(sheet);
+
+importedData.forEach(newCustomer=>{
+
+const newMobile=
+String(
+findColumn(
+newCustomer,
+[
+'mobile',
+'phone',
+'contact',
+'number'
+]
+)
+);
+
+const exists=
+customers.some(customer=>{
+
+const mobile=
+String(
+findColumn(
+customer,
+[
+'mobile',
+'phone',
+'contact',
+'number'
+]
+)
+);
+
+return mobile===newMobile;
+
+});
+
+if(!exists){
+
+newCustomer.priority='Medium';
+
+newCustomer.notes='';
+
+customers.push(newCustomer);
+
+}
+
+});
+
+saveData();
+
+renderCustomers();
+
+alert('Customer Imported Successfully');
+
+};
+
+reader.readAsArrayBuffer(file);
+
+}
+
+/* =========================
+PAGE
+========================= */
+
+function changePage(page){
+
+currentPage=page;
+
+renderCustomers();
+
+}
+
+/* =========================
+RENDER
+========================= */
+
+function renderCustomers(){
+
+const list=
+document.getElementById(
+'customerList'
+);
+
+const search=
+document.getElementById(
+'searchBox'
+).value.toLowerCase();
+
+let data=[];
+
+if(currentPage==='main'){
+data=customers;
+}
+
+if(currentPage==='called'){
+data=calledCustomers;
+}
+
+if(currentPage==='interested'){
+data=interestedCustomers;
+}
+
+if(currentPage==='notInterested'){
+data=notInterestedCustomers;
+}
+
+document.getElementById(
+'mainCount'
+).innerText=
+customers.length;
+
+document.getElementById(
+'calledCount'
+).innerText=
+calledCustomers.length;
+
+document.getElementById(
+'interestedCount'
+).innerText=
+interestedCustomers.length;
+
+document.getElementById(
+'notInterestedCount'
+).innerText=
+notInterestedCustomers.length;
+
+const filtered=
+data.filter(customer=>{
+
+const name=
+String(
+findColumn(
+customer,
+[
+'name',
+'consumer'
+]
+)
+).toLowerCase();
+
+const village=
+String(
+findColumn(
+customer,
+[
+'village',
+'gaon',
+'city',
+'address'
+]
+)
+).toLowerCase();
+
+const mobile=
+String(
+findColumn(
+customer,
+[
+'mobile',
+'phone',
+'contact'
+]
+)
+);
+
+const consumer=
+String(
+findColumn(
+customer,
+[
+'consumer',
+'service',
+'account',
+'connection'
+]
+)
+).toLowerCase();
+
+return(
+
+name.includes(search)
+||
+village.includes(search)
+||
+mobile.includes(search)
+||
+consumer.includes(search)
+
+);
+
+});
+
+let html='';
+
+filtered.forEach((customer,index)=>{
+
+const serial=
+findColumn(
+customer,
+[
+'sr',
+'serial'
+]
+);
+
+const name=
+findColumn(
+customer,
+[
+'consumer name',
+'name hindi',
+'customer name',
+'name'
+]
+)
+||
+'No Name';
+
+const village=
+findColumn(
+customer,
+[
+'village',
+'gaon',
+'city',
+'address'
+]
+);
+
+const mobile=
+findColumn(
+customer,
+[
+'mobile',
+'phone',
+'contact',
+'number'
+]
+);
+
+const consumer=
+findColumn(
+customer,
+[
+'consumer',
+'service',
+'account',
+'connection'
+]
+);
+
+const load=
+findColumn(
+customer,
+[
+'load',
+'kw',
+'sanctioned',
+'lod'
+]
+);
+
+const units=
+findColumn(
+customer,
+[
+'unit',
+'consumption'
+]
+);
+
+const bill=
+findColumn(
+customer,
+[
+'bill',
+'amount'
+]
+);
+
+const notes=
+customer.notes
+||
+'No Notes';
+
+const priority=
+customer.priority
+||
+'Medium';
+
+let priorityClass='medium';
+
+if(priority==='Hot'){
+priorityClass='hot';
+}
+
+if(priority==='Cold'){
+priorityClass='cold';
+}
+
+let buttons='';
+
+if(currentPage==='main'){
+
+buttons=`
+
+<a
+href="tel:${mobile}"
+class="btn green"
+onclick="moveCalled(${index})">
+
+📞 Call Now
+
+</a>
+
+<button
+class="btn blue"
+onclick="sendWhatsapp(${index})">
+
+🟢 WhatsApp
+
+</button>
+
+<button
+class="btn orange"
+onclick="setPriority(${index})">
+
+⭐ Priority
+
+</button>
+
+<button
+class="btn black"
+onclick="addNote(${index})">
+
+📝 Add Note
+
+</button>
+
+`;
+
+}
+
+if(currentPage==='called'){
+
+buttons=`
+
+<button
+class="btn green"
+onclick="moveInterested(${index})">
+
+✅ Interested
+
+</button>
+
+<button
+class="btn orange"
+onclick="moveNotInterested(${index})">
+
+❌ Not Interested
+
+</button>
+
+`;
+
+}
+
+if(currentPage==='interested'){
+
+buttons=`
+
+<button
+class="btn blue"
+onclick="sendInterestedWhatsapp(${index})">
+
+📄 Send Documents Msg
+
+</button>
+
+`;
+
+}
+
+if(currentPage==='notInterested'){
+
+buttons=`
+
+<button
+class="btn gray"
+onclick="sendFutureWhatsapp(${index})">
+
+📩 Send Future Msg
+
+</button>
+
+`;
+
+}
+
+html+=`
+
+<div class="customer">
+
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+">
+
+<h3>
+👤 ${name}
+</h3>
+
+<div style="
+background:#16a34a;
+color:white;
+padding:8px 14px;
+border-radius:14px;
+font-size:15px;
+font-weight:700;
+">
+
+#${serial}
+
+</div>
+
+</div>
+
+<div class="info">
+📱 Mobile: ${mobile}
+</div>
+
+<div class="info">
+🔢 Consumer No: ${consumer}
+</div>
+
+<div class="info">
+🏡 Village: ${village}
+</div>
+
+<div class="info">
+⚡ Load: ${load}
+</div>
+
+<div class="info">
+📊 Units: ${units}
+</div>
+
+<div class="info">
+💰 Net Bill: ₹${bill}
+</div>
+
+<div class="info">
+📝 Notes: ${notes}
+</div>
+
+<div class="priority ${priorityClass}">
+⭐ ${priority}
+</div>
+
+<div class="buttons">
+
+${buttons}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+list.innerHTML=html;
+
+}
+
+/* =========================
+MOVE CALLED
+========================= */
+
+function moveCalled(index){
+
+const customer=
+customers[index];
+
+calledCustomers.push(customer);
+
+customers.splice(index,1);
+
+saveData();
+
+renderCustomers();
+
+}
+
+/* =========================
+INTERESTED
+========================= */
+
+function moveInterested(index){
+
+const customer=
+calledCustomers[index];
+
+interestedCustomers.push(customer);
+
+calledCustomers.splice(index,1);
+
+saveData();
+
+renderCustomers();
+
+}
+
+/* =========================
+NOT INTERESTED
+========================= */
+
+function moveNotInterested(index){
+
+const customer=
+calledCustomers[index];
+
+notInterestedCustomers.push(customer);
+
+calledCustomers.splice(index,1);
+
+saveData();
+
+renderCustomers();
+
+}
+
+/* =========================
+PRIORITY
+========================= */
+
+function setPriority(index){
+
+const level=
+prompt(
+'Enter Priority: Hot / Medium / Cold'
+);
+
+if(level){
+
+customers[index].priority=level;
+
+saveData();
+
+renderCustomers();
+
+}
+
+}
+
+/* =========================
+NOTES
+========================= */
+
+function addNote(index){
+
+const note=
+prompt(
+'Enter Note'
+);
+
+if(note){
+
+customers[index].notes=note;
+
+saveData();
+
+renderCustomers();
+
+}
+
+}
+
+/* =========================
+NORMAL WHATSAPP
+========================= */
+
+function sendWhatsapp(index){
+
+const customer=
+customers[index];
+
+const name=
+findColumn(
+customer,
+[
+'name',
+'consumer'
+]
+);
+
+const mobile=
+findColumn(
+customer,
+[
+'mobile',
+'phone',
+'contact',
+'number'
+]
+);
+
+const text=
+`🌞 नमस्कार ${name} जी,
+
+Dhakad Agro Solar Solution की ओर से आपका स्वागत है।`;
+
+window.open(
+`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
+moveCalled(index);
+
+}
+
+/* =========================
+INTERESTED WHATSAPP
+========================= */
+
+function sendInterestedWhatsapp(index){
+
+const customer=
+interestedCustomers[index];
+
+const name=
+findColumn(
+customer,
+[
+'name',
+'consumer'
+]
+);
+
+const mobile=
+findColumn(
+customer,
+[
+'mobile',
+'phone',
+'contact',
+'number'
+]
+);
+
+const text=
+`🌞 नमस्कार ${name} जी,
+
+Dhakad Agro Solar Solution में रुचि दिखाने हेतु आपका धन्यवाद।
+
+आपकी सोलर प्रक्रिया आगे बढ़ाने के लिए कृपया नीचे दिए गए आवश्यक डॉक्यूमेंट हमारे WhatsApp नंबर पर भेजें 👇
+
+📄 आवश्यक डॉक्यूमेंट:
+• आधार कार्ड
+• पैन कार्ड
+• SBI बैंक पासबुक
+• बिजली बिल
+
+📌 नोट:
+यदि आपका CIBIL / Credit Score 750+ है तो प्रक्रिया शीघ्र हो सकती है।
+यदि Credit Score कम है, तो आवश्यकता अनुसार परिवार के किसी अन्य सदस्य के नाम पर विद्युत कनेक्शन ट्रांसफर करवाकर भी प्रक्रिया की जा सकती है।
+
+📞 WhatsApp / संपर्क नंबर:
+9183353063
+
+धन्यवाद।
+Dhakad Agro Solar Solution`;
+
+window.open(
+`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
+}
+
+/* =========================
+FUTURE WHATSAPP
+========================= */
+
+function sendFutureWhatsapp(index){
+
+const customer=
+notInterestedCustomers[index];
+
+const name=
+findColumn(
+customer,
+[
+'name',
+'consumer'
+]
+);
+
+const mobile=
+findColumn(
+customer,
+[
+'mobile',
+'phone',
+'contact',
+'number'
+]
+);
+
+const text=
+`🌞 नमस्कार ${name} जी,
+
+Dhakad Agro Solar Solution की ओर से आपका धन्यवाद।
+
+यदि भविष्य में आपको सोलर सिस्टम, बिजली बिल बचत, सब्सिडी या संबंधित किसी भी जानकारी की आवश्यकता हो, तो कृपया नीचे दिए गए नंबर पर संपर्क करें।
+
+📞 9183353063
+
+हम आपकी सेवा के लिए सदैव उपलब्ध हैं।
+
+धन्यवाद।
+Dhakad Agro Solar Solution`;
+
+window.open(
+`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
+}
+
+/* =========================
+EXPORT
+========================= */
+
+function exportInterested(){
+
+const worksheet=
+XLSX.utils.json_to_sheet(
+interestedCustomers
+);
+
+const workbook=
 XLSX.utils.book_new();
 
 XLSX.utils.book_append_sheet(

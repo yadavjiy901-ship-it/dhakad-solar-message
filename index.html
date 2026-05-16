@@ -66,7 +66,7 @@ margin-bottom:20px;
 box-shadow:0 6px 20px rgba(0,0,0,0.08);
 }
 
-input{
+input,select{
 width:100%;
 padding:18px;
 border-radius:18px;
@@ -196,6 +196,17 @@ background:#f59e0b;
 background:#2563eb;
 }
 
+.called-tag{
+display:inline-block;
+background:#dc2626;
+color:white;
+padding:6px 12px;
+border-radius:12px;
+font-size:13px;
+font-weight:700;
+margin-top:10px;
+}
+
 .footer{
 text-align:center;
 padding:20px;
@@ -248,7 +259,7 @@ onclick="exportInterested()">
 
 </div>
 
-<!-- SEARCH -->
+<!-- SEARCH + FILTER -->
 
 <div class="card">
 
@@ -257,6 +268,16 @@ type="text"
 id="searchBox"
 placeholder="🔍 Search Customer"
 onkeyup="renderCustomers()">
+
+<select
+id="villageFilter"
+onchange="renderCustomers()">
+
+<option value="">
+🏡 All Villages
+</option>
+
+</select>
 
 </div>
 
@@ -281,30 +302,6 @@ onkeyup="renderCustomers()">
 <button
 class="btn red"
 onclick="clearMainData()">
-
-🗑 Delete
-
-</button>
-
-</div>
-
-<div class="stat-box">
-
-<div onclick="changePage('called')">
-
-📞 Called
-
-<br><br>
-
-<span id="calledCount">
-0
-</span>
-
-</div>
-
-<button
-class="btn red"
-onclick="clearCalledData()">
 
 🗑 Delete
 
@@ -383,7 +380,6 @@ DATA
 ========================= */
 
 let customers=[];
-let calledCustomers=[];
 let interestedCustomers=[];
 let notInterestedCustomers=[];
 
@@ -429,11 +425,6 @@ JSON.stringify(customers)
 );
 
 localStorage.setItem(
-'calledCustomers',
-JSON.stringify(calledCustomers)
-);
-
-localStorage.setItem(
 'interestedCustomers',
 JSON.stringify(interestedCustomers)
 );
@@ -458,13 +449,6 @@ localStorage.getItem(
 )
 )||[];
 
-calledCustomers=
-JSON.parse(
-localStorage.getItem(
-'calledCustomers'
-)
-)||[];
-
 interestedCustomers=
 JSON.parse(
 localStorage.getItem(
@@ -479,6 +463,8 @@ localStorage.getItem(
 )
 )||[];
 
+loadVillageFilter();
+
 renderCustomers();
 
 }
@@ -491,6 +477,62 @@ loadSavedData();
 
 }
 );
+
+/* =========================
+LOAD VILLAGE FILTER
+========================= */
+
+function loadVillageFilter(){
+
+const select =
+document.getElementById('villageFilter');
+
+let villages = [];
+
+let allData = [
+...customers,
+...interestedCustomers,
+...notInterestedCustomers
+];
+
+allData.forEach(customer=>{
+
+const village =
+String(
+findColumn(
+customer,
+[
+'village',
+'gaon',
+'city',
+'address'
+]
+)
+).trim();
+
+if(village && !villages.includes(village)){
+
+villages.push(village);
+
+}
+
+});
+
+villages.sort();
+
+select.innerHTML =
+`<option value="">🏡 All Villages</option>`;
+
+villages.forEach(village=>{
+
+select.innerHTML +=
+`<option value="${village}">
+${village}
+</option>`;
+
+});
+
+}
 
 /* =========================
 LOAD EXCEL
@@ -574,8 +616,8 @@ return mobile===newMobile;
 if(!exists){
 
 newCustomer.priority='Medium';
-
 newCustomer.notes='';
+newCustomer.called=false;
 
 customers.push(newCustomer);
 
@@ -584,6 +626,8 @@ customers.push(newCustomer);
 });
 
 saveData();
+
+loadVillageFilter();
 
 renderCustomers();
 
@@ -623,14 +667,15 @@ document.getElementById(
 'searchBox'
 ).value.toLowerCase();
 
+const selectedVillage =
+document.getElementById(
+'villageFilter'
+).value.toLowerCase();
+
 let data=[];
 
 if(currentPage==='main'){
 data=customers;
-}
-
-if(currentPage==='called'){
-data=calledCustomers;
 }
 
 if(currentPage==='interested'){
@@ -645,11 +690,6 @@ document.getElementById(
 'mainCount'
 ).innerText=
 customers.length;
-
-document.getElementById(
-'calledCount'
-).innerText=
-calledCustomers.length;
 
 document.getElementById(
 'interestedCount'
@@ -713,7 +753,7 @@ customer,
 )
 ).toLowerCase();
 
-return(
+const matchesSearch = (
 
 name.includes(search)
 ||
@@ -724,6 +764,14 @@ mobile.includes(search)
 consumer.includes(search)
 
 );
+
+const matchesVillage =
+
+selectedVillage === ''
+||
+village === selectedVillage;
+
+return matchesSearch && matchesVillage;
 
 });
 
@@ -844,7 +892,7 @@ buttons=`
 <a
 href="tel:${mobile}"
 class="btn green"
-onclick="moveCalled(${index})">
+onclick="markCalled(${index})">
 
 📞 Call Now
 
@@ -874,27 +922,11 @@ onclick="addNote(${index})">
 
 </button>
 
-`;
-
-}
-
-if(currentPage==='called'){
-
-buttons=`
-
 <button
-class="btn green"
-onclick="moveInterested(${index})">
+class="btn red"
+onclick="deleteSingleCustomer(${index})">
 
-✅ Interested
-
-</button>
-
-<button
-class="btn orange"
-onclick="moveNotInterested(${index})">
-
-❌ Not Interested
+🗑 Delete Customer
 
 </button>
 
@@ -996,6 +1028,12 @@ font-weight:700;
 ⭐ ${priority}
 </div>
 
+${customer.called ? `
+<div class="called-tag">
+📞 Call Laga Diya Gaya
+</div>
+` : ''}
+
 <div class="buttons">
 
 ${buttons}
@@ -1013,21 +1051,36 @@ list.innerHTML=html;
 }
 
 /* =========================
-MOVE CALLED
+MARK CALLED
 ========================= */
 
-function moveCalled(index){
+function markCalled(index){
 
-const customer=
-customers[index];
+customers[index].called=true;
 
-calledCustomers.push(customer);
+saveData();
+
+renderCustomers();
+
+}
+
+/* =========================
+DELETE SINGLE CUSTOMER
+========================= */
+
+function deleteSingleCustomer(index){
+
+if(confirm('Delete This Customer?')){
 
 customers.splice(index,1);
 
 saveData();
 
+loadVillageFilter();
+
 renderCustomers();
+
+}
 
 }
 
@@ -1038,13 +1091,15 @@ INTERESTED
 function moveInterested(index){
 
 const customer=
-calledCustomers[index];
+customers[index];
 
 interestedCustomers.push(customer);
 
-calledCustomers.splice(index,1);
+customers.splice(index,1);
 
 saveData();
+
+loadVillageFilter();
 
 renderCustomers();
 
@@ -1057,13 +1112,15 @@ NOT INTERESTED
 function moveNotInterested(index){
 
 const customer=
-calledCustomers[index];
+customers[index];
 
 notInterestedCustomers.push(customer);
 
-calledCustomers.splice(index,1);
+customers.splice(index,1);
 
 saveData();
+
+loadVillageFilter();
 
 renderCustomers();
 
@@ -1154,8 +1211,6 @@ window.open(
 '_blank'
 );
 
-moveCalled(index);
-
 }
 
 /* =========================
@@ -1190,25 +1245,14 @@ customer,
 const text=
 `🌞 नमस्कार ${name} जी,
 
-Dhakad Agro Solar Solution में रुचि दिखाने हेतु आपका धन्यवाद।
+कृपया आवश्यक डॉक्यूमेंट भेजें।
 
-आपकी सोलर प्रक्रिया आगे बढ़ाने के लिए कृपया नीचे दिए गए आवश्यक डॉक्यूमेंट हमारे WhatsApp नंबर पर भेजें 👇
+📄 आधार कार्ड
+📄 पैन कार्ड
+📄 SBI बैंक पासबुक
+📄 बिजली बिल
 
-📄 आवश्यक डॉक्यूमेंट:
-• आधार कार्ड
-• पैन कार्ड
-• SBI बैंक पासबुक
-• बिजली बिल
-
-📌 नोट:
-यदि आपका CIBIL / Credit Score 750+ है तो प्रक्रिया शीघ्र हो सकती है।
-यदि Credit Score कम है, तो आवश्यकता अनुसार परिवार के किसी अन्य सदस्य के नाम पर विद्युत कनेक्शन ट्रांसफर करवाकर भी प्रक्रिया की जा सकती है।
-
-📞 WhatsApp / संपर्क नंबर:
-9183353063
-
-धन्यवाद।
-Dhakad Agro Solar Solution`;
+📞 9183353063`;
 
 window.open(
 `https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
@@ -1249,16 +1293,9 @@ customer,
 const text=
 `🌞 नमस्कार ${name} जी,
 
-Dhakad Agro Solar Solution की ओर से आपका धन्यवाद।
+भविष्य में Solar संबंधी जानकारी हेतु संपर्क करें।
 
-यदि भविष्य में आपको सोलर सिस्टम, बिजली बिल बचत, सब्सिडी या संबंधित किसी भी जानकारी की आवश्यकता हो, तो कृपया नीचे दिए गए नंबर पर संपर्क करें।
-
-📞 9183353063
-
-हम आपकी सेवा के लिए सदैव उपलब्ध हैं।
-
-धन्यवाद।
-Dhakad Agro Solar Solution`;
+📞 9183353063`;
 
 window.open(
 `https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
@@ -1279,23 +1316,7 @@ customers=[];
 
 saveData();
 
-renderCustomers();
-
-}
-
-}
-
-/* =========================
-CLEAR CALLED
-========================= */
-
-function clearCalledData(){
-
-if(confirm('Delete Called Data?')){
-
-calledCustomers=[];
-
-saveData();
+loadVillageFilter();
 
 renderCustomers();
 
@@ -1315,6 +1336,8 @@ interestedCustomers=[];
 
 saveData();
 
+loadVillageFilter();
+
 renderCustomers();
 
 }
@@ -1332,6 +1355,8 @@ if(confirm('Delete Not Interested Data?')){
 notInterestedCustomers=[];
 
 saveData();
+
+loadVillageFilter();
 
 renderCustomers();
 

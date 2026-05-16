@@ -74,6 +74,7 @@ border:1px solid #d1d5db;
 font-size:18px;
 margin-bottom:16px;
 outline:none;
+background:white;
 }
 
 .btn{
@@ -214,6 +215,12 @@ font-size:15px;
 color:#6b7280;
 }
 
+.multi-text{
+font-size:14px;
+color:#6b7280;
+margin-top:-5px;
+}
+
 </style>
 
 </head>
@@ -271,13 +278,17 @@ onkeyup="renderCustomers()">
 
 <select
 id="villageFilter"
-onchange="renderCustomers()">
-
-<option value="">
-🏡 All Villages
-</option>
+multiple
+onchange="renderCustomers()"
+style="height:220px;">
 
 </select>
+
+<div class="multi-text">
+
+📌 Multiple गांव select करने के लिए long press करें
+
+</div>
 
 </div>
 
@@ -520,14 +531,13 @@ villages.push(village);
 
 villages.sort();
 
-select.innerHTML =
-`<option value="">🏡 All Villages</option>`;
+select.innerHTML='';
 
 villages.forEach(village=>{
 
 select.innerHTML +=
 `<option value="${village}">
-${village}
+🏡 ${village}
 </option>`;
 
 });
@@ -667,10 +677,17 @@ document.getElementById(
 'searchBox'
 ).value.toLowerCase();
 
-const selectedVillage =
+const selectedOptions =
+Array.from(
 document.getElementById(
 'villageFilter'
-).value.toLowerCase();
+).selectedOptions
+);
+
+const selectedVillages =
+selectedOptions.map(option =>
+option.value.toLowerCase()
+);
 
 let data=[];
 
@@ -767,9 +784,9 @@ consumer.includes(search)
 
 const matchesVillage =
 
-selectedVillage === ''
+selectedVillages.length === 0
 ||
-village === selectedVillage;
+selectedVillages.includes(village);
 
 return matchesSearch && matchesVillage;
 
@@ -940,9 +957,9 @@ buttons=`
 
 <button
 class="btn blue"
-onclick="sendInterestedWhatsapp(${index})">
+onclick="moveInterested(${index})">
 
-📄 Send Documents Msg
+✅ Move Interested
 
 </button>
 
@@ -956,9 +973,9 @@ buttons=`
 
 <button
 class="btn gray"
-onclick="sendFutureWhatsapp(${index})">
+onclick="moveNotInterested(${index})">
 
-📩 Send Future Msg
+❌ Move Not Interested
 
 </button>
 
@@ -1085,15 +1102,12 @@ renderCustomers();
 }
 
 /* =========================
-INTERESTED
+MOVE INTERESTED
 ========================= */
 
 function moveInterested(index){
 
-const customer=
-customers[index];
-
-interestedCustomers.push(customer);
+interestedCustomers.push(customers[index]);
 
 customers.splice(index,1);
 
@@ -1106,15 +1120,12 @@ renderCustomers();
 }
 
 /* =========================
-NOT INTERESTED
+MOVE NOT INTERESTED
 ========================= */
 
 function moveNotInterested(index){
 
-const customer=
-customers[index];
-
-notInterestedCustomers.push(customer);
+notInterestedCustomers.push(customers[index]);
 
 customers.splice(index,1);
 
@@ -1205,97 +1216,6 @@ const text=
 `🌞 नमस्कार ${name} जी,
 
 Dhakad Agro Solar Solution की ओर से आपका स्वागत है।`;
-
-window.open(
-`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
-'_blank'
-);
-
-}
-
-/* =========================
-INTERESTED WHATSAPP
-========================= */
-
-function sendInterestedWhatsapp(index){
-
-const customer=
-interestedCustomers[index];
-
-const name=
-findColumn(
-customer,
-[
-'name',
-'consumer'
-]
-);
-
-const mobile=
-findColumn(
-customer,
-[
-'mobile',
-'phone',
-'contact',
-'number'
-]
-);
-
-const text=
-`🌞 नमस्कार ${name} जी,
-
-कृपया आवश्यक डॉक्यूमेंट भेजें।
-
-📄 आधार कार्ड
-📄 पैन कार्ड
-📄 SBI बैंक पासबुक
-📄 बिजली बिल
-
-📞 9183353063`;
-
-window.open(
-`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
-'_blank'
-);
-
-}
-
-/* =========================
-FUTURE WHATSAPP
-========================= */
-
-function sendFutureWhatsapp(index){
-
-const customer=
-notInterestedCustomers[index];
-
-const name=
-findColumn(
-customer,
-[
-'name',
-'consumer'
-]
-);
-
-const mobile=
-findColumn(
-customer,
-[
-'mobile',
-'phone',
-'contact',
-'number'
-]
-);
-
-const text=
-`🌞 नमस्कार ${name} जी,
-
-भविष्य में Solar संबंधी जानकारी हेतु संपर्क करें।
-
-📞 9183353063`;
 
 window.open(
 `https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,

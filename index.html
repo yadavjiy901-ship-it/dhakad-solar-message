@@ -616,5 +616,261 @@ function toggleDarkMode(){
 document.body.classList.toggle('dark');
 }
 
+
+
+// =========================
+// CUSTOMER TIMELINE
+// =========================
+
+function addTimeline(index,message){
+
+if(!customers[index].timeline){
+customers[index].timeline=[];
+}
+
+customers[index].timeline.unshift({
+message:message,
+time:new Date().toLocaleString()
+});
+
+saveData();
+
+}
+
+// =========================
+// DOCUMENT STATUS
+// =========================
+
+function toggleDocument(index,doc){
+
+if(!customers[index].documents){
+customers[index].documents={};
+}
+
+customers[index].documents[doc]=
+!customers[index].documents[doc];
+
+saveData();
+renderCustomers();
+
+}
+
+// =========================
+// PAYMENT SYSTEM
+// =========================
+
+function updatePayment(index){
+
+const amount=prompt('Enter Payment Amount');
+
+if(amount){
+
+customers[index].payment='₹'+amount+' Received';
+customers[index].paymentDate=
+new Date().toLocaleString();
+
+addTimeline(index,'Payment Received');
+
+saveData();
+renderCustomers();
+
+}
+
+}
+
+// =========================
+// INSTALLATION STATUS
+// =========================
+
+function updateInstallation(index){
+
+const status=prompt(
+'Pending / Approved / Material Dispatch / Installed'
+);
+
+if(status){
+
+customers[index].installation=status;
+
+addTimeline(index,'Installation Updated');
+
+saveData();
+renderCustomers();
+
+}
+
+}
+
+// =========================
+// FOLLOW UP
+// =========================
+
+function setFollowUp(index){
+
+const follow=prompt('Enter Follow Up Date');
+
+if(follow){
+
+customers[index].followUp=follow;
+
+addTimeline(index,'Follow Up Added');
+
+saveData();
+renderCustomers();
+
+}
+
+}
+
+// =========================
+// SAFE SESSION LOGIN
+// =========================
+
+sessionStorage.setItem('crmUnlocked','true');
+
+// =========================
+// AUTO BACKUP
+// =========================
+
+setInterval(()=>{
+
+localStorage.setItem(
+'crmBackup',
+JSON.stringify({
+customers,
+interestedCustomers,
+notInterestedCustomers,
+vendorLogs
+})
+);
+
+},30000);
+
+// =========================
+// CUSTOMER ID SYSTEM
+// =========================
+
+function generateCustomerId(){
+
+return 'DSS-'+Date.now();
+
+}
+
+// =========================
+// LEAD SCORE
+// =========================
+
+function calculateLead(index){
+
+const bill=parseInt(
+findColumn(customers[index],['bill'])
+)||0;
+
+if(bill>4000){
+customers[index].lead='🔥 High';
+}else if(bill>2000){
+customers[index].lead='⭐ Medium';
+}else{
+customers[index].lead='❄️ Low';
+}
+
+}
+
+// =========================
+// VENDOR SEND SYSTEM
+// =========================
+
+function sendToVendor(index){
+
+const vendorMobile=prompt(
+'Enter Vendor Mobile Number'
+);
+
+if(!vendorMobile) return;
+
+const customer=customers[index];
+
+const name=findColumn(customer,['consumer name','customer name','name']);
+const mobile=findColumn(customer,['mobile','phone']);
+const village=findColumn(customer,['village','address']);
+const consumer=findColumn(customer,['consumer']);
+
+const text=`☀️ DHAKAD AGRO SOLAR SOLUTION
+
+👤 Customer: ${name}
+📱 Mobile: ${mobile}
+🏡 Village: ${village}
+🔢 Consumer No: ${consumer}
+
+📄 Documents Ready & Sent Successfully.
+
+📞 Vijay Yadav
+9183353063`;
+
+window.open(
+`https://wa.me/91${vendorMobile}?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
+customers[index].vendorTransfer=
+new Date().toLocaleString();
+
+addTimeline(index,'Vendor Transfer');
+
+saveData();
+
+}
+
+// =========================
+// PENDING DOC MESSAGE
+// =========================
+
+function sendPendingDocs(index){
+
+const customer=customers[index];
+
+const name=findColumn(customer,['consumer name','customer name','name']);
+const mobile=findColumn(customer,['mobile','phone']);
+
+const text=`नमस्कार ${name} जी 🙏
+
+आपके Solar आवेदन के कुछ दस्तावेज प्राप्त हो चुके हैं। बाकी दस्तावेज जल्द पूर्ण करके भेज दिए जाएंगे।
+
+📞 DHAKAD AGRO SOLAR SOLUTION
+Vijay Yadav
+9183353063`;
+
+window.open(
+`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
+}
+
+// =========================
+// REJECT MESSAGE
+// =========================
+
+function sendRejectMessage(index){
+
+const customer=notInterestedCustomers[index];
+
+const name=findColumn(customer,['consumer name','customer name','name']);
+const mobile=findColumn(customer,['mobile','phone']);
+
+const text=`नमस्कार ${name} जी 🙏
+
+भविष्य में यदि आप Solar System लगवाना चाहें तो हमसे संपर्क कर सकते हैं।
+
+📞 DHAKAD AGRO SOLAR SOLUTION
+9183353063`;
+
+window.open(
+`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
+}
+
 </script></body>
 </html>

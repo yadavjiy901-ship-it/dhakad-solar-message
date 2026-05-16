@@ -68,8 +68,7 @@ box-shadow:0 4px 14px rgba(0,0,0,0.08);
 }
 
 input,
-select,
-textarea{
+select{
 width:100%;
 padding:13px;
 border-radius:14px;
@@ -77,7 +76,6 @@ border:1px solid #d1d5db;
 font-size:14px;
 margin-bottom:10px;
 outline:none;
-background:white;
 }
 
 .main-btn{
@@ -119,11 +117,6 @@ text-align:center;
 font-weight:700;
 box-shadow:0 4px 14px rgba(0,0,0,0.08);
 cursor:pointer;
-transition:0.2s;
-}
-
-.stat-box:active{
-transform:scale(0.97);
 }
 
 .customer{
@@ -132,23 +125,15 @@ padding:16px;
 border-radius:20px;
 margin-bottom:14px;
 box-shadow:0 4px 14px rgba(0,0,0,0.08);
-animation:fade 0.2s ease;
-}
-
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(10px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
 }
 
 .customer h3{
 font-size:18px;
 margin-bottom:10px;
+}
+
+.called-name{
+color:#dc2626;
 }
 
 .info{
@@ -196,18 +181,12 @@ background:#6b7280;
 background:#dc2626;
 }
 
-.called-tag{
-display:inline-block;
-background:#16a34a;
-color:white;
-padding:5px 10px;
-border-radius:12px;
-font-size:12px;
-margin-top:8px;
-}
-
-.footer-space{
-height:20px;
+.doc-box{
+margin-top:10px;
+padding:10px;
+background:#f3f4f6;
+border-radius:14px;
+font-size:13px;
 }
 
 .dark{
@@ -292,9 +271,7 @@ style="height:160px;">
 <div class="card">
 
 <h3 style="margin-bottom:10px;">
-
-📨 Vendor Transfer
-
+📨 Vendor Mobile
 </h3>
 
 <input
@@ -338,7 +315,7 @@ onclick="changePage('interested')">
 
 <div
 class="stat-box"
-onclick="changePage('rejected')">
+onclick="changePage('reject')">
 
 ❌ Reject
 
@@ -354,7 +331,7 @@ onclick="changePage('rejected')">
 class="stat-box"
 onclick="changePage('completed')">
 
-📂 Completed
+📂 Complete
 
 <br><br>
 
@@ -370,20 +347,16 @@ onclick="changePage('completed')">
 
 <div id="customerList"></div>
 
-<div class="footer-space"></div>
-
 <script>
 
 let customers=[];
 let interestedCustomers=[];
-let rejectedCustomers=[];
+let rejectCustomers=[];
 let completedCustomers=[];
 
 let currentPage='main';
 
-/* =========================
-SAVE
-========================= */
+/* SAVE */
 
 function saveData(){
 
@@ -398,8 +371,8 @@ JSON.stringify(interestedCustomers)
 );
 
 localStorage.setItem(
-'rejectedCustomers',
-JSON.stringify(rejectedCustomers)
+'rejectCustomers',
+JSON.stringify(rejectCustomers)
 );
 
 localStorage.setItem(
@@ -409,31 +382,21 @@ JSON.stringify(completedCustomers)
 
 }
 
-/* =========================
-LOAD
-========================= */
+/* LOAD */
 
 function loadData(){
 
 customers=
-JSON.parse(
-localStorage.getItem('customers')
-)||[];
+JSON.parse(localStorage.getItem('customers'))||[];
 
 interestedCustomers=
-JSON.parse(
-localStorage.getItem('interestedCustomers')
-)||[];
+JSON.parse(localStorage.getItem('interestedCustomers'))||[];
 
-rejectedCustomers=
-JSON.parse(
-localStorage.getItem('rejectedCustomers')
-)||[];
+rejectCustomers=
+JSON.parse(localStorage.getItem('rejectCustomers'))||[];
 
 completedCustomers=
-JSON.parse(
-localStorage.getItem('completedCustomers')
-)||[];
+JSON.parse(localStorage.getItem('completedCustomers'))||[];
 
 loadVillageFilter();
 
@@ -443,9 +406,7 @@ renderCustomers();
 
 window.onload=loadData;
 
-/* =========================
-FIND COLUMN
-========================= */
+/* FIND COLUMN */
 
 function findColumn(customer,keywords){
 
@@ -453,8 +414,7 @@ const keys=Object.keys(customer);
 
 for(let key of keys){
 
-const lower=
-key.toLowerCase();
+const lower=key.toLowerCase();
 
 for(let word of keywords){
 
@@ -472,9 +432,7 @@ return '';
 
 }
 
-/* =========================
-UPLOAD EXCEL
-========================= */
+/* EXCEL */
 
 function loadExcel(){
 
@@ -491,22 +449,15 @@ return;
 
 }
 
-const reader=
-new FileReader();
+const reader=new FileReader();
 
-reader.onload=
-function(e){
+reader.onload=function(e){
 
 const data=
-new Uint8Array(
-e.target.result
-);
+new Uint8Array(e.target.result);
 
 const workbook=
-XLSX.read(
-data,
-{type:'array'}
-);
+XLSX.read(data,{type:'array'});
 
 const sheet=
 workbook.Sheets[
@@ -549,15 +500,18 @@ return oldMobile===mobile;
 
 });
 
-if(!exists && mobile.length>=10){
+if(!exists){
 
 c.called=false;
 
 c.notes='';
 
-c.vendorPayment='Pending';
-
-c.documents='Pending';
+c.documents={
+aadhaar:false,
+pan:false,
+sbi:false,
+bill:false
+};
 
 customers.push(c);
 
@@ -571,7 +525,7 @@ loadVillageFilter();
 
 renderCustomers();
 
-alert('Customer Imported Successfully');
+alert('Customer Imported');
 
 };
 
@@ -579,16 +533,12 @@ reader.readAsArrayBuffer(file);
 
 }
 
-/* =========================
-VILLAGE
-========================= */
+/* VILLAGE */
 
 function loadVillageFilter(){
 
 const select=
-document.getElementById(
-'villageFilter'
-);
+document.getElementById('villageFilter');
 
 let villages=[];
 
@@ -600,8 +550,7 @@ findColumn(
 c,
 [
 'village',
-'address',
-'gaon'
+'address'
 ]
 )
 ).trim();
@@ -615,9 +564,9 @@ villages.push(village);
 
 });
 
-villages.sort();
-
 select.innerHTML='';
+
+villages.sort();
 
 villages.forEach(v=>{
 
@@ -630,9 +579,7 @@ select.innerHTML+=
 
 }
 
-/* =========================
-PAGE
-========================= */
+/* PAGE */
 
 function changePage(page){
 
@@ -642,28 +589,16 @@ renderCustomers();
 
 }
 
-/* =========================
-RENDER
-========================= */
+/* RENDER */
 
 function renderCustomers(){
 
 const list=
-document.getElementById(
-'customerList'
-);
+document.getElementById('customerList');
 
 const search=
-document.getElementById(
-'searchBox'
-).value.toLowerCase();
-
-const selected=
-[
-...document.getElementById(
-'villageFilter'
-).selectedOptions
-].map(o=>o.value.toLowerCase());
+document.getElementById('searchBox')
+.value.toLowerCase();
 
 let data=[];
 
@@ -675,447 +610,26 @@ if(currentPage==='interested'){
 data=interestedCustomers;
 }
 
-if(currentPage==='rejected'){
-data=rejectedCustomers;
+if(currentPage==='reject'){
+data=rejectCustomers;
 }
 
 if(currentPage==='completed'){
 data=completedCustomers;
 }
 
-const filtered=
-data.filter(c=>{
-
-const name=
-String(
-findColumn(
-c,
-[
-'consumer name',
-'customer name',
-'name'
-]
-)
-).toLowerCase();
-
-const village=
-String(
-findColumn(
-c,
-[
-'village',
-'address'
-]
-)
-).toLowerCase();
-
-const mobile=
-String(
-findColumn(
-c,
-[
-'mobile',
-'phone'
-]
-)
-);
-
-const searchMatch=
-name.includes(search)
-||
-village.includes(search)
-||
-mobile.includes(search);
-
-const villageMatch=
-selected.length===0
-||
-selected.includes(village);
-
-return searchMatch &&
-villageMatch;
-
-});
-
 let html='';
 
-filtered.forEach((customer,index)=>{
+data.forEach((customer,index)=>{
 
 const name=
 findColumn(
 customer,
 [
 'consumer name',
-'customer name',
 'name'
 ]
-)
-||
-'No Name';
-
-const mobile=
-findColumn(
-customer,
-[
-'mobile',
-'phone',
-'contact'
-]
-);
-
-const village=
-findColumn(
-customer,
-[
-'village',
-'address'
-]
-);
-
-const consumer=
-findColumn(
-customer,
-[
-'consumer',
-'account'
-]
-);
-
-const bill=
-findColumn(
-customer,
-[
-'bill'
-]
-);
-
-const notes=
-customer.notes
-||
-'No Notes';
-
-html+=`
-
-<div class="customer">
-
-<h3>
-👤 ${name}
-</h3>
-
-<div class="info">
-📱 ${mobile}
-</div>
-
-<div class="info">
-🏡 ${village}
-</div>
-
-<div class="info">
-🔢 ${consumer}
-</div>
-
-<div class="info">
-💰 Bill: ₹${bill}
-</div>
-
-<div class="info">
-📝 ${notes}
-</div>
-
-<div class="info">
-💵 Vendor Payment:
-${customer.vendorPayment}
-</div>
-
-<div class="info">
-📄 Documents:
-${customer.documents}
-</div>
-
-${customer.called ? `
-<div class="called-tag">
-📞 Called
-</div>
-` : ''}
-
-<div class="buttons">
-
-<button
-class="btn green"
-onclick="callCustomer(${index})">
-
-<span>
-📞
-</span>
-
-<small>
-Call
-</small>
-
-</button>
-
-<button
-class="btn blue"
-onclick="sendWhatsapp(${index})">
-
-<span>
-🟢
-</span>
-
-<small>
-WhatsApp
-</small>
-
-</button>
-
-<button
-class="btn orange"
-onclick="moveInterested(${index})">
-
-<span>
-✅
-</span>
-
-<small>
-Interested
-</small>
-
-</button>
-
-<button
-class="btn gray"
-onclick="moveRejected(${index})">
-
-<span>
-❌
-</span>
-
-<small>
-Reject
-</small>
-
-</button>
-
-<button
-class="btn black"
-onclick="sendVendor(${index})">
-
-<span>
-📨
-</span>
-
-<small>
-Vendor
-</small>
-
-</button>
-
-<button
-class="btn red"
-onclick="completeDocuments(${index})">
-
-<span>
-📂
-</span>
-
-<small>
-Complete
-</small>
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-list.innerHTML=html;
-
-document.getElementById(
-'mainCount'
-).innerText=
-customers.length;
-
-document.getElementById(
-'interestedCount'
-).innerText=
-interestedCustomers.length;
-
-document.getElementById(
-'rejectCount'
-).innerText=
-rejectedCustomers.length;
-
-document.getElementById(
-'completedCount'
-).innerText=
-completedCustomers.length;
-
-}
-
-/* =========================
-CALL
-========================= */
-
-function callCustomer(index){
-
-customers[index].called=true;
-
-saveData();
-
-renderCustomers();
-
-const mobile=
-findColumn(
-customers[index],
-[
-'mobile',
-'phone'
-]
-);
-
-window.location.href=
-`tel:${mobile}`;
-
-}
-
-/* =========================
-WHATSAPP
-========================= */
-
-function sendWhatsapp(index){
-
-const customer=
-customers[index];
-
-const name=
-findColumn(
-customer,
-[
-'consumer name',
-'customer name',
-'name'
-]
-);
-
-const mobile=
-String(
-findColumn(
-customer,
-[
-'mobile',
-'phone'
-]
-)
-).replace(/\D/g,'');
-
-const text=
-`☀️ नमस्कार ${name} जी,
-
-प्रधानमंत्री पीएम सूर्य घर योजना के अंतर्गत ₹0 निवेश में Solar System लगवाने का शानदार अवसर।
-
-📞 DHAKAD AGRO SOLAR SOLUTION
-Vijay Yadav
-9183353063`;
-
-window.open(
-`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
-'_blank'
-);
-
-}
-
-/* =========================
-INTERESTED
-========================= */
-
-function moveInterested(index){
-
-interestedCustomers.push(
-customers[index]
-);
-
-customers.splice(index,1);
-
-saveData();
-
-renderCustomers();
-
-}
-
-/* =========================
-REJECT
-========================= */
-
-function moveRejected(index){
-
-rejectedCustomers.push(
-customers[index]
-);
-
-customers.splice(index,1);
-
-saveData();
-
-renderCustomers();
-
-}
-
-/* =========================
-COMPLETE
-========================= */
-
-function completeDocuments(index){
-
-customers[index].documents=
-'Completed';
-
-completedCustomers.push(
-customers[index]
-);
-
-saveData();
-
-renderCustomers();
-
-}
-
-/* =========================
-VENDOR
-========================= */
-
-function sendVendor(index){
-
-const vendor=
-document.getElementById(
-'vendorMobile'
-).value;
-
-if(!vendor){
-
-alert(
-'Enter Vendor Mobile Number'
-);
-
-return;
-
-}
-
-const customer=
-customers[index];
-
-const name=
-findColumn(
-customer,
-[
-'consumer name',
-'customer name',
-'name'
-]
-);
+)||'No Name';
 
 const mobile=
 findColumn(
@@ -1143,21 +657,317 @@ customer,
 ]
 );
 
+if(
+!name.toLowerCase().includes(search)
+&&
+!String(mobile).includes(search)
+){
+return;
+}
+
+html+=`
+
+<div class="customer">
+
+<h3 class="${
+customer.called ?
+'called-name'
+:
+''
+}">
+👤 ${name}
+</h3>
+
+<div class="info">
+📱 ${mobile}
+</div>
+
+<div class="info">
+🏡 ${village}
+</div>
+
+<div class="info">
+🔢 ${consumer}
+</div>
+
+<div class="doc-box">
+
+☑ Aadhaar:
+${customer.documents.aadhaar ? '✅':'❌'}
+
+<br>
+
+☑ PAN:
+${customer.documents.pan ? '✅':'❌'}
+
+<br>
+
+☑ SBI:
+${customer.documents.sbi ? '✅':'❌'}
+
+<br>
+
+☑ Bill:
+${customer.documents.bill ? '✅':'❌'}
+
+</div>
+
+<div class="buttons">
+
+<button
+class="btn green"
+onclick="callCustomer(${index})">
+
+<span>📞</span>
+
+<small>Call</small>
+
+</button>
+
+<button
+class="btn blue"
+onclick="sendWhatsapp(${index})">
+
+<span>🟢</span>
+
+<small>Msg</small>
+
+</button>
+
+<button
+class="btn orange"
+onclick="moveInterested(${index})">
+
+<span>✅</span>
+
+<small>Interest</small>
+
+</button>
+
+<button
+class="btn gray"
+onclick="moveReject(${index})">
+
+<span>❌</span>
+
+<small>Reject</small>
+
+</button>
+
+<button
+class="btn black"
+onclick="sendVendor(${index})">
+
+<span>📨</span>
+
+<small>Vendor</small>
+
+</button>
+
+<button
+class="btn red"
+onclick="deleteCustomer(${index})">
+
+<span>🗑</span>
+
+<small>Delete</small>
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+list.innerHTML=html;
+
+document.getElementById(
+'mainCount'
+).innerText=
+customers.length;
+
+document.getElementById(
+'interestedCount'
+).innerText=
+interestedCustomers.length;
+
+document.getElementById(
+'rejectCount'
+).innerText=
+rejectCustomers.length;
+
+document.getElementById(
+'completedCount'
+).innerText=
+completedCustomers.length;
+
+}
+
+/* CALL */
+
+function callCustomer(index){
+
+customers[index].called=true;
+
+saveData();
+
+renderCustomers();
+
+const mobile=
+findColumn(
+customers[index],
+[
+'mobile',
+'phone'
+]
+);
+
+window.location.href=
+`tel:${mobile}`;
+
+}
+
+/* WHATSAPP */
+
+function sendWhatsapp(index){
+
+const customer=customers[index];
+
+const name=
+findColumn(
+customer,
+[
+'consumer name',
+'name'
+]
+);
+
+const mobile=
+String(
+findColumn(
+customer,
+[
+'mobile',
+'phone'
+]
+)
+).replace(/\D/g,'');
+
+const text=
+`श्रीमान ${name} जी 🙏
+
+आपकी प्रधानमंत्री पीएम सूर्य घर योजना की रजिस्ट्रेशन प्रक्रिया जल्द पूर्ण की जाएगी।
+
+कृपया आवश्यक दस्तावेज व्हाट्सएप पर भेजने का कष्ट करें।
+
+☀️ DHAKAD AGRO SOLAR SOLUTION
+
+📞 9183353063`;
+
+window.open(
+`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
+}
+
+/* INTEREST */
+
+function moveInterested(index){
+
+interestedCustomers.push(
+customers[index]
+);
+
+customers.splice(index,1);
+
+saveData();
+
+renderCustomers();
+
+}
+
+/* REJECT */
+
+function moveReject(index){
+
+rejectCustomers.push(
+customers[index]
+);
+
+customers.splice(index,1);
+
+saveData();
+
+renderCustomers();
+
+}
+
+/* DELETE */
+
+function deleteCustomer(index){
+
+if(confirm('Delete Customer?')){
+
+customers.splice(index,1);
+
+saveData();
+
+renderCustomers();
+
+}
+
+}
+
+/* VENDOR */
+
+function sendVendor(index){
+
+const vendor=
+document.getElementById(
+'vendorMobile'
+).value;
+
+if(!vendor){
+
+alert('Enter Vendor Mobile');
+
+return;
+
+}
+
+const customer=
+customers[index];
+
+const name=
+findColumn(
+customer,
+[
+'consumer name',
+'name'
+]
+);
+
+const mobile=
+findColumn(
+customer,
+[
+'mobile',
+'phone'
+]
+);
+
 const text=
 `☀️ DHAKAD AGRO SOLAR SOLUTION
 
-👤 Customer: ${name}
+👤 ${name}
 
-📱 Mobile: ${mobile}
+📱 ${mobile}
 
-🏡 Village: ${village}
-
-🔢 Consumer No: ${consumer}
-
-📄 Documents Ready
-
-📞 Vijay Yadav
-9183353063`;
+📄 Documents Ready`;
 
 window.open(
 `https://wa.me/91${vendor}?text=${encodeURIComponent(text)}`,
@@ -1166,9 +976,7 @@ window.open(
 
 }
 
-/* =========================
-DARK MODE
-========================= */
+/* DARK MODE */
 
 function toggleDarkMode(){
 
@@ -1182,4 +990,4 @@ document.body.classList.toggle(
 
 </body>
 
-  </html>
+</html>

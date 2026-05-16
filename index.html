@@ -2,16 +2,13 @@
 <html lang="hi">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>DHAKAD AGRO SOLAR SOLUTION CRM</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
@@ -176,33 +173,13 @@ transform:scale(.95);
 font-size:22px;
 }
 
-.green{
-background:#16a34a;
-}
-
-.blue{
-background:#2563eb;
-}
-
-.orange{
-background:#ea580c;
-}
-
-.gray{
-background:#6b7280;
-}
-
-.red{
-background:#dc2626;
-}
-
-.black{
-background:#111827;
-}
-
-.purple{
-background:#7c3aed;
-}
+.green{background:#16a34a;}
+.blue{background:#2563eb;}
+.orange{background:#ea580c;}
+.gray{background:#6b7280;}
+.red{background:#dc2626;}
+.black{background:#111827;}
+.purple{background:#7c3aed;}
 
 .top-actions{
 display:grid;
@@ -247,41 +224,30 @@ opacity:.7;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <header>
-
 <h1>☀️ DHAKAD AGRO SOLAR SOLUTION</h1>
-
-<p>
-Authorized Partner - Vijay Yadav | 📞 9183353063
-</p>
-
+<p>Authorized Partner - Vijay Yadav | 📞 9183353063</p>
 </header>
 
 <div class="card">
 
-<input type="file"
-id="excelFile"
-accept=".xlsx,.xls">
+<input type="file" id="excelFile" accept=".xlsx,.xls">
 
 <div class="top-actions">
 
-<button class="main-btn green"
-onclick="loadExcel()">
+<button class="main-btn green" onclick="loadExcel()">
 📂 Upload Excel
 </button>
 
-<button class="main-btn black"
-onclick="toggleDarkMode()">
+<button class="main-btn black" onclick="toggleDarkMode()">
 🌙 Dark Mode
 </button>
 
 </div>
-
 </div>
 
 <div class="card">
@@ -291,87 +257,61 @@ id="searchBox"
 placeholder="🔍 Search Name / Mobile / Village"
 onkeyup="renderCustomers()">
 
-<select id="villageFilter"
-onchange="renderCustomers()">
-
-<option value="">
-🌍 All Villages
-</option>
-
+<select id="villageFilter" onchange="renderCustomers()">
+<option value="">🌍 All Villages</option>
 </select>
 
 <input type="text"
 id="vendorMobile"
 placeholder="📨 Vendor Mobile Number">
 
+<select id="nameTransfer">
+<option value="No">🪪 Name Transfer Nahi</option>
+<option value="Yes">🪪 Name Transfer Hai</option>
+</select>
+
+<input type="text"
+id="bankTime"
+placeholder="🏦 Bank Account Time (ex. 2 Din)">
+
 </div>
 
 <div class="stats">
 
-<div class="stat-box"
-onclick="changePage('main')">
-
+<div class="stat-box" onclick="changePage('main')">
 👥 Main
-
 <br><br>
-
 <span id="mainCount">0</span>
-
 </div>
 
-<div class="stat-box"
-onclick="changePage('interested')">
-
+<div class="stat-box" onclick="changePage('interested')">
 ✅ Interested
-
 <br><br>
-
 <span id="interestedCount">0</span>
-
 </div>
 
-<div class="stat-box"
-onclick="changePage('completed')">
-
+<div class="stat-box" onclick="changePage('completed')">
 📂 Completed
-
 <br><br>
-
 <span id="completedCount">0</span>
-
 </div>
 
-<div class="stat-box"
-onclick="changePage('reject')">
-
+<div class="stat-box" onclick="changePage('reject')">
 ❌ Reject
-
 <br><br>
-
 <span id="rejectCount">0</span>
-
 </div>
 
-<div class="stat-box"
-onclick="changePage('vendor')">
-
+<div class="stat-box" onclick="changePage('vendor')">
 📨 Vendor
-
 <br><br>
-
 <span id="vendorCount">0</span>
-
 </div>
 
-<div class="stat-box"
-onclick="showCalledCustomers()">
-
+<div class="stat-box" onclick="showCalledCustomers()">
 📞 Called
-
 <br><br>
-
 <span id="calledCount">0</span>
-
 </div>
 
 </div>
@@ -382,20 +322,15 @@ onclick="showCalledCustomers()">
 
 <button class="main-btn red"
 onclick="deleteCurrentSection()">
-
 🗑 Delete Section
-
 </button>
 
 <button class="main-btn purple"
 onclick="exportCurrentSection()">
-
 📤 Export Excel
-
 </button>
 
 </div>
-
 </div>
 
 <div id="customerList"></div>
@@ -412,20 +347,30 @@ let currentPage='main';
 
 function saveData(){
 
-localStorage.setItem('customers',
-JSON.stringify(customers));
+localStorage.setItem(
+'customers',
+JSON.stringify(customers)
+);
 
-localStorage.setItem('interestedCustomers',
-JSON.stringify(interestedCustomers));
+localStorage.setItem(
+'interestedCustomers',
+JSON.stringify(interestedCustomers)
+);
 
-localStorage.setItem('completedCustomers',
-JSON.stringify(completedCustomers));
+localStorage.setItem(
+'completedCustomers',
+JSON.stringify(completedCustomers)
+);
 
-localStorage.setItem('rejectCustomers',
-JSON.stringify(rejectCustomers));
+localStorage.setItem(
+'rejectCustomers',
+JSON.stringify(rejectCustomers)
+);
 
-localStorage.setItem('vendorSentCustomers',
-JSON.stringify(vendorSentCustomers));
+localStorage.setItem(
+'vendorSentCustomers',
+JSON.stringify(vendorSentCustomers)
+);
 
 }
 
@@ -480,7 +425,8 @@ return '';
 
 function loadExcel(){
 
-const file=document.getElementById('excelFile').files[0];
+const file=
+document.getElementById('excelFile').files[0];
 
 if(!file){
 
@@ -498,9 +444,11 @@ const data=new Uint8Array(e.target.result);
 
 const workbook=XLSX.read(data,{type:'array'});
 
-const sheet=workbook.Sheets[workbook.SheetNames[0]];
+const sheet=
+workbook.Sheets[workbook.SheetNames[0]];
 
-const imported=XLSX.utils.sheet_to_json(sheet);
+const imported=
+XLSX.utils.sheet_to_json(sheet);
 
 let added=0;
 
@@ -511,8 +459,7 @@ String(findColumn(c,
 ['mobile','phone','contact','number']))
 .replace(/\D/g,'');
 
-const exists=
-[
+const exists=[
 ...customers,
 ...interestedCustomers,
 ...completedCustomers,
@@ -575,7 +522,8 @@ reader.readAsArrayBuffer(file);
 
 function loadVillageFilter(){
 
-const select=document.getElementById('villageFilter');
+const select=
+document.getElementById('villageFilter');
 
 select.innerHTML=
 `<option value="">🌍 All Villages</option>`;
@@ -618,13 +566,17 @@ function getCurrentArray(){
 
 if(currentPage==='main') return customers;
 
-if(currentPage==='interested') return interestedCustomers;
+if(currentPage==='interested')
+return interestedCustomers;
 
-if(currentPage==='completed') return completedCustomers;
+if(currentPage==='completed')
+return completedCustomers;
 
-if(currentPage==='reject') return rejectCustomers;
+if(currentPage==='reject')
+return rejectCustomers;
 
-if(currentPage==='vendor') return vendorSentCustomers;
+if(currentPage==='vendor')
+return vendorSentCustomers;
 
 if(currentPage==='called'){
 
@@ -652,7 +604,8 @@ renderCustomers();
 
 function renderCustomers(){
 
-const list=document.getElementById('customerList');
+const list=
+document.getElementById('customerList');
 
 const search=
 document.getElementById('searchBox')
@@ -710,7 +663,8 @@ filtered.forEach(customer=>{
 
 const name=
 findColumn(customer,
-['consumer name','customer name','name']) || 'No Name';
+['consumer name','customer name','name'])
+|| 'No Name';
 
 const mobile=
 findColumn(customer,
@@ -739,15 +693,11 @@ html+=`
 <div class="customer-top">
 
 <h3 class="${customer.called ? 'called-name' : ''}">
-
 👤 ${name}
-
 </h3>
 
 <div class="badge">
-
 ${currentPage.toUpperCase()}
-
 </div>
 
 </div>
@@ -823,56 +773,38 @@ Photo
 
 <button class="btn green"
 onclick="callCustomer('${customer.id}')">
-
 <span>📞</span>
-
 <small>Call</small>
-
 </button>
 
 <button class="btn blue"
 onclick="sendWhatsapp('${customer.id}')">
-
 <span>🟢</span>
-
 <small>Msg</small>
-
 </button>
 
 <button class="btn orange"
 onclick="moveInterested('${customer.id}')">
-
 <span>✅</span>
-
 <small>Interested</small>
-
 </button>
 
 <button class="btn gray"
 onclick="moveReject('${customer.id}')">
-
 <span>❌</span>
-
 <small>Reject</small>
-
 </button>
 
 <button class="btn black"
 onclick="sendVendor('${customer.id}')">
-
 <span>📨</span>
-
 <small>Vendor</small>
-
 </button>
 
 <button class="btn red"
 onclick="sendPendingDocs('${customer.id}')">
-
 <span>📄</span>
-
 <small>Pending</small>
-
 </button>
 
 </div>
@@ -906,8 +838,7 @@ rejectCustomers.length;
 document.getElementById('vendorCount').innerText=
 vendorSentCustomers.length;
 
-const called=
-[
+const called=[
 ...customers,
 ...interestedCustomers,
 ...completedCustomers,
@@ -952,7 +883,8 @@ customer.documents.photo;
 
 if(complete){
 
-customer.installation='Registration Started';
+customer.installation=
+'Registration Started';
 
 customers=
 customers.filter(c=>c.id!==customer.id);
@@ -1102,8 +1034,7 @@ function sendVendor(id){
 
 const vendor=
 document.getElementById('vendorMobile')
-.value
-.replace(/\D/g,'');
+.value.replace(/\D/g,'');
 
 if(vendor.length<10){
 
@@ -1127,18 +1058,79 @@ saveData();
 
 renderCustomers();
 
+const nameTransfer=
+document.getElementById('nameTransfer').value;
+
+const bankTime=
+document.getElementById('bankTime').value || '2 Din';
+
+let pending=[];
+
+if(!customer.documents.aadhaar)
+pending.push('Aadhaar Card');
+
+if(!customer.documents.pan)
+pending.push('PAN Card');
+
+if(!customer.documents.sbi)
+pending.push('SBI Passbook');
+
+if(!customer.documents.bill)
+pending.push('Electricity Bill');
+
+if(!customer.documents.photo)
+pending.push('Photo');
+
+let docStatus='';
+
+if(pending.length===0){
+
+docStatus=
+`✅ Sare Documents Complete Hai.
+Registration Process Start Kare.`;
+
+}else{
+
+docStatus=
+`⚠️ Pending Documents:
+${pending.join(', ')}`;
+
+}
+
+let transferMsg='';
+
+if(nameTransfer==='Yes'){
+
+transferMsg=
+`🪪 Name Transfer Case Hai.
+Approx 4 Din Lag Sakte Hai.`;
+
+}
+
 const text=
 `☀️ DHAKAD AGRO SOLAR SOLUTION
 
-👤 Customer: ${findColumn(customer,['consumer name','name'])}
+👤 Customer:
+${findColumn(customer,['consumer name','name'])}
 
-📱 Mobile: ${findColumn(customer,['mobile','phone'])}
+📱 Mobile:
+${findColumn(customer,['mobile','phone'])}
 
-🏡 Village: ${findColumn(customer,['village','address'])}
+🏡 Village:
+${findColumn(customer,['village','address'])}
 
-🔢 Consumer No: ${findColumn(customer,['consumer'])}
+🔢 Consumer No:
+${findColumn(customer,['consumer'])}
 
-📞 Vijay Yadav 9183353063`;
+${docStatus}
+
+${transferMsg}
+
+🏦 Bank Account Time:
+${bankTime}
+
+📞 Vijay Yadav
+9183353063`;
 
 window.open(
 `https://wa.me/91${vendor}?text=${encodeURIComponent(text)}`,
@@ -1213,13 +1205,17 @@ return;
 
 if(currentPage==='main') customers=[];
 
-if(currentPage==='interested') interestedCustomers=[];
+if(currentPage==='interested')
+interestedCustomers=[];
 
-if(currentPage==='completed') completedCustomers=[];
+if(currentPage==='completed')
+completedCustomers=[];
 
-if(currentPage==='reject') rejectCustomers=[];
+if(currentPage==='reject')
+rejectCustomers=[];
 
-if(currentPage==='vendor') vendorSentCustomers=[];
+if(currentPage==='vendor')
+vendorSentCustomers=[];
 
 saveData();
 
@@ -1279,5 +1275,4 @@ renderCustomers();
 </script>
 
 </body>
-
   </html>

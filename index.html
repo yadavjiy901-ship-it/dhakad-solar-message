@@ -1,28 +1,10 @@
-<!DOCTYPE html>
-<html lang="hi">
-
+<!DOCTYPE html><html lang="hi">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width,
-initial-scale=1,
-maximum-scale=1,
-minimum-scale=1,
-user-scalable=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Dhakad Solar CRM Pro</title>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
-<style>
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script><style>
 *{
 margin:0;
 padding:0;
@@ -33,762 +15,395 @@ font-family:'Poppins',sans-serif;
 
 body{
 background:#eef2f7;
-padding:16px;
-overflow-x:hidden;
+padding:14px;
+color:#111827;
 }
 
 header{
-background:linear-gradient(135deg,#16a34a,#15803d);
-padding:35px 20px;
-border-radius:30px;
+background:linear-gradient(135deg,#16a34a,#166534);
+padding:22px;
+border-radius:24px;
 color:white;
-text-align:center;
-margin-bottom:20px;
-box-shadow:0 8px 24px rgba(0,0,0,0.15);
+margin-bottom:16px;
+box-shadow:0 6px 18px rgba(0,0,0,0.12);
 }
 
 header h1{
-font-size:34px;
+font-size:28px;
 font-weight:700;
-margin-bottom:10px;
 }
 
 header p{
-font-size:18px;
-opacity:0.95;
+margin-top:6px;
+font-size:14px;
+opacity:0.9;
 }
 
 .card{
 background:white;
-padding:24px;
-border-radius:28px;
-margin-bottom:20px;
-box-shadow:0 6px 20px rgba(0,0,0,0.08);
-}
-
-input,select{
-width:100%;
-padding:18px;
-border-radius:18px;
-border:1px solid #d1d5db;
-font-size:18px;
-margin-bottom:16px;
-outline:none;
-background:white;
-}
-
-.btn{
-width:100%;
 padding:16px;
-border:none;
-border-radius:18px;
-font-size:17px;
-font-weight:700;
-color:white;
-cursor:pointer;
-margin-top:10px;
-text-decoration:none;
-display:block;
-text-align:center;
-transition:0.2s;
+border-radius:22px;
+margin-bottom:14px;
+box-shadow:0 4px 14px rgba(0,0,0,0.08);
 }
 
-.btn:active{
-transform:scale(0.97);
-}
-
-.green{
-background:#16a34a;
-}
-
-.blue{
-background:#2563eb;
-}
-
-.orange{
-background:#f59e0b;
-}
-
-.red{
-background:#dc2626;
-}
-
-.black{
-background:#111827;
-}
-
-.gray{
-background:#6b7280;
+input,select,textarea{
+width:100%;
+padding:14px;
+border-radius:14px;
+border:1px solid #d1d5db;
+font-size:14px;
+margin-bottom:10px;
+outline:none;
 }
 
 .stats{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:12px;
-margin-bottom:20px;
+gap:10px;
+margin-bottom:14px;
 }
 
 .stat-box{
 background:white;
-padding:18px;
-border-radius:24px;
+padding:14px;
+border-radius:18px;
 text-align:center;
 font-weight:700;
-font-size:18px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
+box-shadow:0 4px 14px rgba(0,0,0,0.08);
 }
 
 .customer{
 background:white;
-padding:24px;
-border-radius:28px;
-margin-bottom:18px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
-animation:fade 0.25s ease;
-}
-
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(10px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
+padding:16px;
+border-radius:20px;
+margin-bottom:14px;
+box-shadow:0 4px 14px rgba(0,0,0,0.08);
 }
 
 .customer h3{
-font-size:24px;
+font-size:18px;
 margin-bottom:10px;
 }
 
 .info{
-font-size:17px;
-margin-bottom:10px;
+font-size:13px;
+margin-bottom:6px;
 word-break:break-word;
+}
+
+.priority{
+padding:5px 10px;
+border-radius:12px;
+font-size:12px;
+color:white;
+display:inline-block;
+margin-top:8px;
+}
+
+.hot{background:#dc2626;}
+.medium{background:#f59e0b;}
+.cold{background:#2563eb;}
+
+.called-tag{
+background:#16a34a;
+color:white;
+padding:5px 10px;
+border-radius:12px;
+font-size:12px;
+display:inline-block;
+margin-top:8px;
 }
 
 .buttons{
 display:grid;
-gap:12px;
-margin-top:18px;
+grid-template-columns:1fr 1fr 1fr;
+gap:8px;
+margin-top:14px;
 }
 
-.priority{
-display:inline-block;
-padding:6px 12px;
+.btn{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:4px;
+padding:10px;
+border:none;
 border-radius:14px;
 color:white;
-font-size:14px;
-font-weight:700;
-margin-top:10px;
+font-size:11px;
+font-weight:600;
+cursor:pointer;
+min-height:72px;
 }
 
-.hot{
-background:#dc2626;
+.btn span{
+font-size:22px;
 }
 
-.medium{
-background:#f59e0b;
+.green{background:#16a34a;}
+.blue{background:#2563eb;}
+.orange{background:#ea580c;}
+.gray{background:#6b7280;}
+.black{background:#111827;}
+.red{background:#dc2626;}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:8px;
+padding:10px;
+box-shadow:0 -4px 12px rgba(0,0,0,0.1);
+z-index:999;
 }
 
-.cold{
-background:#2563eb;
-}
-
-.called-tag{
-display:inline-block;
-background:#dc2626;
+.bottom-nav button{
+background:#16a34a;
 color:white;
-padding:6px 12px;
-border-radius:12px;
-font-size:13px;
+border:none;
+padding:12px;
+border-radius:14px;
+font-size:18px;
 font-weight:700;
-margin-top:10px;
 }
 
-.footer{
-text-align:center;
-padding:20px;
-font-size:15px;
-color:#6b7280;
+.floating{
+position:fixed;
+bottom:82px;
+right:18px;
+width:58px;
+height:58px;
+border-radius:50%;
+background:#22c55e;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+text-decoration:none;
+box-shadow:0 6px 18px rgba(0,0,0,0.2);
 }
 
-.multi-text{
-font-size:14px;
-color:#6b7280;
-margin-top:-5px;
+.footer-space{
+height:90px;
 }
 
-</style>
+.dark{
+background:#111827;
+color:white;
+}
 
-</head>
-
-<body>
-
-<header>
-
-<h1>
-☀️ Dhakad Agro Solar
-</h1>
-
-<p>
-Professional Solar CRM Pro
-</p>
-
-</header>
-
-<!-- FILE -->
-
-<div class="card">
-
-<input
-type="file"
-id="excelFile"
-accept=".xlsx,.xls">
-
-<button
-class="btn green"
-onclick="loadExcel()">
-
+.dark .card,
+.dark .customer,
+.dark .stat-box{
+background:#1f2937;
+color:white;
+}
+</style></head><body><header>
+<h1>☀️ DHAKAD AGRO SOLAR SOLUTION</h1>
+<p>Authorized Partner - Vijay Yadav</p>
+</header><div class="card">
+<input type="file" id="excelFile" accept=".xlsx,.xls">
+<button onclick="loadExcel()" style="width:100%;padding:14px;border:none;border-radius:14px;background:#16a34a;color:white;font-weight:700;">
 📂 Upload Customer Data
-
+</button><button onclick="toggleDarkMode()" style="width:100%;padding:14px;border:none;border-radius:14px;background:#111827;color:white;font-weight:700;margin-top:10px;">
+🌙 Dark Mode
 </button>
-
-<button
-class="btn blue"
-onclick="exportInterested()">
-
-📤 Export Interested Data
-
+</div><div class="card">
+<input type="text" id="searchBox" placeholder="🔍 Search Customer" onkeyup="renderCustomers()">
+<select id="villageFilter" multiple onchange="renderCustomers()" style="height:160px;"></select>
+</div><div class="card">
+<h3 style="margin-bottom:10px;">📨 Vendor Transfer</h3>
+<input type="text" id="vendorName" placeholder="Vendor Name">
+<input type="text" id="vendorMobile" placeholder="Vendor Mobile Number">
+<textarea id="vendorNote" placeholder="Vendor Note"></textarea>
+<button onclick="saveVendorLog()" style="width:100%;padding:14px;border:none;border-radius:14px;background:#ea580c;color:white;font-weight:700;">
+📦 Save Vendor Transfer
 </button>
+<div id="vendorLogs"></div>
+</div><div class="stats">
+<div class="stat-box">👥 Main<br><br><span id="mainCount">0</span></div>
+<div class="stat-box">✅ Interested<br><br><span id="interestedCount">0</span></div>
+<div class="stat-box">❌ Reject<br><br><span id="notInterestedCount">0</span></div>
+<div class="stat-box">📞 Called<br><br><span id="calledCount">0</span></div>
+</div><div id="customerList"></div><a href="https://wa.me/919183353063" target="_blank" class="floating">🟢</a>
 
-</div>
+<div class="footer-space"></div><div class="bottom-nav">
+<button onclick="changePage('main')">🏠</button>
+<button onclick="changePage('interested')">✅</button>
+<button onclick="changePage('notInterested')">❌</button>
+</div><script>
 
-<!-- SEARCH + FILTER -->
+const entered=prompt('🔒 Enter Security PIN');
 
-<div class="card">
+if(entered!=='2003'){
 
-<input
-type="text"
-id="searchBox"
-placeholder="🔍 Search Customer"
-onkeyup="renderCustomers()">
+document.body.innerHTML=`
+<div style="height:100vh;background:#111827;color:white;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+<h1>🔒 Access Denied</h1>
+</div>`;
 
-<select
-id="villageFilter"
-multiple
-onchange="renderCustomers()"
-style="height:220px;">
-
-</select>
-
-<div class="multi-text">
-
-📌 Multiple गांव select करने के लिए long press करें
-
-</div>
-
-</div>
-
-<!-- STATS -->
-
-<div class="stats">
-
-<div class="stat-box">
-
-<div onclick="changePage('main')">
-
-👥 Main
-
-<br><br>
-
-<span id="mainCount">
-0
-</span>
-
-</div>
-
-<button
-class="btn red"
-onclick="clearMainData()">
-
-🗑 Delete
-
-</button>
-
-</div>
-
-<div class="stat-box">
-
-<div onclick="changePage('interested')">
-
-✅ Interested
-
-<br><br>
-
-<span id="interestedCount">
-0
-</span>
-
-</div>
-
-<button
-class="btn red"
-onclick="clearInterestedData()">
-
-🗑 Delete
-
-</button>
-
-</div>
-
-<div class="stat-box">
-
-<div onclick="changePage('notInterested')">
-
-❌ Not Interested
-
-<br><br>
-
-<span id="notInterestedCount">
-0
-</span>
-
-</div>
-
-<button
-class="btn red"
-onclick="clearNotInterestedData()">
-
-🗑 Delete
-
-</button>
-
-</div>
-
-</div>
-
-<!-- CUSTOMER LIST -->
-
-<div id="customerList"></div>
-
-<div class="footer">
-
-Dhakad Agro Solar Solution
-
-<br><br>
-
-📞 9183353063
-
-</div>
-
-<script>
-
-/* =========================
-DATA
-========================= */
+throw new Error('Wrong PIN');
+}
 
 let customers=[];
 let interestedCustomers=[];
 let notInterestedCustomers=[];
-
+let vendorLogs=[];
 let currentPage='main';
 
-/* =========================
-SMART COLUMN FINDER
-========================= */
+function saveData(){
+localStorage.setItem('customers',JSON.stringify(customers));
+localStorage.setItem('interestedCustomers',JSON.stringify(interestedCustomers));
+localStorage.setItem('notInterestedCustomers',JSON.stringify(notInterestedCustomers));
+localStorage.setItem('vendorLogs',JSON.stringify(vendorLogs));
+}
+
+function loadData(){
+customers=JSON.parse(localStorage.getItem('customers'))||[];
+interestedCustomers=JSON.parse(localStorage.getItem('interestedCustomers'))||[];
+notInterestedCustomers=JSON.parse(localStorage.getItem('notInterestedCustomers'))||[];
+vendorLogs=JSON.parse(localStorage.getItem('vendorLogs'))||[];
+
+loadVillageFilter();
+renderCustomers();
+renderVendorLogs();
+}
+
+window.onload=loadData;
 
 function findColumn(customer,keywords){
-
 const keys=Object.keys(customer);
 
 for(let key of keys){
-
-const lowerKey=key.toLowerCase().trim();
+const lower=key.toLowerCase();
 
 for(let word of keywords){
-
-if(lowerKey.includes(word)){
-
+if(lower.includes(word)){
 return customer[key];
-
 }
-
 }
-
 }
 
 return '';
-
 }
-
-/* =========================
-SAVE
-========================= */
-
-function saveData(){
-
-localStorage.setItem(
-'mainCustomers',
-JSON.stringify(customers)
-);
-
-localStorage.setItem(
-'interestedCustomers',
-JSON.stringify(interestedCustomers)
-);
-
-localStorage.setItem(
-'notInterestedCustomers',
-JSON.stringify(notInterestedCustomers)
-);
-
-}
-
-/* =========================
-LOAD
-========================= */
-
-function loadSavedData(){
-
-customers=
-JSON.parse(
-localStorage.getItem(
-'mainCustomers'
-)
-)||[];
-
-interestedCustomers=
-JSON.parse(
-localStorage.getItem(
-'interestedCustomers'
-)
-)||[];
-
-notInterestedCustomers=
-JSON.parse(
-localStorage.getItem(
-'notInterestedCustomers'
-)
-)||[];
-
-loadVillageFilter();
-
-renderCustomers();
-
-}
-
-document.addEventListener(
-'DOMContentLoaded',
-function(){
-
-loadSavedData();
-
-}
-);
-
-/* =========================
-LOAD VILLAGE FILTER
-========================= */
-
-function loadVillageFilter(){
-
-const select =
-document.getElementById('villageFilter');
-
-let villages = [];
-
-let allData = [
-...customers,
-...interestedCustomers,
-...notInterestedCustomers
-];
-
-allData.forEach(customer=>{
-
-const village =
-String(
-findColumn(
-customer,
-[
-'village',
-'gaon',
-'city',
-'address'
-]
-)
-).trim();
-
-if(village && !villages.includes(village)){
-
-villages.push(village);
-
-}
-
-});
-
-villages.sort();
-
-select.innerHTML='';
-
-villages.forEach(village=>{
-
-select.innerHTML +=
-`<option value="${village}">
-🏡 ${village}
-</option>`;
-
-});
-
-}
-
-/* =========================
-LOAD EXCEL
-========================= */
 
 function loadExcel(){
 
-const file=
-document.getElementById(
-'excelFile'
-).files[0];
+const file=document.getElementById('excelFile').files[0];
 
 if(!file){
-
 alert('Select Excel File');
-
 return;
-
 }
 
-const reader=
-new FileReader();
+const reader=new FileReader();
 
-reader.onload=
-function(e){
+reader.onload=function(e){
 
-const data=
-new Uint8Array(
-e.target.result
-);
+const data=new Uint8Array(e.target.result);
 
-const workbook=
-XLSX.read(
-data,
-{type:'array'}
-);
+const workbook=XLSX.read(data,{type:'array'});
 
-const sheet=
-workbook.Sheets[
-workbook.SheetNames[0]
-];
+const sheet=workbook.Sheets[workbook.SheetNames[0]];
 
-const importedData=
-XLSX.utils.sheet_to_json(sheet);
+const imported=XLSX.utils.sheet_to_json(sheet);
 
-importedData.forEach(newCustomer=>{
+imported.forEach(c=>{
 
-const newMobile=
-String(
-findColumn(
-newCustomer,
-[
-'mobile',
-'phone',
-'contact',
-'number'
-]
-)
-);
+const mobile=String(findColumn(c,['mobile','phone','contact'])).replace(/\D/g,'');
 
-const exists=
-customers.some(customer=>{
+const exists=customers.some(old=>{
 
-const mobile=
-String(
-findColumn(
-customer,
-[
-'mobile',
-'phone',
-'contact',
-'number'
-]
-)
-);
+const oldMobile=String(findColumn(old,['mobile','phone','contact'])).replace(/\D/g,'');
 
-return mobile===newMobile;
+return oldMobile===mobile;
 
 });
 
-if(!exists){
+if(!exists && mobile.length>=10){
 
-newCustomer.priority='Medium';
-newCustomer.notes='';
-newCustomer.called=false;
+c.priority='Medium';
+c.notes='';
+c.called=false;
+c.status='Pending';
+c.transferDate='';
+c.payment='Pending';
 
-customers.push(newCustomer);
-
+customers.push(c);
 }
 
 });
 
 saveData();
-
 loadVillageFilter();
-
 renderCustomers();
 
 alert('Customer Imported Successfully');
-
 };
 
 reader.readAsArrayBuffer(file);
-
 }
 
-/* =========================
-PAGE
-========================= */
+function loadVillageFilter(){
+
+const select=document.getElementById('villageFilter');
+
+let villages=[];
+
+customers.forEach(c=>{
+
+const village=String(findColumn(c,['village','address','gaon'])).trim();
+
+if(village && !villages.includes(village)){
+villages.push(village);
+}
+
+});
+
+select.innerHTML='';
+
+villages.sort();
+
+villages.forEach(v=>{
+select.innerHTML+=`<option value="${v}">🏡 ${v}</option>`;
+});
+}
 
 function changePage(page){
-
 currentPage=page;
-
 renderCustomers();
-
 }
-
-/* =========================
-RENDER
-========================= */
 
 function renderCustomers(){
 
-const list=
-document.getElementById(
-'customerList'
-);
+const list=document.getElementById('customerList');
 
-const search=
-document.getElementById(
-'searchBox'
-).value.toLowerCase();
+const search=document.getElementById('searchBox').value.toLowerCase();
 
-const selectedOptions =
-Array.from(
-document.getElementById(
-'villageFilter'
-).selectedOptions
-);
-
-const selectedVillages =
-selectedOptions.map(option =>
-option.value.toLowerCase()
-);
+const selected=[...document.getElementById('villageFilter').selectedOptions].map(o=>o.value.toLowerCase());
 
 let data=[];
 
-if(currentPage==='main'){
-data=customers;
-}
+if(currentPage==='main') data=customers;
+if(currentPage==='interested') data=interestedCustomers;
+if(currentPage==='notInterested') data=notInterestedCustomers;
 
-if(currentPage==='interested'){
-data=interestedCustomers;
-}
+const filtered=data.filter(c=>{
 
-if(currentPage==='notInterested'){
-data=notInterestedCustomers;
-}
+const name=String(findColumn(c,['name','consumer'])).toLowerCase();
+const village=String(findColumn(c,['village','address'])).toLowerCase();
+const mobile=String(findColumn(c,['mobile','phone']));
 
-document.getElementById(
-'mainCount'
-).innerText=
-customers.length;
+const searchMatch=name.includes(search)||village.includes(search)||mobile.includes(search);
+const villageMatch=selected.length===0||selected.includes(village);
 
-document.getElementById(
-'interestedCount'
-).innerText=
-interestedCustomers.length;
-
-document.getElementById(
-'notInterestedCount'
-).innerText=
-notInterestedCustomers.length;
-
-const filtered=
-data.filter(customer=>{
-
-const name=
-String(
-findColumn(
-customer,
-[
-'name',
-'consumer'
-]
-)
-).toLowerCase();
-
-const village=
-String(
-findColumn(
-customer,
-[
-'village',
-'gaon',
-'city',
-'address'
-]
-)
-).toLowerCase();
-
-const mobile=
-String(
-findColumn(
-customer,
-[
-'mobile',
-'phone',
-'contact'
-]
-)
-);
-
-const consumer=
-String(
-findColumn(
-customer,
-[
-'consumer',
-'service',
-'account',
-'connection'
-]
-)
-).toLowerCase();
-
-const matchesSearch = (
-
-name.includes(search)
-||
-village.includes(search)
-||
-mobile.includes(search)
-||
-consumer.includes(search)
-
-);
-
-const matchesVillage =
-
-selectedVillages.length === 0
-||
-selectedVillages.includes(village);
-
-return matchesSearch && matchesVillage;
+return searchMatch && villageMatch;
 
 });
 
@@ -796,523 +411,210 @@ let html='';
 
 filtered.forEach((customer,index)=>{
 
-const serial=
-findColumn(
-customer,
-[
-'sr',
-'serial'
-]
-);
-
-const name=
-findColumn(
-customer,
-[
-'consumer name',
-'name hindi',
-'customer name',
-'name'
-]
-)
-||
-'No Name';
-
-const village=
-findColumn(
-customer,
-[
-'village',
-'gaon',
-'city',
-'address'
-]
-);
-
-const mobile=
-findColumn(
-customer,
-[
-'mobile',
-'phone',
-'contact',
-'number'
-]
-);
-
-const consumer=
-findColumn(
-customer,
-[
-'consumer',
-'service',
-'account',
-'connection'
-]
-);
-
-const load=
-findColumn(
-customer,
-[
-'load',
-'kw',
-'sanctioned',
-'lod'
-]
-);
-
-const units=
-findColumn(
-customer,
-[
-'unit',
-'consumption'
-]
-);
-
-const bill=
-findColumn(
-customer,
-[
-'bill',
-'amount'
-]
-);
-
-const notes=
-customer.notes
-||
-'No Notes';
-
-const priority=
-customer.priority
-||
-'Medium';
-
-let priorityClass='medium';
-
-if(priority==='Hot'){
-priorityClass='hot';
-}
-
-if(priority==='Cold'){
-priorityClass='cold';
-}
-
-let buttons='';
-
-if(currentPage==='main'){
-
-buttons=`
-
-<a
-href="tel:${mobile}"
-class="btn green"
-onclick="markCalled(${index})">
-
-📞 Call Now
-
-</a>
-
-<button
-class="btn blue"
-onclick="sendWhatsapp(${index})">
-
-🟢 WhatsApp
-
-</button>
-
-<button
-class="btn orange"
-onclick="setPriority(${index})">
-
-⭐ Priority
-
-</button>
-
-<button
-class="btn black"
-onclick="addNote(${index})">
-
-📝 Add Note
-
-</button>
-
-<button
-class="btn red"
-onclick="deleteSingleCustomer(${index})">
-
-🗑 Delete Customer
-
-</button>
-
-`;
-
-}
-
-if(currentPage==='interested'){
-
-buttons=`
-
-<button
-class="btn blue"
-onclick="moveInterested(${index})">
-
-✅ Move Interested
-
-</button>
-
-`;
-
-}
-
-if(currentPage==='notInterested'){
-
-buttons=`
-
-<button
-class="btn gray"
-onclick="moveNotInterested(${index})">
-
-❌ Move Not Interested
-
-</button>
-
-`;
-
-}
+const name=findColumn(customer,['consumer name','name'])||'No Name';
+const mobile=findColumn(customer,['mobile','phone','contact']);
+const village=findColumn(customer,['village','address']);
+const consumer=findColumn(customer,['consumer','account']);
+const bill=findColumn(customer,['bill']);
+const notes=customer.notes||'No Notes';
+const priority=customer.priority||'Medium';
 
 html+=`
-
 <div class="customer">
 
-<div style="
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:18px;
-">
+<h3>👤 ${name}</h3>
 
-<h3>
-👤 ${name}
-</h3>
+<div class="info">📱 ${mobile}</div>
+<div class="info">🏡 ${village}</div>
+<div class="info">🔢 ${consumer}</div>
+<div class="info">💰 Bill: ₹${bill}</div>
+<div class="info">📝 ${notes}</div>
+<div class="info">📦 Status: ${customer.status}</div>
+<div class="info">💵 Payment: ${customer.payment}</div>
 
-<div style="
-background:#16a34a;
-color:white;
-padding:8px 14px;
-border-radius:14px;
-font-size:15px;
-font-weight:700;
-">
-
-#${serial}
-
-</div>
-
-</div>
-
-<div class="info">
-📱 Mobile: ${mobile}
-</div>
-
-<div class="info">
-🔢 Consumer No: ${consumer}
-</div>
-
-<div class="info">
-🏡 Village: ${village}
-</div>
-
-<div class="info">
-⚡ Load: ${load}
-</div>
-
-<div class="info">
-📊 Units: ${units}
-</div>
-
-<div class="info">
-💰 Net Bill: ₹${bill}
-</div>
-
-<div class="info">
-📝 Notes: ${notes}
-</div>
-
-<div class="priority ${priorityClass}">
+<div class="priority ${priority.toLowerCase()}">
 ⭐ ${priority}
 </div>
 
-${customer.called ? `
-<div class="called-tag">
-📞 Call Laga Diya Gaya
-</div>
-` : ''}
+${customer.called ? '<div class="called-tag">📞 Called</div>' : ''}
 
 <div class="buttons">
 
-${buttons}
+<button class="btn green" onclick="callCustomer(${index})">
+<span>📞</span>
+<small>Call</small>
+</button>
+
+<button class="btn blue" onclick="sendWhatsapp(${index})">
+<span>🟢</span>
+<small>WhatsApp</small>
+</button>
+
+<button class="btn orange" onclick="moveInterested(${index})">
+<span>✅</span>
+<small>Interested</small>
+</button>
+
+<button class="btn gray" onclick="moveNotInterested(${index})">
+<span>❌</span>
+<small>Reject</small>
+</button>
+
+<button class="btn black" onclick="addNote(${index})">
+<span>📝</span>
+<small>Notes</small>
+</button>
+
+<button class="btn red" onclick="deleteCustomer(${index})">
+<span>🗑</span>
+<small>Delete</small>
+</button>
 
 </div>
 
-</div>
-
-`;
+</div>`;
 
 });
 
 list.innerHTML=html;
 
+const called=customers.filter(c=>c.called).length;
+
+document.getElementById('mainCount').innerText=customers.length;
+document.getElementById('interestedCount').innerText=interestedCustomers.length;
+document.getElementById('notInterestedCount').innerText=notInterestedCustomers.length;
+document.getElementById('calledCount').innerText=called;
 }
 
-/* =========================
-MARK CALLED
-========================= */
-
-function markCalled(index){
+function callCustomer(index){
 
 customers[index].called=true;
+customers[index].calledTime=new Date().toLocaleString();
 
 saveData();
-
 renderCustomers();
 
+const mobile=findColumn(customers[index],['mobile','phone']);
+
+window.location.href=`tel:${mobile}`;
 }
 
-/* =========================
-DELETE SINGLE CUSTOMER
-========================= */
+function sendWhatsapp(index){
 
-function deleteSingleCustomer(index){
+const customer=customers[index];
 
-if(confirm('Delete This Customer?')){
+const name=findColumn(customer,['name','consumer']);
 
-customers.splice(index,1);
+const mobile=String(findColumn(customer,['mobile','phone','contact'])).replace(/\D/g,'');
 
-saveData();
+const text=`☀️ नमस्कार ${name} जी,
 
-loadVillageFilter();
+प्रधानमंत्री पीएम सूर्य घर योजना के अंतर्गत ₹0 निवेश में Solar System लगवाने का शानदार अवसर।
 
-renderCustomers();
+✅ ₹78,000 तक सब्सिडी
+✅ आसान किस्तें
+✅ 30 साल गारंटी
 
+📞 DHAKAD AGRO SOLAR SOLUTION
+Vijay Yadav
+9183353063`;
+
+window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,'_blank');
 }
-
-}
-
-/* =========================
-MOVE INTERESTED
-========================= */
 
 function moveInterested(index){
+
+customers[index].status='Interested';
+customers[index].interestedTime=new Date().toLocaleString();
 
 interestedCustomers.push(customers[index]);
 
 customers.splice(index,1);
 
 saveData();
-
-loadVillageFilter();
-
 renderCustomers();
-
 }
 
-/* =========================
-MOVE NOT INTERESTED
-========================= */
-
 function moveNotInterested(index){
+
+customers[index].status='Rejected';
+customers[index].rejectTime=new Date().toLocaleString();
 
 notInterestedCustomers.push(customers[index]);
 
 customers.splice(index,1);
 
 saveData();
-
-loadVillageFilter();
-
 renderCustomers();
-
 }
-
-/* =========================
-PRIORITY
-========================= */
-
-function setPriority(index){
-
-const level=
-prompt(
-'Enter Priority: Hot / Medium / Cold'
-);
-
-if(level){
-
-customers[index].priority=level;
-
-saveData();
-
-renderCustomers();
-
-}
-
-}
-
-/* =========================
-NOTES
-========================= */
 
 function addNote(index){
 
-const note=
-prompt(
-'Enter Note'
-);
+const note=prompt('Enter Note');
 
 if(note){
-
 customers[index].notes=note;
+saveData();
+renderCustomers();
+}
+}
+
+function deleteCustomer(index){
+
+if(confirm('Delete Customer?')){
+customers.splice(index,1);
+saveData();
+renderCustomers();
+}
+}
+
+function saveVendorLog(){
+
+const vendor=document.getElementById('vendorName').value;
+const mobile=document.getElementById('vendorMobile').value;
+const note=document.getElementById('vendorNote').value;
+
+if(!vendor || !mobile || !note){
+alert('Fill Vendor Details');
+return;
+}
+
+vendorLogs.unshift({
+vendor,
+mobile,
+note,
+time:new Date().toLocaleString()
+});
 
 saveData();
-
-renderCustomers();
-
-}
+renderVendorLogs();
 
 }
 
-/* =========================
-NORMAL WHATSAPP
-========================= */
+function renderVendorLogs(){
 
-function sendWhatsapp(index){
+const box=document.getElementById('vendorLogs');
 
-const customer=
-customers[index];
+let html='';
 
-const name=
-findColumn(
-customer,
-[
-'name',
-'consumer'
-]
-);
+vendorLogs.forEach(log=>{
 
-const mobile=
-findColumn(
-customer,
-[
-'mobile',
-'phone',
-'contact',
-'number'
-]
-);
+html+=`
+<div style="background:#f3f4f6;padding:12px;border-radius:14px;margin-top:10px;">
+<b>👨‍🔧 ${log.vendor}</b><br><br>
+📱 ${log.mobile}<br><br>
+📦 ${log.note}<br><br>
+🕒 ${log.time}
+</div>`;
 
-const text=
-`🌞 नमस्कार ${name} जी,
+});
 
-Dhakad Agro Solar Solution की ओर से आपका स्वागत है।`;
-
-window.open(
-`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
-'_blank'
-);
-
+box.innerHTML=html;
 }
 
-/* =========================
-CLEAR MAIN
-========================= */
-
-function clearMainData(){
-
-if(confirm('Delete Main Data?')){
-
-customers=[];
-
-saveData();
-
-loadVillageFilter();
-
-renderCustomers();
-
+function toggleDarkMode(){
+document.body.classList.toggle('dark');
 }
 
-}
-
-/* =========================
-CLEAR INTERESTED
-========================= */
-
-function clearInterestedData(){
-
-if(confirm('Delete Interested Data?')){
-
-interestedCustomers=[];
-
-saveData();
-
-loadVillageFilter();
-
-renderCustomers();
-
-}
-
-}
-
-/* =========================
-CLEAR NOT INTERESTED
-========================= */
-
-function clearNotInterestedData(){
-
-if(confirm('Delete Not Interested Data?')){
-
-notInterestedCustomers=[];
-
-saveData();
-
-loadVillageFilter();
-
-renderCustomers();
-
-}
-
-}
-
-/* =========================
-EXPORT
-========================= */
-
-function exportInterested(){
-
-const worksheet=
-XLSX.utils.json_to_sheet(
-interestedCustomers
-);
-
-const workbook=
-XLSX.utils.book_new();
-
-XLSX.utils.book_append_sheet(
-workbook,
-worksheet,
-'Interested Customers'
-);
-
-XLSX.writeFile(
-workbook,
-'Interested_Customers.xlsx'
-);
-
-}
-
-</script>
-
-</body>
-
-  </html>
+</script></body>
+</html>

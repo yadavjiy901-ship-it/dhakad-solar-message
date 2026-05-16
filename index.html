@@ -1,334 +1,1405 @@
-<!DOCTYPE html><html lang="hi">
+<!DOCTYPE html>
+<html lang="hi">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>DHAKAD AGRO SOLAR SOLUTION - ULTRA PRO CRM</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script><style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;-webkit-tap-highlight-color:transparent}
-body{background:#eef2f7;padding:12px;color:#111827;overflow-x:hidden}
-header{background:linear-gradient(135deg,#16a34a,#166534);padding:24px;border-radius:26px;color:#fff;margin-bottom:16px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
-header h1{font-size:25px;font-weight:700}
-header p{font-size:13px;margin-top:6px;opacity:.95}
-.card{background:#fff;padding:16px;border-radius:22px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
-input,select,textarea{width:100%;padding:13px;border-radius:14px;border:1px solid #d1d5db;font-size:14px;margin-bottom:10px;outline:none}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.stat-box{background:#fff;padding:18px;border-radius:20px;text-align:center;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.08);cursor:pointer}
-.stat-box:active{transform:scale(.98)}
-.customer{background:#fff;padding:16px;border-radius:22px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
-.customer-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.customer h3{font-size:18px}
-.called-name{color:#dc2626}
-.badge{background:#16a34a;color:#fff;padding:6px 10px;border-radius:12px;font-size:11px;font-weight:700}
-.info{font-size:13px;margin-bottom:6px;word-break:break-word}
-.doc-box{background:#f3f4f6;padding:10px;border-radius:14px;margin-top:10px;font-size:13px}
-.doc-box label{display:block;margin-bottom:6px}
-.buttons{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
-.btn{display:flex;flex-direction:column;align-items:center;justify-content:center;border:none;border-radius:16px;color:#fff;font-size:11px;font-weight:600;padding:10px;min-height:72px;cursor:pointer}
-.btn span{font-size:21px}
-.green{background:#16a34a}.blue{background:#2563eb}.orange{background:#ea580c}.gray{background:#6b7280}.red{background:#dc2626}.black{background:#111827}.purple{background:#7c3aed}
-.top-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.main-btn{width:100%;padding:14px;border:none;border-radius:14px;color:#fff;font-weight:700;cursor:pointer}
-.dark{background:#111827;color:#fff}
-.dark .card,.dark .customer,.dark .stat-box{background:#1f2937;color:#fff}
-</style></head>
-<body><header>
-<h1>☀️ DHAKAD AGRO SOLAR SOLUTION</h1>
-<p>Authorized Partner - Vijay Yadav | 📞 9183353063</p>
-</header><div class="card">
-<input type="file" id="excelFile" accept=".xlsx,.xls">
+
+<meta
+name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
+
+<title>
+DHAKAD AGRO SOLAR SOLUTION CRM
+</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+background:#eef2f7;
+padding:12px;
+color:#111827;
+overflow-x:hidden;
+}
+
+header{
+background:linear-gradient(135deg,#16a34a,#166534);
+padding:24px;
+border-radius:26px;
+color:#fff;
+margin-bottom:16px;
+box-shadow:0 8px 24px rgba(0,0,0,.15);
+}
+
+header h1{
+font-size:25px;
+font-weight:700;
+}
+
+header p{
+font-size:13px;
+margin-top:6px;
+opacity:.95;
+}
+
+.card{
+background:#fff;
+padding:16px;
+border-radius:22px;
+margin-bottom:14px;
+box-shadow:0 4px 14px rgba(0,0,0,.08);
+}
+
+input,
+select{
+width:100%;
+padding:13px;
+border-radius:14px;
+border:1px solid #d1d5db;
+font-size:14px;
+margin-bottom:10px;
+outline:none;
+}
+
+.stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-bottom:14px;
+}
+
+.stat-box{
+background:#fff;
+padding:18px;
+border-radius:20px;
+text-align:center;
+font-weight:700;
+box-shadow:0 4px 14px rgba(0,0,0,.08);
+cursor:pointer;
+}
+
+.customer{
+background:#fff;
+padding:16px;
+border-radius:22px;
+margin-bottom:14px;
+box-shadow:0 4px 14px rgba(0,0,0,.08);
+}
+
+.customer-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px;
+}
+
+.customer h3{
+font-size:18px;
+}
+
+.called-name{
+color:#dc2626;
+}
+
+.badge{
+background:#16a34a;
+color:#fff;
+padding:6px 10px;
+border-radius:12px;
+font-size:11px;
+font-weight:700;
+}
+
+.info{
+font-size:13px;
+margin-bottom:6px;
+word-break:break-word;
+}
+
+.doc-box{
+background:#f3f4f6;
+padding:10px;
+border-radius:14px;
+margin-top:10px;
+font-size:13px;
+}
+
+.doc-box label{
+display:block;
+margin-bottom:6px;
+}
+
+.buttons{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:8px;
+margin-top:12px;
+}
+
+.btn{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+border:none;
+border-radius:16px;
+color:#fff;
+font-size:11px;
+font-weight:600;
+padding:10px;
+min-height:72px;
+cursor:pointer;
+}
+
+.btn span{
+font-size:21px;
+}
+
+.green{
+background:#16a34a;
+}
+
+.blue{
+background:#2563eb;
+}
+
+.orange{
+background:#ea580c;
+}
+
+.gray{
+background:#6b7280;
+}
+
+.red{
+background:#dc2626;
+}
+
+.black{
+background:#111827;
+}
+
+.purple{
+background:#7c3aed;
+}
+
+.top-actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.main-btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+color:#fff;
+font-weight:700;
+cursor:pointer;
+}
+
+.dark{
+background:#111827;
+color:#fff;
+}
+
+.dark .card,
+.dark .customer,
+.dark .stat-box{
+background:#1f2937;
+color:#fff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>
+☀️ DHAKAD AGRO SOLAR SOLUTION
+</h1>
+
+<p>
+Authorized Partner - Vijay Yadav | 📞 9183353063
+</p>
+
+</header>
+
+<div class="card">
+
+<input
+type="file"
+id="excelFile"
+accept=".xlsx,.xls">
+
 <div class="top-actions">
-<button class="main-btn green" onclick="loadExcel()">📂 Upload Excel</button>
-<button class="main-btn black" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+<button
+class="main-btn green"
+onclick="loadExcel()">
+
+📂 Upload Excel
+
+</button>
+
+<button
+class="main-btn black"
+onclick="toggleDarkMode()">
+
+🌙 Dark Mode
+
+</button>
+
 </div>
-</div><div class="card">
-<input type="text" id="searchBox" placeholder="🔍 Search Name / Mobile / Village" onkeyup="renderCustomers()">
-<select id="villageFilter" multiple onchange="renderCustomers()" style="height:140px"></select>
-<input type="text" id="vendorMobile" placeholder="📨 Vendor Mobile Number">
-</div><div class="stats">
-<div class="stat-box" onclick="changePage('main')">👥 Main<br><br><span id="mainCount">0</span></div>
-<div class="stat-box" onclick="changePage('interested')">✅ Interested<br><br><span id="interestedCount">0</span></div>
-<div class="stat-box" onclick="changePage('completed')">📂 Completed<br><br><span id="completedCount">0</span></div>
-<div class="stat-box" onclick="changePage('reject')">❌ Reject<br><br><span id="rejectCount">0</span></div>
-</div><div class="card">
+
+</div>
+
+<div class="card">
+
+<input
+type="text"
+id="searchBox"
+placeholder="🔍 Search Name / Mobile / Village"
+onkeyup="renderCustomers()">
+
+<select
+id="villageFilter"
+onchange="renderCustomers()">
+
+<option value="">
+🌍 All Villages
+</option>
+
+</select>
+
+<input
+type="text"
+id="vendorMobile"
+placeholder="📨 Vendor Mobile Number">
+
+</div>
+
+<div class="stats">
+
+<div
+class="stat-box"
+onclick="changePage('main')">
+
+👥 Main
+
+<br><br>
+
+<span id="mainCount">0</span>
+
+</div>
+
+<div
+class="stat-box"
+onclick="changePage('interested')">
+
+✅ Interested
+
+<br><br>
+
+<span id="interestedCount">0</span>
+
+</div>
+
+<div
+class="stat-box"
+onclick="changePage('completed')">
+
+📂 Completed
+
+<br><br>
+
+<span id="completedCount">0</span>
+
+</div>
+
+<div
+class="stat-box"
+onclick="changePage('reject')">
+
+❌ Reject
+
+<br><br>
+
+<span id="rejectCount">0</span>
+
+</div>
+
+<div
+class="stat-box"
+onclick="changePage('vendor')">
+
+📨 Vendor
+
+<br><br>
+
+<span id="vendorCount">0</span>
+
+</div>
+
+</div>
+
+<div class="card">
+
 <div class="top-actions">
-<button class="main-btn red" onclick="deleteCurrentSection()">🗑 Delete Section</button>
-<button class="main-btn purple" onclick="exportCurrentSection()">📤 Export Excel</button>
+
+<button
+class="main-btn red"
+onclick="deleteCurrentSection()">
+
+🗑 Delete Section
+
+</button>
+
+<button
+class="main-btn purple"
+onclick="exportCurrentSection()">
+
+📤 Export Excel
+
+</button>
+
 </div>
-</div><div id="customerList"></div><script>
+
+</div>
+
+<div id="customerList"></div>
+
+<script>
+
 let customers=[];
 let interestedCustomers=[];
 let completedCustomers=[];
 let rejectCustomers=[];
+let vendorSentCustomers=[];
+
 let currentPage='main';
 
 function saveData(){
-localStorage.setItem('customers',JSON.stringify(customers));
-localStorage.setItem('interestedCustomers',JSON.stringify(interestedCustomers));
-localStorage.setItem('completedCustomers',JSON.stringify(completedCustomers));
-localStorage.setItem('rejectCustomers',JSON.stringify(rejectCustomers));
+
+localStorage.setItem(
+'customers',
+JSON.stringify(customers)
+);
+
+localStorage.setItem(
+'interestedCustomers',
+JSON.stringify(interestedCustomers)
+);
+
+localStorage.setItem(
+'completedCustomers',
+JSON.stringify(completedCustomers)
+);
+
+localStorage.setItem(
+'rejectCustomers',
+JSON.stringify(rejectCustomers)
+);
+
+localStorage.setItem(
+'vendorSentCustomers',
+JSON.stringify(vendorSentCustomers)
+);
+
 }
 
 function loadData(){
-customers=JSON.parse(localStorage.getItem('customers'))||[];
-interestedCustomers=JSON.parse(localStorage.getItem('interestedCustomers'))||[];
-completedCustomers=JSON.parse(localStorage.getItem('completedCustomers'))||[];
-rejectCustomers=JSON.parse(localStorage.getItem('rejectCustomers'))||[];
+
+customers=
+JSON.parse(
+localStorage.getItem('customers')
+)||[];
+
+interestedCustomers=
+JSON.parse(
+localStorage.getItem('interestedCustomers')
+)||[];
+
+completedCustomers=
+JSON.parse(
+localStorage.getItem('completedCustomers')
+)||[];
+
+rejectCustomers=
+JSON.parse(
+localStorage.getItem('rejectCustomers')
+)||[];
+
+vendorSentCustomers=
+JSON.parse(
+localStorage.getItem('vendorSentCustomers')
+)||[];
+
 loadVillageFilter();
+
 renderCustomers();
+
 }
+
 window.onload=loadData;
 
 function findColumn(customer,keywords){
+
 const keys=Object.keys(customer);
+
 for(let key of keys){
+
 const lower=key.toLowerCase();
+
 for(let word of keywords){
-if(lower.includes(word)) return customer[key];
+
+if(lower.includes(word)){
+
+return customer[key];
+
 }
+
 }
+
+}
+
 return '';
+
 }
 
 function loadExcel(){
-const file=document.getElementById('excelFile').files[0];
-if(!file){alert('Excel File Select Karo');return;}
+
+const file=
+document.getElementById(
+'excelFile'
+).files[0];
+
+if(!file){
+
+alert('Excel File Select Karo');
+
+return;
+
+}
 
 const reader=new FileReader();
+
 reader.onload=function(e){
-const data=new Uint8Array(e.target.result);
-const workbook=XLSX.read(data,{type:'array'});
-const sheet=workbook.Sheets[workbook.SheetNames[0]];
-const imported=XLSX.utils.sheet_to_json(sheet);
+
+const data=
+new Uint8Array(e.target.result);
+
+const workbook=
+XLSX.read(data,{type:'array'});
+
+const sheet=
+workbook.Sheets[
+workbook.SheetNames[0]
+];
+
+const imported=
+XLSX.utils.sheet_to_json(sheet);
 
 imported.forEach(c=>{
-const mobile=String(findColumn(c,['mobile','phone','contact','number'])).replace(/\D/g,'');
 
-const exists=[...customers,...interestedCustomers,...completedCustomers,...rejectCustomers].some(old=>{
-const oldMobile=String(findColumn(old,['mobile','phone','contact','number'])).replace(/\D/g,'');
+const mobile=
+String(
+findColumn(
+c,
+[
+'mobile',
+'phone',
+'contact',
+'number'
+]
+)
+).replace(/\D/g,'');
+
+const exists=
+[
+...customers,
+...interestedCustomers,
+...completedCustomers,
+...rejectCustomers,
+...vendorSentCustomers
+].some(old=>{
+
+const oldMobile=
+String(
+findColumn(
+old,
+[
+'mobile',
+'phone',
+'contact',
+'number'
+]
+)
+).replace(/\D/g,'');
+
 return oldMobile===mobile;
+
 });
 
 if(!exists && mobile.length>=10){
+
 c.id=Date.now()+Math.random();
+
 c.called=false;
+
 c.vendorPayment='Pending';
+
 c.installation='Pending';
-c.documents={aadhaar:false,pan:false,sbi:false,bill:false,photo:false};
+
+c.documents={
+aadhaar:false,
+pan:false,
+sbi:false,
+bill:false,
+photo:false
+};
+
 customers.push(c);
+
 }
+
 });
 
 currentPage='main';
+
 saveData();
+
 loadVillageFilter();
+
 renderCustomers();
+
 alert('Customer Imported Successfully');
+
 };
+
 reader.readAsArrayBuffer(file);
+
 }
 
 function loadVillageFilter(){
-const select=document.getElementById('villageFilter');
+
+const select=
+document.getElementById(
+'villageFilter'
+);
+
+select.innerHTML=
+`<option value="">
+🌍 All Villages
+</option>`;
+
 let villages=[];
 
-[...customers,...interestedCustomers,...completedCustomers,...rejectCustomers].forEach(c=>{
-const village=String(findColumn(c,['village','address','gaon'])).trim();
-if(village && !villages.includes(village)) villages.push(village);
+[
+...customers,
+...interestedCustomers,
+...completedCustomers,
+...rejectCustomers,
+...vendorSentCustomers
+].forEach(c=>{
+
+const village=
+String(
+findColumn(
+c,
+[
+'village',
+'address',
+'gaon'
+]
+)
+).trim();
+
+if(
+village &&
+!villages.includes(village)
+){
+
+villages.push(village);
+
+}
+
 });
 
 villages.sort();
-select.innerHTML='';
+
 villages.forEach(v=>{
-select.innerHTML+=`<option value="${v}">🏡 ${v}</option>`;
+
+select.innerHTML+=
+`<option value="${v}">
+🏡 ${v}
+</option>`;
+
 });
+
 }
 
 function getCurrentArray(){
-if(currentPage==='main') return customers;
-if(currentPage==='interested') return interestedCustomers;
-if(currentPage==='completed') return completedCustomers;
-if(currentPage==='reject') return rejectCustomers;
+
+if(currentPage==='main')
 return customers;
+
+if(currentPage==='interested')
+return interestedCustomers;
+
+if(currentPage==='completed')
+return completedCustomers;
+
+if(currentPage==='reject')
+return rejectCustomers;
+
+if(currentPage==='vendor')
+return vendorSentCustomers;
+
+return customers;
+
 }
 
 function changePage(page){
+
 currentPage=page;
+
 renderCustomers();
+
 }
 
 function renderCustomers(){
-const list=document.getElementById('customerList');
-const search=document.getElementById('searchBox').value.toLowerCase();
-const selected=[...document.getElementById('villageFilter').selectedOptions].map(o=>o.value.toLowerCase());
-const data=getCurrentArray();
+
+const list=
+document.getElementById(
+'customerList'
+);
+
+const search=
+document.getElementById(
+'searchBox'
+).value.toLowerCase();
+
+const selectedVillage=
+document.getElementById(
+'villageFilter'
+).value.toLowerCase();
+
+const data=
+getCurrentArray();
 
 let html='';
 
 const filtered=data.filter(c=>{
-const name=String(findColumn(c,['consumer name','customer name','name'])).toLowerCase();
-const mobile=String(findColumn(c,['mobile','phone','contact']));
-const village=String(findColumn(c,['village','address'])).toLowerCase();
 
-const searchMatch=name.includes(search)||mobile.includes(search)||village.includes(search);
-const villageMatch=selected.length===0||selected.includes(village);
+const name=
+String(
+findColumn(
+c,
+[
+'consumer name',
+'customer name',
+'name'
+]
+)
+).toLowerCase();
+
+const mobile=
+String(
+findColumn(
+c,
+[
+'mobile',
+'phone',
+'contact'
+]
+)
+);
+
+const village=
+String(
+findColumn(
+c,
+[
+'village',
+'address'
+]
+)
+).toLowerCase();
+
+const searchMatch=
+name.includes(search)
+||
+mobile.includes(search)
+||
+village.includes(search);
+
+const villageMatch=
+selectedVillage===''
+||
+selectedVillage===village;
+
 return searchMatch && villageMatch;
+
 });
 
 filtered.forEach(customer=>{
-const name=findColumn(customer,['consumer name','customer name','name'])||'No Name';
-const mobile=findColumn(customer,['mobile','phone','contact']);
-const village=findColumn(customer,['village','address']);
-const consumer=findColumn(customer,['consumer','account','service']);
+
+const name=
+findColumn(
+customer,
+[
+'consumer name',
+'customer name',
+'name'
+]
+)||'No Name';
+
+const mobile=
+findColumn(
+customer,
+[
+'mobile',
+'phone',
+'contact'
+]
+);
+
+const village=
+findColumn(
+customer,
+[
+'village',
+'address'
+]
+);
+
+const consumer=
+findColumn(
+customer,
+[
+'consumer',
+'account',
+'service'
+]
+);
+
+let pendingCount=0;
+
+Object.values(
+customer.documents
+).forEach(v=>{
+
+if(!v) pendingCount++;
+
+});
 
 html+=`
+
 <div class="customer">
+
 <div class="customer-top">
-<h3 class="${customer.called?'called-name':''}">👤 ${name}</h3>
-<div class="badge">${currentPage.toUpperCase()}</div>
+
+<h3 class="${
+customer.called ?
+'called-name'
+:
+''
+}">
+
+👤 ${name}
+
+</h3>
+
+<div class="badge">
+
+${currentPage.toUpperCase()}
+
 </div>
 
-<div class="info">📱 Mobile: ${mobile}</div>
-<div class="info">🏡 Village: ${village}</div>
-<div class="info">🔢 Consumer No: ${consumer}</div>
-<div class="info">💰 Vendor Payment: ${customer.vendorPayment}</div>
-<div class="info">⚡ Installation: ${customer.installation}</div>
+</div>
+
+<div class="info">
+📱 Mobile: ${mobile}
+</div>
+
+<div class="info">
+🏡 Village: ${village}
+</div>
+
+<div class="info">
+🔢 Consumer No: ${consumer}
+</div>
+
+<div class="info">
+💰 Vendor Payment: ${customer.vendorPayment}
+</div>
+
+<div class="info">
+⚡ Status: ${customer.installation}
+</div>
+
+<div class="info">
+⚠️ Pending Documents: ${pendingCount}
+</div>
 
 <div class="doc-box">
-<label><input type="checkbox" ${customer.documents.aadhaar?'checked':''} onchange="toggleDoc('${customer.id}','aadhaar')"> Aadhaar</label>
-<label><input type="checkbox" ${customer.documents.pan?'checked':''} onchange="toggleDoc('${customer.id}','pan')"> PAN</label>
-<label><input type="checkbox" ${customer.documents.sbi?'checked':''} onchange="toggleDoc('${customer.id}','sbi')"> SBI Passbook</label>
-<label><input type="checkbox" ${customer.documents.bill?'checked':''} onchange="toggleDoc('${customer.id}','bill')"> Electricity Bill</label>
-<label><input type="checkbox" ${customer.documents.photo?'checked':''} onchange="toggleDoc('${customer.id}','photo')"> Photo</label>
+
+<label>
+<input
+type="checkbox"
+${customer.documents.aadhaar?'checked':''}
+onchange="toggleDoc('${customer.id}','aadhaar')">
+Aadhaar
+</label>
+
+<label>
+<input
+type="checkbox"
+${customer.documents.pan?'checked':''}
+onchange="toggleDoc('${customer.id}','pan')">
+PAN
+</label>
+
+<label>
+<input
+type="checkbox"
+${customer.documents.sbi?'checked':''}
+onchange="toggleDoc('${customer.id}','sbi')">
+SBI Passbook
+</label>
+
+<label>
+<input
+type="checkbox"
+${customer.documents.bill?'checked':''}
+onchange="toggleDoc('${customer.id}','bill')">
+Electricity Bill
+</label>
+
+<label>
+<input
+type="checkbox"
+${customer.documents.photo?'checked':''}
+onchange="toggleDoc('${customer.id}','photo')">
+Photo
+</label>
+
 </div>
 
 <div class="buttons">
-<button class="btn green" onclick="callCustomer('${customer.id}')"><span>📞</span><small>Call</small></button>
-<button class="btn blue" onclick="sendWhatsapp('${customer.id}')"><span>🟢</span><small>Msg</small></button>
-<button class="btn orange" onclick="moveInterested('${customer.id}')"><span>✅</span><small>Interested</small></button>
-<button class="btn gray" onclick="moveReject('${customer.id}')"><span>❌</span><small>Reject</small></button>
-<button class="btn black" onclick="sendVendor('${customer.id}')"><span>📨</span><small>Vendor</small></button>
-<button class="btn red" onclick="sendPendingDocs('${customer.id}')"><span>📄</span><small>Pending</small></button>
+
+<button
+class="btn green"
+onclick="callCustomer('${customer.id}')">
+
+<span>📞</span>
+
+<small>Call</small>
+
+</button>
+
+<button
+class="btn blue"
+onclick="sendWhatsapp('${customer.id}')">
+
+<span>🟢</span>
+
+<small>Msg</small>
+
+</button>
+
+<button
+class="btn orange"
+onclick="moveInterested('${customer.id}')">
+
+<span>✅</span>
+
+<small>Interested</small>
+
+</button>
+
+<button
+class="btn gray"
+onclick="moveReject('${customer.id}')">
+
+<span>❌</span>
+
+<small>Reject</small>
+
+</button>
+
+<button
+class="btn black"
+onclick="sendVendor('${customer.id}')">
+
+<span>📨</span>
+
+<small>Vendor</small>
+
+</button>
+
+<button
+class="btn red"
+onclick="sendPendingDocs('${customer.id}')">
+
+<span>📄</span>
+
+<small>Pending</small>
+
+</button>
+
 </div>
-</div>`;
+
+</div>
+
+`;
+
 });
 
 list.innerHTML=html;
-document.getElementById('mainCount').innerText=customers.length;
-document.getElementById('interestedCount').innerText=interestedCustomers.length;
-document.getElementById('completedCount').innerText=completedCustomers.length;
-document.getElementById('rejectCount').innerText=rejectCustomers.length;
+
+document.getElementById(
+'mainCount'
+).innerText=
+customers.length;
+
+document.getElementById(
+'interestedCount'
+).innerText=
+interestedCustomers.length;
+
+document.getElementById(
+'completedCount'
+).innerText=
+completedCustomers.length;
+
+document.getElementById(
+'rejectCount'
+).innerText=
+rejectCustomers.length;
+
+document.getElementById(
+'vendorCount'
+).innerText=
+vendorSentCustomers.length;
+
 }
 
 function findCustomer(id){
-const all=[...customers,...interestedCustomers,...completedCustomers,...rejectCustomers];
-return all.find(c=>String(c.id)===String(id));
+
+const all=[
+...customers,
+...interestedCustomers,
+...completedCustomers,
+...rejectCustomers,
+...vendorSentCustomers
+];
+
+return all.find(
+c=>String(c.id)===String(id)
+);
+
 }
 
 function toggleDoc(id,doc){
-const customer=findCustomer(id);
-customer.documents[doc]=!customer.documents[doc];
 
-const complete=customer.documents.aadhaar&&customer.documents.pan&&customer.documents.sbi&&customer.documents.bill&&customer.documents.photo;
+const customer=
+findCustomer(id);
+
+customer.documents[doc]=
+!customer.documents[doc];
+
+const complete=
+customer.documents.aadhaar
+&&
+customer.documents.pan
+&&
+customer.documents.sbi
+&&
+customer.documents.bill
+&&
+customer.documents.photo;
 
 if(complete){
-customer.installation='Registration Started';
-if(!completedCustomers.some(c=>c.id===customer.id)) completedCustomers.push(customer);
+
+customer.installation=
+'Registration Started';
+
+customers=
+customers.filter(
+c=>c.id!==customer.id
+);
+
+interestedCustomers=
+interestedCustomers.filter(
+c=>c.id!==customer.id
+);
+
+rejectCustomers=
+rejectCustomers.filter(
+c=>c.id!==customer.id
+);
+
+if(
+!completedCustomers.some(
+c=>c.id===customer.id
+)
+){
+
+completedCustomers.push(customer);
+
+}
+
+currentPage='completed';
+
 }
 
 saveData();
+
 renderCustomers();
+
 }
 
 function callCustomer(id){
-const customer=findCustomer(id);
+
+const customer=
+findCustomer(id);
+
 customer.called=true;
+
 saveData();
+
 renderCustomers();
-window.location.href=`tel:${findColumn(customer,['mobile','phone'])}`;
+
+window.location.href=
+`tel:${
+findColumn(
+customer,
+[
+'mobile',
+'phone'
+]
+)
+}`;
+
 }
 
 function sendWhatsapp(id){
-const customer=findCustomer(id);
-const mobile=String(findColumn(customer,['mobile','phone'])).replace(/\D/g,'');
-const name=findColumn(customer,['consumer name','customer name','name']);
 
-const text=`श्रीमान ${name} जी 🙏\n\nआपकी प्रधानमंत्री पीएम सूर्य घर योजना की रजिस्ट्रेशन प्रक्रिया जल्द पूर्ण की जाएगी।\n\nकृपया आवश्यक दस्तावेज व्हाट्सएप पर भेजने का कष्ट करें।\n\n📄 आवश्यक दस्तावेज:\n• आधार कार्ड\n• PAN कार्ड\n• स्टेट बैंक ऑफ इंडिया की पासबुक\n• बिजली बिल\n\nनोट:\nयदि आपका क्रेडिट स्कोर खराब है अथवा आपकी उम्र 50 वर्ष से अधिक है, तो आपकी रजिस्ट्रेशन प्रक्रिया बिजली विभाग के किसी अन्य सदस्य के नाम पर ट्रांसफर करवा कर भी पूर्ण की जा सकती है।\n\n✨ समस्या एक, समाधान अनेक ✨\n\n☀️ DHAKAD AGRO SOLAR SOLUTION\n📞 9183353063`;
+const customer=
+findCustomer(id);
 
-window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,'_blank');
+const mobile=
+String(
+findColumn(
+customer,
+[
+'mobile',
+'phone'
+]
+)
+).replace(/\D/g,'');
+
+const name=
+findColumn(
+customer,
+[
+'consumer name',
+'customer name',
+'name'
+]
+);
+
+const text=
+`श्रीमान ${name} जी 🙏
+
+आपकी प्रधानमंत्री पीएम सूर्य घर योजना की रजिस्ट्रेशन प्रक्रिया जल्द पूर्ण की जाएगी।
+
+कृपया आवश्यक दस्तावेज व्हाट्सएप पर भेजने का कष्ट करें।
+
+☀️ DHAKAD AGRO SOLAR SOLUTION
+
+📞 9183353063`;
+
+window.open(
+`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
 }
 
 function moveInterested(id){
-let index=customers.findIndex(c=>String(c.id)===String(id));
+
+let index=
+customers.findIndex(
+c=>String(c.id)===String(id)
+);
+
 if(index>-1){
-interestedCustomers.push(customers[index]);
+
+interestedCustomers.push(
+customers[index]
+);
+
 customers.splice(index,1);
+
+currentPage='interested';
+
 saveData();
+
+loadVillageFilter();
+
 renderCustomers();
+
 }
+
 }
 
 function moveReject(id){
-let index=customers.findIndex(c=>String(c.id)===String(id));
+
+let index=
+customers.findIndex(
+c=>String(c.id)===String(id)
+);
+
 if(index>-1){
-rejectCustomers.push(customers[index]);
+
+rejectCustomers.push(
+customers[index]
+);
+
 customers.splice(index,1);
+
+currentPage='reject';
+
 saveData();
+
+loadVillageFilter();
+
 renderCustomers();
+
 }
+
 }
 
 function sendVendor(id){
-const vendor=document.getElementById('vendorMobile').value;
-if(!vendor){alert('Vendor Mobile Number Dalo');return;}
 
-const customer=findCustomer(id);
+const vendor=
+document.getElementById(
+'vendorMobile'
+).value;
 
-const text=`☀️ DHAKAD AGRO SOLAR SOLUTION\n\n👤 Customer: ${findColumn(customer,['consumer name','name'])}\n📱 Mobile: ${findColumn(customer,['mobile','phone'])}\n🏡 Village: ${findColumn(customer,['village','address'])}\n🔢 Consumer No: ${findColumn(customer,['consumer'])}\n\n📄 Documents:\nAadhaar: ${customer.documents.aadhaar?'Yes':'No'}\nPAN: ${customer.documents.pan?'Yes':'No'}\nSBI: ${customer.documents.sbi?'Yes':'No'}\nBill: ${customer.documents.bill?'Yes':'No'}\nPhoto: ${customer.documents.photo?'Yes':'No'}\n\n📞 Vijay Yadav\n9183353063`;
+if(!vendor){
 
-window.open(`https://wa.me/91${vendor}?text=${encodeURIComponent(text)}`,'_blank');
+alert(
+'Vendor Mobile Number Dalo'
+);
+
+return;
+
+}
+
+const customer=
+findCustomer(id);
+
+if(
+!vendorSentCustomers.some(
+c=>c.id===customer.id
+)
+){
+
+vendorSentCustomers.push(customer);
+
+}
+
+const text=
+`☀️ DHAKAD AGRO SOLAR SOLUTION
+
+👤 Customer:
+${findColumn(customer,['consumer name','name'])}
+
+📱 Mobile:
+${findColumn(customer,['mobile','phone'])}
+
+🏡 Village:
+${findColumn(customer,['village','address'])}
+
+🔢 Consumer No:
+${findColumn(customer,['consumer'])}
+
+📞 Vijay Yadav
+9183353063`;
+
+saveData();
+
+renderCustomers();
+
+window.open(
+`https://wa.me/91${vendor}?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
 }
 
 function sendPendingDocs(id){
-const customer=findCustomer(id);
-const mobile=String(findColumn(customer,['mobile','phone'])).replace(/\D/g,'');
-const name=findColumn(customer,['consumer name','name']);
+
+const customer=
+findCustomer(id);
+
+const mobile=
+String(
+findColumn(
+customer,
+[
+'mobile',
+'phone'
+]
+)
+).replace(/\D/g,'');
+
+const name=
+findColumn(
+customer,
+[
+'consumer name',
+'name'
+]
+);
 
 let pending=[];
-if(!customer.documents.aadhaar) pending.push('आधार कार्ड');
-if(!customer.documents.pan) pending.push('PAN कार्ड');
-if(!customer.documents.sbi) pending.push('स्टेट बैंक ऑफ इंडिया की पासबुक');
-if(!customer.documents.bill) pending.push('बिजली बिल');
-if(!customer.documents.photo) pending.push('फोटो');
 
-const text=`श्रीमान ${name} जी 🙏\n\nआपके प्रधानमंत्री पीएम सूर्य घर योजना आवेदन हेतु नीचे दिए गए दस्तावेज अभी बाकी हैं:\n\n📄 ${pending.join(', ')}\n\nकृपया जल्द उपलब्ध करवाने का कष्ट करें ताकि आपकी प्रक्रिया आगे बढ़ाई जा सके।\n\n☀️ DHAKAD AGRO SOLAR SOLUTION\n📞 9183353063`;
+if(!customer.documents.aadhaar)
+pending.push('आधार कार्ड');
 
-window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,'_blank');
+if(!customer.documents.pan)
+pending.push('PAN कार्ड');
+
+if(!customer.documents.sbi)
+pending.push('स्टेट बैंक ऑफ इंडिया की पासबुक');
+
+if(!customer.documents.bill)
+pending.push('बिजली बिल');
+
+if(!customer.documents.photo)
+pending.push('फोटो');
+
+if(pending.length===0){
+
+alert('All Documents Complete');
+
+return;
+
+}
+
+const text=
+`श्रीमान ${name} जी 🙏
+
+आपके प्रधानमंत्री पीएम सूर्य घर योजना आवेदन हेतु नीचे दिए गए दस्तावेज अभी बाकी हैं:
+
+📄 ${pending.join(', ')}
+
+कृपया जल्द उपलब्ध करवाने का कष्ट करें।
+
+☀️ DHAKAD AGRO SOLAR SOLUTION
+
+📞 9183353063`;
+
+window.open(
+`https://wa.me/91${mobile}?text=${encodeURIComponent(text)}`,
+'_blank'
+);
+
 }
 
 function deleteCurrentSection(){
-if(!confirm('Current Section Delete Karna Hai?')) return;
 
-if(currentPage==='main') customers=[];
-if(currentPage==='interested') interestedCustomers=[];
-if(currentPage==='completed') completedCustomers=[];
-if(currentPage==='reject') rejectCustomers=[];
+if(
+!confirm(
+'Current Section Delete Karna Hai?'
+)
+) return;
+
+if(currentPage==='main')
+customers=[];
+
+if(currentPage==='interested')
+interestedCustomers=[];
+
+if(currentPage==='completed')
+completedCustomers=[];
+
+if(currentPage==='reject')
+rejectCustomers=[];
+
+if(currentPage==='vendor')
+vendorSentCustomers=[];
+
+currentPage='main';
 
 saveData();
+
 loadVillageFilter();
+
 renderCustomers();
+
 }
 
 function exportCurrentSection(){
-const data=getCurrentArray();
-const worksheet=XLSX.utils.json_to_sheet(data);
-const workbook=XLSX.utils.book_new();
-XLSX.utils.book_append_sheet(workbook,worksheet,'Customers');
-XLSX.writeFile(workbook,currentPage+'_customers.xlsx');
+
+const data=
+getCurrentArray();
+
+const worksheet=
+XLSX.utils.json_to_sheet(data);
+
+const workbook=
+XLSX.utils.book_new();
+
+XLSX.utils.book_append_sheet(
+workbook,
+worksheet,
+'Customers'
+);
+
+XLSX.writeFile(
+workbook,
+'DHAKAD_'+currentPage+'_DATA.xlsx'
+);
+
 }
 
 function toggleDarkMode(){
-document.body.classList.toggle('dark');
+
+document.body.classList.toggle(
+'dark'
+);
+
 }
-</script></body>
-</html>                                                                                         </html>
+
+</script>
+
+</body>
+
+  </html>

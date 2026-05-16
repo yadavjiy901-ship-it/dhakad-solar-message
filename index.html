@@ -5,19 +5,12 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width,
-initial-scale=1.0,
-maximum-scale=1.0,
-user-scalable=no">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>
-DHAKAD AGRO SOLAR SOLUTION CRM
-</title>
+<title>DHAKAD AGRO SOLAR SOLUTION CRM</title>
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
 rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -37,6 +30,7 @@ background:#eef2f7;
 padding:12px;
 color:#111827;
 overflow-x:hidden;
+transition:.3s;
 }
 
 header{
@@ -49,7 +43,7 @@ box-shadow:0 8px 24px rgba(0,0,0,.15);
 }
 
 header h1{
-font-size:25px;
+font-size:24px;
 font-weight:700;
 }
 
@@ -67,8 +61,7 @@ margin-bottom:14px;
 box-shadow:0 4px 14px rgba(0,0,0,.08);
 }
 
-input,
-select{
+input,select{
 width:100%;
 padding:13px;
 border-radius:14px;
@@ -93,6 +86,11 @@ text-align:center;
 font-weight:700;
 box-shadow:0 4px 14px rgba(0,0,0,.08);
 cursor:pointer;
+transition:.2s;
+}
+
+.stat-box:active{
+transform:scale(.96);
 }
 
 .customer{
@@ -107,6 +105,7 @@ box-shadow:0 4px 14px rgba(0,0,0,.08);
 display:flex;
 justify-content:space-between;
 align-items:center;
+gap:10px;
 margin-bottom:10px;
 }
 
@@ -166,10 +165,15 @@ font-weight:600;
 padding:10px;
 min-height:72px;
 cursor:pointer;
+transition:.2s;
+}
+
+.btn:active{
+transform:scale(.95);
 }
 
 .btn span{
-font-size:21px;
+font-size:22px;
 }
 
 .green{
@@ -228,6 +232,20 @@ background:#1f2937;
 color:#fff;
 }
 
+.dark input,
+.dark select{
+background:#374151;
+color:#fff;
+border:1px solid #4b5563;
+}
+
+.empty{
+text-align:center;
+padding:30px;
+font-size:15px;
+opacity:.7;
+}
+
 </style>
 
 </head>
@@ -236,9 +254,7 @@ color:#fff;
 
 <header>
 
-<h1>
-☀️ DHAKAD AGRO SOLAR SOLUTION
-</h1>
+<h1>☀️ DHAKAD AGRO SOLAR SOLUTION</h1>
 
 <p>
 Authorized Partner - Vijay Yadav | 📞 9183353063
@@ -248,27 +264,20 @@ Authorized Partner - Vijay Yadav | 📞 9183353063
 
 <div class="card">
 
-<input
-type="file"
+<input type="file"
 id="excelFile"
 accept=".xlsx,.xls">
 
 <div class="top-actions">
 
-<button
-class="main-btn green"
+<button class="main-btn green"
 onclick="loadExcel()">
-
 📂 Upload Excel
-
 </button>
 
-<button
-class="main-btn black"
+<button class="main-btn black"
 onclick="toggleDarkMode()">
-
 🌙 Dark Mode
-
 </button>
 
 </div>
@@ -277,14 +286,12 @@ onclick="toggleDarkMode()">
 
 <div class="card">
 
-<input
-type="text"
+<input type="text"
 id="searchBox"
 placeholder="🔍 Search Name / Mobile / Village"
 onkeyup="renderCustomers()">
 
-<select
-id="villageFilter"
+<select id="villageFilter"
 onchange="renderCustomers()">
 
 <option value="">
@@ -293,8 +300,7 @@ onchange="renderCustomers()">
 
 </select>
 
-<input
-type="text"
+<input type="text"
 id="vendorMobile"
 placeholder="📨 Vendor Mobile Number">
 
@@ -302,8 +308,7 @@ placeholder="📨 Vendor Mobile Number">
 
 <div class="stats">
 
-<div
-class="stat-box"
+<div class="stat-box"
 onclick="changePage('main')">
 
 👥 Main
@@ -314,8 +319,7 @@ onclick="changePage('main')">
 
 </div>
 
-<div
-class="stat-box"
+<div class="stat-box"
 onclick="changePage('interested')">
 
 ✅ Interested
@@ -326,8 +330,7 @@ onclick="changePage('interested')">
 
 </div>
 
-<div
-class="stat-box"
+<div class="stat-box"
 onclick="changePage('completed')">
 
 📂 Completed
@@ -338,8 +341,7 @@ onclick="changePage('completed')">
 
 </div>
 
-<div
-class="stat-box"
+<div class="stat-box"
 onclick="changePage('reject')">
 
 ❌ Reject
@@ -350,8 +352,7 @@ onclick="changePage('reject')">
 
 </div>
 
-<div
-class="stat-box"
+<div class="stat-box"
 onclick="changePage('vendor')">
 
 📨 Vendor
@@ -362,22 +363,31 @@ onclick="changePage('vendor')">
 
 </div>
 
+<div class="stat-box"
+onclick="showCalledCustomers()">
+
+📞 Called
+
+<br><br>
+
+<span id="calledCount">0</span>
+
+</div>
+
 </div>
 
 <div class="card">
 
 <div class="top-actions">
 
-<button
-class="main-btn red"
+<button class="main-btn red"
 onclick="deleteCurrentSection()">
 
 🗑 Delete Section
 
 </button>
 
-<button
-class="main-btn purple"
+<button class="main-btn purple"
 onclick="exportCurrentSection()">
 
 📤 Export Excel
@@ -402,59 +412,39 @@ let currentPage='main';
 
 function saveData(){
 
-localStorage.setItem(
-'customers',
-JSON.stringify(customers)
-);
+localStorage.setItem('customers',
+JSON.stringify(customers));
 
-localStorage.setItem(
-'interestedCustomers',
-JSON.stringify(interestedCustomers)
-);
+localStorage.setItem('interestedCustomers',
+JSON.stringify(interestedCustomers));
 
-localStorage.setItem(
-'completedCustomers',
-JSON.stringify(completedCustomers)
-);
+localStorage.setItem('completedCustomers',
+JSON.stringify(completedCustomers));
 
-localStorage.setItem(
-'rejectCustomers',
-JSON.stringify(rejectCustomers)
-);
+localStorage.setItem('rejectCustomers',
+JSON.stringify(rejectCustomers));
 
-localStorage.setItem(
-'vendorSentCustomers',
-JSON.stringify(vendorSentCustomers)
-);
+localStorage.setItem('vendorSentCustomers',
+JSON.stringify(vendorSentCustomers));
 
 }
 
 function loadData(){
 
 customers=
-JSON.parse(
-localStorage.getItem('customers')
-)||[];
+JSON.parse(localStorage.getItem('customers')) || [];
 
 interestedCustomers=
-JSON.parse(
-localStorage.getItem('interestedCustomers')
-)||[];
+JSON.parse(localStorage.getItem('interestedCustomers')) || [];
 
 completedCustomers=
-JSON.parse(
-localStorage.getItem('completedCustomers')
-)||[];
+JSON.parse(localStorage.getItem('completedCustomers')) || [];
 
 rejectCustomers=
-JSON.parse(
-localStorage.getItem('rejectCustomers')
-)||[];
+JSON.parse(localStorage.getItem('rejectCustomers')) || [];
 
 vendorSentCustomers=
-JSON.parse(
-localStorage.getItem('vendorSentCustomers')
-)||[];
+JSON.parse(localStorage.getItem('vendorSentCustomers')) || [];
 
 loadVillageFilter();
 
@@ -490,10 +480,7 @@ return '';
 
 function loadExcel(){
 
-const file=
-document.getElementById(
-'excelFile'
-).files[0];
+const file=document.getElementById('excelFile').files[0];
 
 if(!file){
 
@@ -507,34 +494,22 @@ const reader=new FileReader();
 
 reader.onload=function(e){
 
-const data=
-new Uint8Array(e.target.result);
+const data=new Uint8Array(e.target.result);
 
-const workbook=
-XLSX.read(data,{type:'array'});
+const workbook=XLSX.read(data,{type:'array'});
 
-const sheet=
-workbook.Sheets[
-workbook.SheetNames[0]
-];
+const sheet=workbook.Sheets[workbook.SheetNames[0]];
 
-const imported=
-XLSX.utils.sheet_to_json(sheet);
+const imported=XLSX.utils.sheet_to_json(sheet);
+
+let added=0;
 
 imported.forEach(c=>{
 
 const mobile=
-String(
-findColumn(
-c,
-[
-'mobile',
-'phone',
-'contact',
-'number'
-]
-)
-).replace(/\D/g,'');
+String(findColumn(c,
+['mobile','phone','contact','number']))
+.replace(/\D/g,'');
 
 const exists=
 [
@@ -546,17 +521,9 @@ const exists=
 ].some(old=>{
 
 const oldMobile=
-String(
-findColumn(
-old,
-[
-'mobile',
-'phone',
-'contact',
-'number'
-]
-)
-).replace(/\D/g,'');
+String(findColumn(old,
+['mobile','phone','contact','number']))
+.replace(/\D/g,'');
 
 return oldMobile===mobile;
 
@@ -567,6 +534,8 @@ if(!exists && mobile.length>=10){
 c.id=Date.now()+Math.random();
 
 c.called=false;
+
+c.callDate='';
 
 c.vendorPayment='Pending';
 
@@ -582,19 +551,21 @@ photo:false
 
 customers.push(c);
 
+added++;
+
 }
 
 });
-
-currentPage='main';
 
 saveData();
 
 loadVillageFilter();
 
+currentPage='main';
+
 renderCustomers();
 
-alert('Customer Imported Successfully');
+alert(added+' Customer Imported');
 
 };
 
@@ -604,15 +575,10 @@ reader.readAsArrayBuffer(file);
 
 function loadVillageFilter(){
 
-const select=
-document.getElementById(
-'villageFilter'
-);
+const select=document.getElementById('villageFilter');
 
 select.innerHTML=
-`<option value="">
-🌍 All Villages
-</option>`;
+`<option value="">🌍 All Villages</option>`;
 
 let villages=[];
 
@@ -625,21 +591,11 @@ let villages=[];
 ].forEach(c=>{
 
 const village=
-String(
-findColumn(
-c,
-[
-'village',
-'address',
-'gaon'
-]
-)
-).trim();
+String(findColumn(c,
+['village','address','gaon']))
+.trim();
 
-if(
-village &&
-!villages.includes(village)
-){
+if(village && !villages.includes(village)){
 
 villages.push(village);
 
@@ -652,9 +608,7 @@ villages.sort();
 villages.forEach(v=>{
 
 select.innerHTML+=
-`<option value="${v}">
-🏡 ${v}
-</option>`;
+`<option value="${v}">🏡 ${v}</option>`;
 
 });
 
@@ -662,20 +616,27 @@ select.innerHTML+=
 
 function getCurrentArray(){
 
-if(currentPage==='main')
-return customers;
+if(currentPage==='main') return customers;
 
-if(currentPage==='interested')
-return interestedCustomers;
+if(currentPage==='interested') return interestedCustomers;
 
-if(currentPage==='completed')
-return completedCustomers;
+if(currentPage==='completed') return completedCustomers;
 
-if(currentPage==='reject')
-return rejectCustomers;
+if(currentPage==='reject') return rejectCustomers;
 
-if(currentPage==='vendor')
-return vendorSentCustomers;
+if(currentPage==='vendor') return vendorSentCustomers;
+
+if(currentPage==='called'){
+
+return [
+...customers,
+...interestedCustomers,
+...completedCustomers,
+...rejectCustomers,
+...vendorSentCustomers
+].filter(c=>c.called);
+
+}
 
 return customers;
 
@@ -691,125 +652,81 @@ renderCustomers();
 
 function renderCustomers(){
 
-const list=
-document.getElementById(
-'customerList'
-);
+const list=document.getElementById('customerList');
 
 const search=
-document.getElementById(
-'searchBox'
-).value.toLowerCase();
+document.getElementById('searchBox')
+.value.toLowerCase();
 
 const selectedVillage=
-document.getElementById(
-'villageFilter'
-).value.toLowerCase();
+document.getElementById('villageFilter')
+.value.toLowerCase();
 
-const data=
-getCurrentArray();
+const data=getCurrentArray();
 
 let html='';
 
 const filtered=data.filter(c=>{
 
 const name=
-String(
-findColumn(
-c,
-[
-'consumer name',
-'customer name',
-'name'
-]
-)
-).toLowerCase();
+String(findColumn(c,
+['consumer name','customer name','name']))
+.toLowerCase();
 
 const mobile=
-String(
-findColumn(
-c,
-[
-'mobile',
-'phone',
-'contact'
-]
-)
-);
+String(findColumn(c,
+['mobile','phone','contact']));
 
 const village=
-String(
-findColumn(
-c,
-[
-'village',
-'address'
-]
-)
-).toLowerCase();
+String(findColumn(c,
+['village','address']))
+.toLowerCase();
 
 const searchMatch=
-name.includes(search)
-||
-mobile.includes(search)
-||
+name.includes(search) ||
+mobile.includes(search) ||
 village.includes(search);
 
 const villageMatch=
-selectedVillage===''
-||
+selectedVillage==='' ||
 selectedVillage===village;
 
 return searchMatch && villageMatch;
 
 });
 
+if(filtered.length===0){
+
+list.innerHTML=
+`<div class="empty">No Customer Found</div>`;
+
+updateCounts();
+
+return;
+
+}
+
 filtered.forEach(customer=>{
 
 const name=
-findColumn(
-customer,
-[
-'consumer name',
-'customer name',
-'name'
-]
-)||'No Name';
+findColumn(customer,
+['consumer name','customer name','name']) || 'No Name';
 
 const mobile=
-findColumn(
-customer,
-[
-'mobile',
-'phone',
-'contact'
-]
-);
+findColumn(customer,
+['mobile','phone','contact']);
 
 const village=
-findColumn(
-customer,
-[
-'village',
-'address'
-]
-);
+findColumn(customer,
+['village','address']);
 
 const consumer=
-findColumn(
-customer,
-[
-'consumer',
-'account',
-'service'
-]
-);
+findColumn(customer,
+['consumer','account','service']);
 
 let pendingCount=0;
 
-Object.values(
-customer.documents
-).forEach(v=>{
+Object.values(customer.documents).forEach(v=>{
 
 if(!v) pendingCount++;
 
@@ -821,12 +738,7 @@ html+=`
 
 <div class="customer-top">
 
-<h3 class="${
-customer.called ?
-'called-name'
-:
-''
-}">
+<h3 class="${customer.called ? 'called-name' : ''}">
 
 👤 ${name}
 
@@ -861,46 +773,45 @@ ${currentPage.toUpperCase()}
 </div>
 
 <div class="info">
+📞 Last Call: ${customer.callDate || 'Not Called'}
+</div>
+
+<div class="info">
 ⚠️ Pending Documents: ${pendingCount}
 </div>
 
 <div class="doc-box">
 
 <label>
-<input
-type="checkbox"
+<input type="checkbox"
 ${customer.documents.aadhaar?'checked':''}
 onchange="toggleDoc('${customer.id}','aadhaar')">
 Aadhaar
 </label>
 
 <label>
-<input
-type="checkbox"
+<input type="checkbox"
 ${customer.documents.pan?'checked':''}
 onchange="toggleDoc('${customer.id}','pan')">
 PAN
 </label>
 
 <label>
-<input
-type="checkbox"
+<input type="checkbox"
 ${customer.documents.sbi?'checked':''}
 onchange="toggleDoc('${customer.id}','sbi')">
 SBI Passbook
 </label>
 
 <label>
-<input
-type="checkbox"
+<input type="checkbox"
 ${customer.documents.bill?'checked':''}
 onchange="toggleDoc('${customer.id}','bill')">
 Electricity Bill
 </label>
 
 <label>
-<input
-type="checkbox"
+<input type="checkbox"
 ${customer.documents.photo?'checked':''}
 onchange="toggleDoc('${customer.id}','photo')">
 Photo
@@ -910,8 +821,7 @@ Photo
 
 <div class="buttons">
 
-<button
-class="btn green"
+<button class="btn green"
 onclick="callCustomer('${customer.id}')">
 
 <span>📞</span>
@@ -920,8 +830,7 @@ onclick="callCustomer('${customer.id}')">
 
 </button>
 
-<button
-class="btn blue"
+<button class="btn blue"
 onclick="sendWhatsapp('${customer.id}')">
 
 <span>🟢</span>
@@ -930,8 +839,7 @@ onclick="sendWhatsapp('${customer.id}')">
 
 </button>
 
-<button
-class="btn orange"
+<button class="btn orange"
 onclick="moveInterested('${customer.id}')">
 
 <span>✅</span>
@@ -940,8 +848,7 @@ onclick="moveInterested('${customer.id}')">
 
 </button>
 
-<button
-class="btn gray"
+<button class="btn gray"
 onclick="moveReject('${customer.id}')">
 
 <span>❌</span>
@@ -950,8 +857,7 @@ onclick="moveReject('${customer.id}')">
 
 </button>
 
-<button
-class="btn black"
+<button class="btn black"
 onclick="sendVendor('${customer.id}')">
 
 <span>📨</span>
@@ -960,8 +866,7 @@ onclick="sendVendor('${customer.id}')">
 
 </button>
 
-<button
-class="btn red"
+<button class="btn red"
 onclick="sendPendingDocs('${customer.id}')">
 
 <span>📄</span>
@@ -980,30 +885,38 @@ onclick="sendPendingDocs('${customer.id}')">
 
 list.innerHTML=html;
 
-document.getElementById(
-'mainCount'
-).innerText=
+updateCounts();
+
+}
+
+function updateCounts(){
+
+document.getElementById('mainCount').innerText=
 customers.length;
 
-document.getElementById(
-'interestedCount'
-).innerText=
+document.getElementById('interestedCount').innerText=
 interestedCustomers.length;
 
-document.getElementById(
-'completedCount'
-).innerText=
+document.getElementById('completedCount').innerText=
 completedCustomers.length;
 
-document.getElementById(
-'rejectCount'
-).innerText=
+document.getElementById('rejectCount').innerText=
 rejectCustomers.length;
 
-document.getElementById(
-'vendorCount'
-).innerText=
+document.getElementById('vendorCount').innerText=
 vendorSentCustomers.length;
+
+const called=
+[
+...customers,
+...interestedCustomers,
+...completedCustomers,
+...rejectCustomers,
+...vendorSentCustomers
+].filter(c=>c.called).length;
+
+document.getElementById('calledCount').innerText=
+called;
 
 }
 
@@ -1017,56 +930,40 @@ const all=[
 ...vendorSentCustomers
 ];
 
-return all.find(
-c=>String(c.id)===String(id)
-);
+return all.find(c=>String(c.id)===String(id));
 
 }
 
 function toggleDoc(id,doc){
 
-const customer=
-findCustomer(id);
+const customer=findCustomer(id);
+
+if(!customer) return;
 
 customer.documents[doc]=
 !customer.documents[doc];
 
 const complete=
-customer.documents.aadhaar
-&&
-customer.documents.pan
-&&
-customer.documents.sbi
-&&
-customer.documents.bill
-&&
+customer.documents.aadhaar &&
+customer.documents.pan &&
+customer.documents.sbi &&
+customer.documents.bill &&
 customer.documents.photo;
 
 if(complete){
 
-customer.installation=
-'Registration Started';
+customer.installation='Registration Started';
 
 customers=
-customers.filter(
-c=>c.id!==customer.id
-);
+customers.filter(c=>c.id!==customer.id);
 
 interestedCustomers=
-interestedCustomers.filter(
-c=>c.id!==customer.id
-);
+interestedCustomers.filter(c=>c.id!==customer.id);
 
 rejectCustomers=
-rejectCustomers.filter(
-c=>c.id!==customer.id
-);
+rejectCustomers.filter(c=>c.id!==customer.id);
 
-if(
-!completedCustomers.some(
-c=>c.id===customer.id
-)
-){
+if(!completedCustomers.some(c=>c.id===customer.id)){
 
 completedCustomers.push(customer);
 
@@ -1084,53 +981,38 @@ renderCustomers();
 
 function callCustomer(id){
 
-const customer=
-findCustomer(id);
+const customer=findCustomer(id);
+
+if(!customer) return;
 
 customer.called=true;
+
+customer.callDate=
+new Date().toLocaleString();
 
 saveData();
 
 renderCustomers();
 
 window.location.href=
-`tel:${
-findColumn(
-customer,
-[
-'mobile',
-'phone'
-]
-)
-}`;
+`tel:${findColumn(customer,['mobile','phone'])}`;
 
 }
 
 function sendWhatsapp(id){
 
-const customer=
-findCustomer(id);
+const customer=findCustomer(id);
+
+if(!customer) return;
 
 const mobile=
-String(
-findColumn(
-customer,
-[
-'mobile',
-'phone'
-]
-)
-).replace(/\D/g,'');
+String(findColumn(customer,
+['mobile','phone']))
+.replace(/\D/g,'');
 
 const name=
-findColumn(
-customer,
-[
-'consumer name',
-'customer name',
-'name'
-]
-);
+findColumn(customer,
+['consumer name','customer name','name']);
 
 const text=
 `श्रीमान ${name} जी 🙏
@@ -1140,7 +1022,6 @@ const text=
 कृपया आवश्यक दस्तावेज व्हाट्सएप पर भेजने का कष्ट करें।
 
 ☀️ DHAKAD AGRO SOLAR SOLUTION
-
 📞 9183353063`;
 
 window.open(
@@ -1152,18 +1033,17 @@ window.open(
 
 function moveInterested(id){
 
-let index=
-customers.findIndex(
-c=>String(c.id)===String(id)
-);
+const customer=findCustomer(id);
 
-if(index>-1){
+if(!customer) return;
 
-interestedCustomers.push(
-customers[index]
-);
+removeFromAll(customer.id);
 
-customers.splice(index,1);
+if(!interestedCustomers.some(c=>c.id===customer.id)){
+
+interestedCustomers.push(customer);
+
+}
 
 currentPage='interested';
 
@@ -1175,22 +1055,19 @@ renderCustomers();
 
 }
 
-}
-
 function moveReject(id){
 
-let index=
-customers.findIndex(
-c=>String(c.id)===String(id)
-);
+const customer=findCustomer(id);
 
-if(index>-1){
+if(!customer) return;
 
-rejectCustomers.push(
-customers[index]
-);
+removeFromAll(customer.id);
 
-customers.splice(index,1);
+if(!rejectCustomers.some(c=>c.id===customer.id)){
+
+rejectCustomers.push(customer);
+
+}
 
 currentPage='reject';
 
@@ -1202,59 +1079,66 @@ renderCustomers();
 
 }
 
+function removeFromAll(id){
+
+customers=
+customers.filter(c=>c.id!==id);
+
+interestedCustomers=
+interestedCustomers.filter(c=>c.id!==id);
+
+completedCustomers=
+completedCustomers.filter(c=>c.id!==id);
+
+rejectCustomers=
+rejectCustomers.filter(c=>c.id!==id);
+
+vendorSentCustomers=
+vendorSentCustomers.filter(c=>c.id!==id);
+
 }
 
 function sendVendor(id){
 
 const vendor=
-document.getElementById(
-'vendorMobile'
-).value;
+document.getElementById('vendorMobile')
+.value
+.replace(/\D/g,'');
 
-if(!vendor){
+if(vendor.length<10){
 
-alert(
-'Vendor Mobile Number Dalo'
-);
+alert('Vendor Mobile Number Dalo');
 
 return;
 
 }
 
-const customer=
-findCustomer(id);
+const customer=findCustomer(id);
 
-if(
-!vendorSentCustomers.some(
-c=>c.id===customer.id
-)
-){
+if(!customer) return;
+
+if(!vendorSentCustomers.some(c=>c.id===customer.id)){
 
 vendorSentCustomers.push(customer);
 
 }
 
-const text=
-`☀️ DHAKAD AGRO SOLAR SOLUTION
-
-👤 Customer:
-${findColumn(customer,['consumer name','name'])}
-
-📱 Mobile:
-${findColumn(customer,['mobile','phone'])}
-
-🏡 Village:
-${findColumn(customer,['village','address'])}
-
-🔢 Consumer No:
-${findColumn(customer,['consumer'])}
-
-📞 Vijay Yadav
-9183353063`;
-
 saveData();
 
 renderCustomers();
+
+const text=
+`☀️ DHAKAD AGRO SOLAR SOLUTION
+
+👤 Customer: ${findColumn(customer,['consumer name','name'])}
+
+📱 Mobile: ${findColumn(customer,['mobile','phone'])}
+
+🏡 Village: ${findColumn(customer,['village','address'])}
+
+🔢 Consumer No: ${findColumn(customer,['consumer'])}
+
+📞 Vijay Yadav 9183353063`;
 
 window.open(
 `https://wa.me/91${vendor}?text=${encodeURIComponent(text)}`,
@@ -1265,28 +1149,18 @@ window.open(
 
 function sendPendingDocs(id){
 
-const customer=
-findCustomer(id);
+const customer=findCustomer(id);
+
+if(!customer) return;
 
 const mobile=
-String(
-findColumn(
-customer,
-[
-'mobile',
-'phone'
-]
-)
-).replace(/\D/g,'');
+String(findColumn(customer,
+['mobile','phone']))
+.replace(/\D/g,'');
 
 const name=
-findColumn(
-customer,
-[
-'consumer name',
-'name'
-]
-);
+findColumn(customer,
+['consumer name','name']);
 
 let pending=[];
 
@@ -1297,7 +1171,7 @@ if(!customer.documents.pan)
 pending.push('PAN कार्ड');
 
 if(!customer.documents.sbi)
-pending.push('स्टेट बैंक ऑफ इंडिया की पासबुक');
+pending.push('SBI पासबुक');
 
 if(!customer.documents.bill)
 pending.push('बिजली बिल');
@@ -1316,14 +1190,13 @@ return;
 const text=
 `श्रीमान ${name} जी 🙏
 
-आपके प्रधानमंत्री पीएम सूर्य घर योजना आवेदन हेतु नीचे दिए गए दस्तावेज अभी बाकी हैं:
+आपके आवेदन हेतु ये दस्तावेज बाकी हैं:
 
 📄 ${pending.join(', ')}
 
-कृपया जल्द उपलब्ध करवाने का कष्ट करें।
+कृपया जल्द उपलब्ध करवाएं।
 
 ☀️ DHAKAD AGRO SOLAR SOLUTION
-
 📞 9183353063`;
 
 window.open(
@@ -1335,32 +1208,24 @@ window.open(
 
 function deleteCurrentSection(){
 
-if(
-!confirm(
-'Current Section Delete Karna Hai?'
-)
-) return;
+if(!confirm('Current Section Delete Karna Hai?'))
+return;
 
-if(currentPage==='main')
-customers=[];
+if(currentPage==='main') customers=[];
 
-if(currentPage==='interested')
-interestedCustomers=[];
+if(currentPage==='interested') interestedCustomers=[];
 
-if(currentPage==='completed')
-completedCustomers=[];
+if(currentPage==='completed') completedCustomers=[];
 
-if(currentPage==='reject')
-rejectCustomers=[];
+if(currentPage==='reject') rejectCustomers=[];
 
-if(currentPage==='vendor')
-vendorSentCustomers=[];
-
-currentPage='main';
+if(currentPage==='vendor') vendorSentCustomers=[];
 
 saveData();
 
 loadVillageFilter();
+
+currentPage='main';
 
 renderCustomers();
 
@@ -1368,8 +1233,15 @@ renderCustomers();
 
 function exportCurrentSection(){
 
-const data=
-getCurrentArray();
+const data=getCurrentArray();
+
+if(data.length===0){
+
+alert('No Data');
+
+return;
+
+}
 
 const worksheet=
 XLSX.utils.json_to_sheet(data);
@@ -1392,9 +1264,15 @@ workbook,
 
 function toggleDarkMode(){
 
-document.body.classList.toggle(
-'dark'
-);
+document.body.classList.toggle('dark');
+
+}
+
+function showCalledCustomers(){
+
+currentPage='called';
+
+renderCustomers();
 
 }
 
